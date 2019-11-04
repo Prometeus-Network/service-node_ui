@@ -73,7 +73,7 @@ const _UploadDataForm: React.FC<UploadDataFormProps> = ({
                 </Grid>
                 <Grid item xs={12}>
                     <Typography variant="body1">
-                        Storage price is ${response.price}
+                        Storage price is {response.price} ETH
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
