@@ -1,6 +1,7 @@
 import * as React from "react";
 import {inject, observer} from "mobx-react";
 import {Typography} from "@material-ui/core";
+import {withSnackbar, WithSnackbarProps} from "notistack";
 import {AccountSelect} from "./AccountSelect";
 import {Routes} from "../../router";
 import {AccountResponse} from "../../models";
@@ -15,12 +16,22 @@ interface DataValidatorAccountSelectMobxProps {
     accounts: AccountResponse[]
 }
 
-const _DataValidatorAccountSelect: React.FC<DataValidatorAccountSelectMobxProps> = ({
+type DataValidatorAccountSelectInjectedProps = WithSnackbarProps;
+
+type DataValidatorAccountSelectProps = DataValidatorAccountSelectMobxProps & DataValidatorAccountSelectInjectedProps;
+
+const _DataValidatorAccountSelect: React.FC<DataValidatorAccountSelectProps> = ({
     store,
     selectAccount,
     selectedAccount,
-    accounts
+    accounts,
+    enqueueSnackbar
 }) => {
+    const handleSelect = (selectedAccount: string) => {
+        selectAccount(selectedAccount);
+        enqueueSnackbar("Data validator account has been updated");
+    };
+
     if (accounts.length === 0) {
         return (
             <Typography variant="body1">
@@ -30,7 +41,7 @@ const _DataValidatorAccountSelect: React.FC<DataValidatorAccountSelectMobxProps>
     }
 
     return <AccountSelect accounts={accounts.map(account => account.address)}
-                          onSelect={selectAccount}
+                          onSelect={handleSelect}
                           selectedValue={selectedAccount}
                           label="Data validator account"
     />
@@ -43,4 +54,6 @@ const mapMobxToProps = (state: IAppState): DataValidatorAccountSelectMobxProps =
     store: state.store
 });
 
-export const DataValidatorAccountSelect = inject(mapMobxToProps)(observer(_DataValidatorAccountSelect)) as React.FC<any>;
+export const DataValidatorAccountSelect = withSnackbar(
+    inject(mapMobxToProps)(observer(_DataValidatorAccountSelect)) as React.FC<any>
+);

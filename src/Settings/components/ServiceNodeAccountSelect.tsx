@@ -1,6 +1,7 @@
 import * as React from "react";
 import {inject, observer} from "mobx-react";
 import {Typography} from "@material-ui/core";
+import {withSnackbar, WithSnackbarProps} from "notistack";
 import {AccountSelect} from "./AccountSelect";
 import {Routes} from "../../router";
 import {AccountResponse} from "../../models";
@@ -15,12 +16,21 @@ interface ServiceNodeAccountSelectMobxProps {
     accounts: AccountResponse[],
 }
 
-const _ServiceNodeAccountSelect: React.FC<ServiceNodeAccountSelectMobxProps> = ({
+type ServiceNodeAccountSelectInjectedProps = WithSnackbarProps;
+type ServiceNodeAccountSelectProps = ServiceNodeAccountSelectMobxProps & ServiceNodeAccountSelectInjectedProps;
+
+const _ServiceNodeAccountSelect: React.FC<ServiceNodeAccountSelectProps> = ({
     accounts,
     selectedAccount,
     store,
-    selectAccount
+    selectAccount,
+    enqueueSnackbar
 }) => {
+    const handleSelect = (selectedAccount: string) => {
+        selectAccount(selectedAccount);
+        enqueueSnackbar("Service node account has been updated");
+    };
+
     if (accounts.length === 0) {
         return (
             <Typography variant="body1">
@@ -30,7 +40,7 @@ const _ServiceNodeAccountSelect: React.FC<ServiceNodeAccountSelectMobxProps> = (
     }
 
     return <AccountSelect accounts={accounts.map(account => account.address)}
-                          onSelect={selectAccount}
+                          onSelect={handleSelect}
                           selectedValue={selectedAccount}
                           label="Service node account"
     />
@@ -43,4 +53,6 @@ const mapMobxToProps = (state: IAppState): ServiceNodeAccountSelectMobxProps => 
     store: state.store
 });
 
-export const ServiceNodeAccountSelect = inject(mapMobxToProps)(observer(_ServiceNodeAccountSelect)) as React.FC<any>;
+export const ServiceNodeAccountSelect = withSnackbar(
+    inject(mapMobxToProps)(observer(_ServiceNodeAccountSelect)) as React.FC<any>
+);
