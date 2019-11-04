@@ -30,7 +30,9 @@ interface UploadDataFormProps {
     submissionError?: ApiError,
     setAttachedFileName: (fileName: string) => void,
     fileName?: string,
-    response?: UploadDataResponse
+    response?: UploadDataResponse,
+    serviceNodeAccount?: string,
+    dataValidatorAccount?: string
 }
 
 const getMessageFromError = (apiError: ApiError): string => {
@@ -52,7 +54,9 @@ const _UploadDataForm: React.FC<UploadDataFormProps> = ({
     setAttachedFileName,
     fileName,
     response,
-    reset
+    reset,
+    serviceNodeAccount,
+    dataValidatorAccount
 }) => {
     const content = response
         ? (
@@ -83,6 +87,21 @@ const _UploadDataForm: React.FC<UploadDataFormProps> = ({
         )
         : (
             <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Typography variant="body1">
+                        Selected service node account is {serviceNodeAccount}.
+                    </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography variant="body1">
+                        Selected data validator account is {dataValidatorAccount}.
+                    </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography variant="body1">
+                        You can change them is settings.
+                    </Typography>
+                </Grid>
                 <Grid item xs={12}>
                     <TextField value={uploadDataForm.name || ""}
                                onChange={event => setFormValue('name', event.target.value)}
@@ -163,7 +182,9 @@ const mapMobxToProps = (store: IAppState): UploadDataFormProps => {
         setAttachedFileName: dataUpload.setAttachedFileName,
         fileName: dataUpload.attachedFileName,
         response: dataUpload.response,
-        reset: dataUpload.reset
+        reset: dataUpload.reset,
+        serviceNodeAccount: dataUpload.serviceNodeAccount,
+        dataValidatorAccount: dataUpload.dataValidatorAccount
     }
 };
 
