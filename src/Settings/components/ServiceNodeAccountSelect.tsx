@@ -24,7 +24,7 @@ const _ServiceNodeAccountSelect: React.FC<ServiceNodeAccountSelectMobxProps> = (
     if (accounts.length === 0) {
         return (
             <Typography variant="body1">
-                Looks like you don't have any registered data validator accounts. You must <Link store={store} view={Routes.registration}>register</Link> it.
+                Looks like you don't have any registered service node accounts. You must <Link store={store} view={Routes.registration}>register</Link> it.
             </Typography>
         )
     }
