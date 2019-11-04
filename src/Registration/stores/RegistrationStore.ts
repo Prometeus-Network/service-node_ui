@@ -1,9 +1,8 @@
 import {action, observable, reaction} from "mobx";
-import {validateAccountType, validatePrivateKey} from "../validation";
-import {validateEthereumAddress} from "../../utils";
-import {createErrorFromResponse, ApiError, AccountsService} from "../../api";
+import {validateAccountType} from "../validation";
+import {FormErrors, validateEthereumAddress} from "../../utils";
+import {AccountsService, ApiError, createErrorFromResponse} from "../../api";
 import {AccountType, RegisterAccountRequest, RegisterAccountResponse} from "../../models";
-import {FormErrors} from "../../utils";
 import {AxiosError} from "axios";
 
 export class RegistrationStore {
@@ -27,6 +26,9 @@ export class RegistrationStore {
 
     @observable
     response?: RegisterAccountResponse = undefined;
+
+    @observable
+    showSnackbar: boolean = false;
 
     constructor() {
         reaction(
@@ -52,12 +54,16 @@ export class RegistrationStore {
     registerAccount = (): void => {
         if (this.isFormValid()) {
             this.pending = true;
+            this.submissionError = undefined;
 
             AccountsService.registerAccount({
                 address: this.registrationForm.address!,
                 type: this.registrationForm.type!,
             })
-                .then(({data}) => this.response = data)
+                .then(({data}) => {
+                    this.response = data;
+                    this.setShowSnackbar(true);
+                })
                 .catch((error: AxiosError) => this.submissionError = createErrorFromResponse(error))
                 .then(() => this.pending = false)
         }
@@ -71,5 +77,24 @@ export class RegistrationStore {
         };
 
         return !(Boolean(this.formErrors.address || this.formErrors.type))
+    };
+
+    @action
+    setShowSnackbar = (showSnackbar: boolean): void => {
+        this.showSnackbar = showSnackbar;
+    };
+
+    @action
+    reset = (): void => {
+        this.registrationForm = {
+            address: undefined,
+            type: AccountType.DATA_VALIDATOR
+        };
+        this.formErrors = {
+            address: undefined,
+            type: undefined
+        };
+        this.submissionError = undefined;
+        this.showSnackbar = false;
     }
 }
