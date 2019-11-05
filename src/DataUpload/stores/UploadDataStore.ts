@@ -139,7 +139,7 @@ export class UploadDataStore {
                     //const encryptedData = await this.encryptFile(this.uploadDataForm.data!, this.generatedKeyPair.public_key);
 
                     await DataUploadService.uploadData({
-                        data: this.uploadDataForm.data!,
+                        data: this.uploadDataForm.data!.substring(this.uploadDataForm.data!.indexOf(";base64," + ";base64,".length)),
                         additional: this.uploadDataForm.additional!,
                         dataOwnerAddress: this.uploadDataForm.dataOwnerAddress!,
                         name: this.uploadDataForm.name!,
