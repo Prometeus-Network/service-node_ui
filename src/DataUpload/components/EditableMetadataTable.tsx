@@ -53,7 +53,7 @@ const _EditableMetadataTable: React.FC<EditableMetaDataTableProps> = ({
                 </Typography>
             </Grid>
             <Grid item xs={12}>
-                {entries.size == 0
+                {entries.size === 0
                     ? (
                         <div>
                             <Typography variant="body2">

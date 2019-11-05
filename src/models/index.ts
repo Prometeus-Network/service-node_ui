@@ -7,3 +7,6 @@ export * from "./RegisterAccountRequest";
 export * from "./AccountType";
 export * from "./RegisterAccountResponse";
 export * from "./AccountResponse";
+export * from "./LocalFileRecordResponse";
+export * from "./UploadFileChunkRequest";
+export * from "./CreateLocalFileRecordRequest";
