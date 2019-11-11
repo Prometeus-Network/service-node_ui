@@ -37,3 +37,9 @@ export const validateData = (data?: string): string | undefined => {
         return "File must not be empty";
     }
 };
+
+export const validateAttachedFile = (file?: File): string | undefined => {
+    if (file === undefined || file === null) {
+        return "File is required";
+    }
+};

@@ -1,15 +1,14 @@
 import {action, computed, observable, reaction} from "mobx";
-import {AxiosError} from "axios";
 import {addMonths} from "date-fns";
-import {validateData, validateFileName} from "../validation";
-import {ApiError, createErrorFromResponse, DataUploadService, EncryptorService} from "../../api";
-import {EncryptFileResponse, GenerateRsaKeyPairResponse, UploadDataRequest, UploadDataResponse} from "../../models";
+import {validateAttachedFile, validateFileName} from "../validation";
+import {ApiError, DataUploadService} from "../../api";
+import {GenerateRsaKeyPairResponse, LocalFileRecordResponse, UploadDataRequest, UploadDataResponse} from "../../models";
 import {
+    convertToBase64,
     FormErrors,
-    getFileExtension,
-    getFileMimeType,
-    getFileSizeInBytes,
-    isStringEmpty,
+    getFileExtensionFromName,
+    removeBase64Header,
+    sleep,
     validateEthereumAddress
 } from "../../utils";
 import {SettingsStore} from "../../Settings/stores";
@@ -32,8 +31,11 @@ const UPLOAD_DATA_FORM_ERRORS_INITIAL_STATE = {
     mimeType: undefined,
     size: undefined,
     dataValidatorAddress: undefined,
-    serviceNodeAddress: undefined
+    serviceNodeAddress: undefined,
+    attachedFile: undefined
 };
+
+const CHUNK_SIZE = 5242878;
 
 export class UploadDataStore {
     @observable
@@ -52,7 +54,10 @@ export class UploadDataStore {
     mimeType: string = "";
 
     @observable
-    errors: FormErrors<UploadDataRequest> = UPLOAD_DATA_FORM_ERRORS_INITIAL_STATE;
+    errors: FormErrors<UploadDataRequest> & {attachedFile: string | undefined} = UPLOAD_DATA_FORM_ERRORS_INITIAL_STATE;
+
+    @observable
+    attachedFile?: File;
 
     @observable
     response?: UploadDataResponse;
@@ -91,17 +96,6 @@ export class UploadDataStore {
             () => this.uploadDataForm.dataOwnerAddress,
             address => this.errors.dataOwnerAddress = validateEthereumAddress(address)
         );
-
-        reaction(
-            () => this.uploadDataForm.data,
-            data => {
-                if (data && !isStringEmpty(data)) {
-                    this.fileSize = getFileSizeInBytes(data);
-                    this.extension = getFileExtension(data);
-                    this.mimeType = getFileMimeType(data);
-                }
-            }
-        )
     }
 
     @action
@@ -128,6 +122,11 @@ export class UploadDataStore {
     };
 
     @action
+    setAttachedFile = (file: File): void => {
+        this.attachedFile = file;
+    };
+
+    @action
     uploadData = (): Promise<void> => {
         if (this.isFormValid()) {
             this.submissionError = undefined;
@@ -135,26 +134,44 @@ export class UploadDataStore {
             this.pending = true;
             return new Promise<void>(async resolve => {
                 try {
-                    //this.generatedKeyPair = await this.generateKeyPair();
-                    //const encryptedData = await this.encryptFile(this.uploadDataForm.data!, this.generatedKeyPair.public_key);
+                    const localFileRecord = await this.createLocalFileRecord();
+                    await this.uploadFileByChunks(localFileRecord.id);
+                    await DataUploadService.uploadLocalFileToDds(localFileRecord.id);
 
-                    await DataUploadService.uploadData({
-                        data: this.uploadDataForm.data!.substring(this.uploadDataForm.data!.indexOf(";base64,") + ";base64,".length),
-                        additional: this.uploadDataForm.additional!,
-                        dataOwnerAddress: this.uploadDataForm.dataOwnerAddress!,
-                        name: this.uploadDataForm.name!,
-                        keepUntil: this.uploadDataForm.keepUntil!,
-                        size: this.fileSize,
-                        mimeType: this.mimeType,
-                        extension: this.extension,
-                        serviceNodeAddress: this.serviceNodeAccount!,
-                        dataValidatorAddress: this.dataValidatorAccount!
-                    })
-                        .then(({data}) => this.response = data)
-                        .catch((error: AxiosError) => this.submissionError = createErrorFromResponse(error));
+                    let fileFullyUploaded = false;
+                    let failed = false;
+                    let price: number | undefined;
+                    let ddsFileId: string | undefined;
+
+                    while (!fileFullyUploaded && !failed) {
+                        await sleep(3000);
+                        const fileUploadingCheckingResponse = await DataUploadService.checkIfLocalFileUploadToDds(localFileRecord.id);
+                        failed = fileUploadingCheckingResponse.data.failed;
+                        fileFullyUploaded = fileUploadingCheckingResponse.data.fullyUploaded;
+                        price = fileUploadingCheckingResponse.data.price;
+                        ddsFileId = fileUploadingCheckingResponse.data.ddsFileId;
+                    }
+
                     this.pending = false;
+
+                    if (failed) {
+                        this.submissionError = {
+                            status: 500,
+                            message: "Error occurred while uploading file, please try again"
+                        }
+                    } else if (fileFullyUploaded) {
+                        this.response = {
+                            additional: {},
+                            duration: 0,
+                            id: ddsFileId!,
+                            price: price!
+                        }
+                    }
+
+                    await DataUploadService.deleteLocalFile(localFileRecord.id);
                     resolve();
                 } catch (error) {
+                    console.log(error);
                     this.submissionError = {
                         message: "Something went wrong",
                         status: 500
@@ -166,42 +183,62 @@ export class UploadDataStore {
         } else return new Promise<void>(resolve => resolve());
     };
 
-    private generateKeyPair = (): Promise<GenerateRsaKeyPairResponse> => {
-        return new Promise<GenerateRsaKeyPairResponse>((resolve, reject) => {
-            EncryptorService.generateRsaKeyPair()
-                .then(({data}) => resolve(data.result))
-                .catch(error => reject(error));
-        })
+    private createLocalFileRecord = async (): Promise<LocalFileRecordResponse> => {
+        const mimeType = this.attachedFile!.type && this.attachedFile!.type.length !== 0
+            ? this.attachedFile!.type
+            : "application/octet-stream";
+        return (await DataUploadService.createLocalFileRecord({
+            additional: this.uploadDataForm.additional!,
+            dataOwnerAddress: this.uploadDataForm.dataOwnerAddress!,
+            name: this.uploadDataForm.name!,
+            keepUntil: this.uploadDataForm.keepUntil!,
+            size: this.attachedFile!.size,
+            mimeType,
+            extension: getFileExtensionFromName(this.attachedFile!.name),
+            serviceNodeAddress: this.serviceNodeAccount!,
+            dataValidatorAddress: this.dataValidatorAccount!
+        })).data;
     };
 
-    private encryptFile = (base64Data: string, publicKey: string): Promise<EncryptFileResponse> => {
-        return new Promise<EncryptFileResponse>((resolve, reject) => {
-            EncryptorService.encryptFile({
-                content: base64Data,
-                public_key: publicKey
-            })
-                .then(({data}) => resolve(data.result))
-                .catch(error => reject(error));
-        })
+    private uploadFileByChunks = async (localFileId: string): Promise<void> => {
+        let targetPosition = this.attachedFile!.size;
+        let chunk: string;
+        const fileId = localFileId;
+        const totalChunks = Math.ceil(targetPosition / CHUNK_SIZE);
+        let currentChunk = 0;
+
+        while (currentChunk < totalChunks) {
+            const offset = currentChunk * CHUNK_SIZE;
+            chunk = removeBase64Header(await convertToBase64(this.attachedFile!.slice(offset, offset + CHUNK_SIZE)));
+            if (offset + CHUNK_SIZE < targetPosition) {
+                if (chunk.endsWith("=")) {
+                    chunk = chunk.substring(0, chunk.indexOf("="));
+                } else if (chunk.endsWith("==")) {
+                    chunk = chunk.substring(0, chunk.indexOf("=="));
+                }
+            }
+            currentChunk++;
+            await DataUploadService.sendFileChunk(fileId, {chunkData: chunk});
+        }
     };
 
     @action
     isFormValid = (): boolean => {
-        const {dataOwnerAddress, name, data} = this.uploadDataForm;
+        const {dataOwnerAddress, name} = this.uploadDataForm;
         this.errors = {
             name: validateFileName(name),
             dataOwnerAddress: validateEthereumAddress(dataOwnerAddress),
-            data: validateData(data),
             additional: undefined,
             keepUntil: undefined,
             extension: undefined,
             mimeType: undefined,
             size: undefined,
             dataValidatorAddress: undefined,
-            serviceNodeAddress: undefined
+            serviceNodeAddress: undefined,
+            attachedFile: validateAttachedFile(this.attachedFile)
         };
 
-        return !Boolean(this.errors.name || this.errors.dataOwnerAddress);
+        return !Boolean(this.errors.name || this.errors.dataOwnerAddress || this.errors.attachedFile);
     };
 
     @action

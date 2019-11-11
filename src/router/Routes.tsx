@@ -5,7 +5,6 @@ import {
     DataUploadPage,
     RegistrationPage,
     SettingsPage,
-    DataUploadByChunksPage
 } from "../pages";
 import {store} from "../store";
 
@@ -34,9 +33,5 @@ export const Routes = {
         beforeEnter: () => {
             store.settings.fetchAccounts();
         }
-    }),
-    dataUploadByChunks: new Route({
-        path: '/experimental/data-upload/by-chunks',
-        component: <DataUploadByChunksPage/>
     })
 };

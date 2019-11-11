@@ -1,18 +1,9 @@
 import * as React from "react";
 import {inject, observer} from "mobx-react";
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    Button,
-    TextField,
-    CircularProgress,
-    Grid,
-    Typography
-} from "@material-ui/core";
+import {Button, Card, CardContent, CardHeader, CircularProgress, Grid, TextField, Typography} from "@material-ui/core";
 import {KeyboardDatePicker} from "@material-ui/pickers";
-import {Base64EncodingFileInput} from "./Base64EncodingFileInput";
 import {EditableMetadataTable} from "./EditableMetadataTable";
+import {FileInput} from "./FileInput";
 import {UploadDataRequest, UploadDataResponse} from "../../models";
 import {CopyToClipboardButton} from "../../CopyToClipboardButton";
 import {FormErrors} from "../../utils";
@@ -21,7 +12,7 @@ import {IAppState} from "../../store";
 
 interface UploadDataFormProps {
     uploadDataForm: Partial<UploadDataRequest>,
-    errors: FormErrors<UploadDataRequest>,
+    errors: FormErrors<UploadDataRequest> & {attachedFile: string | undefined},
     pending: boolean,
     uploadData: () => void,
     reset: () => void,
@@ -32,7 +23,9 @@ interface UploadDataFormProps {
     fileName?: string,
     response?: UploadDataResponse,
     serviceNodeAccount?: string,
-    dataValidatorAccount?: string
+    dataValidatorAccount?: string,
+    attachFile: (file: File) => void,
+    file?: File
 }
 
 const getMessageFromError = (apiError: ApiError): string => {
@@ -44,20 +37,19 @@ const getMessageFromError = (apiError: ApiError): string => {
 };
 
 const _UploadDataForm: React.FC<UploadDataFormProps> = ({
-    errors,
-    uploadData,
-    pending,
-    setAdditionalMetaField,
-    setFormValue,
-    submissionError,
-    uploadDataForm,
-    setAttachedFileName,
-    fileName,
-    response,
-    reset,
-    serviceNodeAccount,
-    dataValidatorAccount
-}) => {
+                                                            errors,
+                                                            uploadData,
+                                                            pending,
+                                                            setFormValue,
+                                                            submissionError,
+                                                            uploadDataForm,
+                                                            response,
+                                                            reset,
+                                                            serviceNodeAccount,
+                                                            dataValidatorAccount,
+                                                            attachFile,
+                                                            file
+                                                        }) => {
     const content = response
         ? (
             <Grid container spacing={2}>
@@ -133,11 +125,14 @@ const _UploadDataForm: React.FC<UploadDataFormProps> = ({
                     <EditableMetadataTable/>
                 </Grid>
                 <Grid item xs={12}>
-                    <Base64EncodingFileInput onFileProcessed={base64Data => setFormValue('data', base64Data)}
-                                             onFileAttached={fileName => setAttachedFileName(fileName)}
-                                             fileName={fileName}
+                    <FileInput onFileAttached={file => attachFile(file)}
+                               file={file}
                     />
-                    {errors.data && <Typography variant="body1" style={{color: 'red'}}>{errors.data}</Typography>}
+                    {errors.attachedFile && (
+                        <Typography variant="body1" style={{color: 'red'}}>
+                            {errors.attachedFile}
+                        </Typography>
+                    )}
                 </Grid>
                 <Grid item xs={12}>
                     <Button variant="contained"
@@ -184,7 +179,9 @@ const mapMobxToProps = (store: IAppState): UploadDataFormProps => {
         response: dataUpload.response,
         reset: dataUpload.reset,
         serviceNodeAccount: dataUpload.serviceNodeAccount,
-        dataValidatorAccount: dataUpload.dataValidatorAccount
+        dataValidatorAccount: dataUpload.dataValidatorAccount,
+        attachFile: dataUpload.setAttachedFile,
+        file: dataUpload.attachedFile
     }
 };
 

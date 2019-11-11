@@ -1,5 +1,4 @@
 export interface UploadDataRequest {
-    data: string,
     name: string,
     dataOwnerAddress: string,
     dataValidatorAddress: string,
