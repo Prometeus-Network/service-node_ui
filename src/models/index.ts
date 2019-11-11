@@ -10,3 +10,4 @@ export * from "./AccountResponse";
 export * from "./LocalFileRecordResponse";
 export * from "./UploadFileChunkRequest";
 export * from "./CreateLocalFileRecordRequest";
+export * from "./DdsFileUploadCheckResponse";
