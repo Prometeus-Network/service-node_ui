@@ -30,4 +30,8 @@ export class DataUploadService {
     public static checkIfLocalFileUploadToDds(localFileId: string): AxiosPromise<DdsFileUploadCheckResponse> {
         return axiosInstance.get(`/${FILES}/${LOCAL}/${localFileId}/${IS_FULLY_UPLOADED}`);
     }
+
+    public static deleteLocalFile(localFileId: string): AxiosPromise<void> {
+        return axiosInstance.delete(`/${FILES}/${LOCAL}/${localFileId}`);
+    }
 }

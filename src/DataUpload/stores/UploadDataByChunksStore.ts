@@ -183,6 +183,7 @@ export class UploadDataByChunksStore {
                         }
                     }
 
+                    await DataUploadService.deleteLocalFile(localFileRecord.id);
                     resolve();
                 } catch (error) {
                     console.log(error);
