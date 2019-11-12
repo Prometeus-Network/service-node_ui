@@ -1,0 +1,45 @@
+import * as React from "react";
+import {Card, CardHeader, CardContent, CardActionArea, CardActions, Button, Typography} from "@material-ui/core";
+import {AccountType} from "../../models";
+
+interface AccountCardProps {
+    selectedAsDefault: boolean,
+    onSelect: (address: string) => void,
+    address: string,
+    balance: number,
+    type: AccountType
+}
+
+const getBalanceLabel = (balance?: number): string => {
+    if (balance === undefined) {
+        return "0 ETH";
+    } else {
+        return `${balance} ETH`;
+    }
+};
+
+export const AccountCard: React.FC<AccountCardProps> = ({
+    balance,
+    address,
+    selectedAsDefault,
+    onSelect,
+    type
+}) => {
+    return (
+        <Card elevation={selectedAsDefault ? 3 : 1}
+              onClick={() => !selectedAsDefault && onSelect(address)}
+              style={{cursor: 'pointer'}}
+        >
+            <CardHeader title={address}
+                        subheader={getBalanceLabel(balance)}
+            />
+            {selectedAsDefault && (
+                <CardContent>
+                    <Typography variant="h6" color="textSecondary">
+                        Selected as default
+                    </Typography>
+                </CardContent>
+            )}
+        </Card>
+    )
+};

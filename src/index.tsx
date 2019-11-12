@@ -18,6 +18,8 @@ startRouter(Routes, routerStore, {
     }
 });
 
+store.accounts.fetchAccounts();
+
 ReactDOM.render(<Provider store={routerStore} {...store}>
     <App/>
 </Provider>, document.getElementById('root'));

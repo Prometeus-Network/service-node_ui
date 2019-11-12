@@ -29,9 +29,6 @@ export const Routes = {
     }),
     settings: new  Route({
         path: '/settings',
-        component: <SettingsPage/>,
-        beforeEnter: () => {
-            store.settings.fetchAccounts();
-        }
+        component: <SettingsPage/>
     })
 };

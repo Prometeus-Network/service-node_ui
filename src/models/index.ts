@@ -11,3 +11,5 @@ export * from "./LocalFileRecordResponse";
 export * from "./UploadFileChunkRequest";
 export * from "./CreateLocalFileRecordRequest";
 export * from "./DdsFileUploadCheckResponse";
+export * from "./BalanceResponse";
+export * from "./AccountBalanceMapping";

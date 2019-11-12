@@ -2,7 +2,7 @@ import * as React from "react";
 import {Grid, Hidden} from "@material-ui/core";
 import {AppBar} from "../AppBar";
 import {NavigationMenu} from "../NavigationMenu";
-import {AccountRegistrationForm} from "../Registration";
+import {AccountRegistrationForm} from "../Account";
 import {Layout} from "../Layout";
 
 export const RegistrationPage: React.FC<any> = () => (

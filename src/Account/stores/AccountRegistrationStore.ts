@@ -1,11 +1,12 @@
 import {action, observable, reaction} from "mobx";
+import {AccountsStore} from "./AccountsStore";
 import {validateAccountType} from "../validation";
 import {FormErrors, validateEthereumAddress} from "../../utils";
 import {AccountsService, ApiError, createErrorFromResponse} from "../../api";
 import {AccountType, RegisterAccountRequest, RegisterAccountResponse} from "../../models";
 import {AxiosError} from "axios";
 
-export class RegistrationStore {
+export class AccountRegistrationStore {
     @observable
     registrationForm: Partial<RegisterAccountRequest> = {
         address: undefined,
@@ -30,7 +31,11 @@ export class RegistrationStore {
     @observable
     showSnackbar: boolean = false;
 
-    constructor() {
+    private readonly accountsStore: AccountsStore;
+
+    constructor(accountsStore: AccountsStore) {
+        this.accountsStore = accountsStore;
+
         reaction(
             () => this.registrationForm.type,
             type => this.formErrors.type = validateAccountType(type)
@@ -61,6 +66,7 @@ export class RegistrationStore {
                 type: this.registrationForm.type!,
             })
                 .then(({data}) => {
+                    this.accountsStore.addAccount(data);
                     this.response = data;
                     this.setShowSnackbar(true);
                 })

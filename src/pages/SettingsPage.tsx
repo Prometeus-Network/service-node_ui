@@ -3,7 +3,7 @@ import {Grid, Hidden} from "@material-ui/core";
 import {AppBar} from "../AppBar";
 import {NavigationMenu} from "../NavigationMenu";
 import {Layout} from "../Layout";
-import {SettingsCard} from "../Settings";
+import {SettingsContainer} from "../Settings";
 
 export const SettingsPage: React.FC<any> = () => (
     <Grid container spacing={1}>
@@ -17,7 +17,7 @@ export const SettingsPage: React.FC<any> = () => (
         </Hidden>
         <Grid item xs={12} lg={10}>
             <Layout>
-                <SettingsCard/>
+                <SettingsContainer/>
             </Layout>
         </Grid>
     </Grid>

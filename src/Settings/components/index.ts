@@ -1,4 +1,3 @@
-export * from "./AccountSelect";
-export * from "./DataValidatorAccountSelect";
-export * from "./ServiceNodeAccountSelect";
-export * from "./SettingsCard";
+export * from "./SettingsContainer";
+export * from "./DataValidatorAccountSettings";
+export * from "./ServiceNodeAccountSettings";

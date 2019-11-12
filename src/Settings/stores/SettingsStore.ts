@@ -1,19 +1,9 @@
 import {action, computed, observable} from "mobx";
-import {AccountResponse, AccountType} from "../../models";
-import {AccountsService} from "../../api/services";
-import {ApiError, createErrorFromResponse} from "../../api";
-import {AxiosError} from "axios";
+import {AccountBalanceMapping, AccountResponse} from "../../models";
+import {ApiError} from "../../api";
+import {AccountsStore} from "../../Account/stores";
 
 export class SettingsStore {
-    @observable
-    registeredAccounts: AccountResponse[] = [];
-
-    @observable
-    fetchingAccounts: boolean = false;
-
-    @observable
-    fetchingAccountsError?: ApiError = undefined;
-
     @observable
     selectedServiceNodeAccount?: string = localStorage.getItem("selectedServiceNodeAccount") !== null
         ? localStorage.getItem("selectedServiceNodeAccount")!
@@ -24,36 +14,41 @@ export class SettingsStore {
         ? localStorage.getItem("selectedDataValidatorAccount")!
         : undefined;
 
+    private readonly accountsStore: AccountsStore;
+
     @computed
     get serviceNodeAccounts(): AccountResponse[] {
-        return this.registeredAccounts.filter(account => account.type === AccountType.SERVICE_NODE);
+        return this.accountsStore.serviceNodeAccounts;
     }
 
     @computed
     get dataValidatorAccounts(): AccountResponse[] {
-        return this.registeredAccounts.filter(account => account.type === AccountType.DATA_VALIDATOR);
+        return this.accountsStore.dataValidatorAccounts;
     }
 
     @computed
     get dataOwnerAccounts(): AccountResponse[] {
-        return this.registeredAccounts.filter(account => account.type === AccountType.DATA_OWNER);
+        return this.accountsStore.dataOwnerAccounts;
     }
 
-    @action
-    fetchAccounts = (): void => {
-        this.fetchingAccounts = true;
-        this.fetchingAccountsError = undefined;
+    @computed
+    get registeredAccounts(): AccountResponse[] {
+        return this.accountsStore.accounts;
+    }
 
-        AccountsService.fetchRegisteredAccounts()
-            .then(({data}) => this.registeredAccounts = data)
-            .catch((error: AxiosError) => this.fetchingAccountsError = createErrorFromResponse(error))
-            .then(() => this.fetchingAccounts = false);
-    };
+    @computed
+    get fetchingAccounts(): boolean {
+        return this.accountsStore.fetchingAccounts;
+    }
 
-    @action
-    addAccount = (account: AccountResponse): void => {
-        this.registeredAccounts.push(account);
-    };
+    @computed
+    get fetchingAccountsError(): ApiError | undefined {
+        return this.accountsStore.accountsFetchingError;
+    }
+
+    constructor(accountsStore: AccountsStore) {
+        this.accountsStore = accountsStore;
+    }
 
     @action
     selectServiceNodeAccount = (accountAddress: string): void => {
@@ -65,5 +60,5 @@ export class SettingsStore {
     selectDataValidatorAccount = (accountAddress: string): void => {
         localStorage.setItem("selectedDataValidatorAccount", accountAddress);
         this.selectedDataValidatorAccount = accountAddress;
-    }
+    };
 }
