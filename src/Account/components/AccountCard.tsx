@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Card, CardHeader, CardContent, CardActionArea, CardActions, Button, Typography} from "@material-ui/core";
+import {Card, CardContent, CardHeader, Typography, Hidden} from "@material-ui/core";
 import {AccountType} from "../../models";
 
 interface AccountCardProps {
@@ -30,7 +30,18 @@ export const AccountCard: React.FC<AccountCardProps> = ({
               onClick={() => !selectedAsDefault && onSelect(address)}
               style={{cursor: 'pointer'}}
         >
-            <CardHeader title={address}
+            <CardHeader title={(
+                <React.Fragment>
+                    <Hidden lgUp>
+                        <Typography variant="caption">
+                            {address}
+                        </Typography>
+                    </Hidden>
+                    <Hidden mdDown>
+                        {address}
+                    </Hidden>
+                </React.Fragment>
+            )}
                         subheader={getBalanceLabel(balance)}
             />
             {selectedAsDefault && (
