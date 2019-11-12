@@ -9,7 +9,7 @@ export const HomePage: React.FC = () => (
         <Grid item xs={12}>
             <AppBar/>
         </Grid>
-        <Hidden smDown>
+        <Hidden mdDown>
             <Grid item lg={2}>
                 <NavigationMenu/>
             </Grid>

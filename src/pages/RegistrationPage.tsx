@@ -10,7 +10,7 @@ export const RegistrationPage: React.FC<any> = () => (
         <Grid item xs={12}>
             <AppBar/>
         </Grid>
-        <Hidden smDown>
+        <Hidden mdDown>
             <Grid item lg={2}>
                 <NavigationMenu/>
             </Grid>

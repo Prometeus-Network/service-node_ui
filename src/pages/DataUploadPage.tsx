@@ -49,7 +49,7 @@ const _DataUploadPage: React.FC<DataUploadPageMobxProps> = ({selectedDataValidat
             <Grid item xs={12}>
                 <AppBar/>
             </Grid>
-            <Hidden smDown>
+            <Hidden mdDown>
                 <Grid item lg={2}>
                     <NavigationMenu/>
                 </Grid>

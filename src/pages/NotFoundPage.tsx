@@ -1,17 +1,23 @@
 import * as React from "react";
 import {
-    Grid,
+    Grid, Hidden,
     Typography
 } from "@material-ui/core";
 import {AppBar} from "../AppBar";
 import {Layout} from "../Layout";
+import {NavigationMenu} from "../NavigationMenu/components";
 
 export const NotFoundPage: React.FC<any> = () => (
     <Grid container spacing={1}>
         <Grid item xs={12}>
             <AppBar/>
         </Grid>
-        <Grid item xs={12}>
+        <Hidden mdDown>
+            <Grid item lg={2}>
+                <NavigationMenu/>
+            </Grid>
+        </Hidden>
+        <Grid item xs={12} lg={10}>
             <Layout>
                 <Typography variant="h4">
                     The page you requested was not found :(
