@@ -51,30 +51,32 @@ const _AppBar: React.FC<AppBarProps & AppBarMobxProps & AppBarInjectedProps> = (
     );
 
     return (
-        <Headroom style={{
-            position: 'fixed',
-            zIndex: 1300
-        }}>
-            <MaterialUiAppBar position="static"
-                              classes={classes}
-            >
-                <Toolbar>
-                    <Hidden lgUp>
-                        <OpenDrawerButton/>
-                    </Hidden>
-                    <Typography variant="h6" className={classes.grow}>
-                        {title
-                            ? <span>
+        <React.Fragment>
+            <Headroom style={{
+                position: 'fixed',
+                zIndex: 1300
+            }}>
+                <MaterialUiAppBar position="static"
+                                  classes={classes}
+                >
+                    <Toolbar>
+                        <Hidden lgUp>
+                            <OpenDrawerButton/>
+                        </Hidden>
+                        <Typography variant="h6" className={classes.grow}>
+                            {title
+                                ? <span>
                                 {linkToHome} <Hidden smDown> | {title}</Hidden>
                         </span>
-                            : linkToHome
-                        }
-                    </Typography>
-                </Toolbar>
-            </MaterialUiAppBar>
+                                : linkToHome
+                            }
+                        </Typography>
+                    </Toolbar>
+                </MaterialUiAppBar>
+            </Headroom>
             <NavigationalDrawer/>
-        </Headroom>
-    )
+        </React.Fragment>
+    );
 };
 
 const mapMobxToProps = (appState: IAppState): AppBarMobxProps => ({
