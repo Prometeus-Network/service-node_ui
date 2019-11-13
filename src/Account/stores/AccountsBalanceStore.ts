@@ -12,35 +12,13 @@ export class AccountsBalanceStore {
     constructor(accountsStore: AccountsStore) {
         this.accountsStore = accountsStore;
 
-        setInterval(this.fetchDataValidatorBalances, 10000);
-        setInterval(this.fetchServiceNodeBalances, 10000);
+        setInterval(this.fetchBalancesOfAllAccounts, 10000);
     }
 
     @action
-    fetchServiceNodeBalances = (): void => {
-        this.accountsStore.serviceNodeAccounts.forEach(account => {
-            AccountsService.getBalanceOfAccount(account.address)
-                .then(({data}) => {
-                    this.accountsBalances = {
-                        ...this.accountsBalances,
-                        [account.address]: data.balance
-                    }
-                })
-                .catch(ignored => {});
-        });
+    fetchBalancesOfAllAccounts = (): void => {
+        AccountsService.getBalancesOfAllAccounts()
+            .then(({data}) => this.accountsBalances = {...this.accountsBalances, ...data})
+            .catch(ignored => {});
     };
-
-    @action
-    fetchDataValidatorBalances = (): void => {
-        this.accountsStore.dataValidatorAccounts.forEach(account => {
-            AccountsService.getBalanceOfAccount(account.address)
-                .then(({data}) => {
-                    this.accountsBalances = {
-                        ...this.accountsBalances,
-                        [account.address]: data.balance
-                    }
-                })
-                .catch(ignored => {})
-        });
-    }
 }
