@@ -4,14 +4,14 @@ import {SnackbarProvider} from "notistack";
 import enLocale from "date-fns/locale/en-GB";
 import DateFnsUtils from '@date-io/date-fns';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
-import {cyan} from "./themes";
+import {red} from "./themes";
 
 const {MobxRouter} = require("mobx-router");
 
 export const App: React.FC = () => (
     <div id="app">
         <SnackbarProvider maxSnack={3}>
-            <MuiThemeProvider theme={cyan}>
+            <MuiThemeProvider theme={red}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}
                                          locale={enLocale}
                 >
