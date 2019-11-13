@@ -1,11 +1,9 @@
 import * as React from "react";
-import {
-    Grid, Hidden,
-    Typography
-} from "@material-ui/core";
+import {Grid, Hidden, Typography} from "@material-ui/core";
 import {AppBar} from "../AppBar";
+import {Footer} from "../Footer";
 import {Layout} from "../Layout";
-import {NavigationMenu} from "../NavigationMenu/components";
+import {NavigationMenu} from "../NavigationMenu";
 
 export const NotFoundPage: React.FC<any> = () => (
     <Grid container spacing={1}>
@@ -23,6 +21,9 @@ export const NotFoundPage: React.FC<any> = () => (
                     The page you requested was not found :(
                 </Typography>
             </Layout>
+        </Grid>
+        <Grid item xs={12}>
+            <Footer/>
         </Grid>
     </Grid>
 );

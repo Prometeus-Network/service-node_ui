@@ -1,8 +1,11 @@
 import * as React from "react";
 import {Grid, Hidden, Typography} from "@material-ui/core";
 import {AppBar} from "../AppBar";
+import {Footer} from "../Footer";
 import {Layout} from "../Layout";
 import {NavigationMenu} from "../NavigationMenu";
+
+const {version} = require("../../package.json");
 
 export const HomePage: React.FC = () => (
     <Grid container spacing={1}>
@@ -17,7 +20,7 @@ export const HomePage: React.FC = () => (
         <Grid item xs={12} lg={10}>
             <Layout>
                 <Typography variant="h4">
-                    Welcome to Service node v. 0.1.0!
+                    Welcome to Service node client v. {version}!
                 </Typography>
                 <p>
                     <Typography variant="body1">
@@ -30,6 +33,9 @@ export const HomePage: React.FC = () => (
                     </Typography>
                 </p>
             </Layout>
+        </Grid>
+        <Grid item xs={12}>
+            <Footer/>
         </Grid>
     </Grid>
 );

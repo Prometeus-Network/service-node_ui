@@ -1,6 +1,7 @@
 import * as React from "react";
 import {Grid, Hidden} from "@material-ui/core";
 import {AppBar} from "../AppBar";
+import {Footer} from "../Footer";
 import {NavigationMenu} from "../NavigationMenu";
 import {AccountRegistrationForm} from "../Account";
 import {Layout} from "../Layout";
@@ -19,6 +20,9 @@ export const RegistrationPage: React.FC<any> = () => (
             <Layout>
                 <AccountRegistrationForm/>
             </Layout>
+        </Grid>
+        <Grid item xs={12}>
+            <Footer/>
         </Grid>
     </Grid>
 );

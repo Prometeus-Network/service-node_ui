@@ -1,6 +1,7 @@
 import * as React from "react";
 import {Grid, Hidden} from "@material-ui/core";
 import {AppBar} from "../AppBar";
+import {Footer} from "../Footer";
 import {NavigationMenu} from "../NavigationMenu";
 import {Layout} from "../Layout";
 import {SettingsContainer} from "../Settings";
@@ -19,6 +20,9 @@ export const SettingsPage: React.FC<any> = () => (
             <Layout>
                 <SettingsContainer/>
             </Layout>
+        </Grid>
+        <Grid item xs={12}>
+            <Footer/>
         </Grid>
     </Grid>
 );

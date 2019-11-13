@@ -5,6 +5,7 @@ import {AppBar} from "../AppBar";
 import {Layout} from "../Layout";
 import {UploadDataForm} from "../DataUpload";
 import {NavigationMenu} from "../NavigationMenu";
+import {Footer} from "../Footer";
 import {Routes} from "../router";
 import {IAppState} from "../store";
 
@@ -58,6 +59,9 @@ const _DataUploadPage: React.FC<DataUploadPageMobxProps> = ({selectedDataValidat
                 <Layout>
                     {content}
                 </Layout>
+            </Grid>
+            <Grid item xs={12}>
+                <Footer/>
             </Grid>
         </Grid>
     );
