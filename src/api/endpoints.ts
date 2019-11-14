@@ -6,3 +6,5 @@ export const BALANCE = "balance";
 export const BALANCES = "balances";
 export const TO_DDS = "to-dds";
 export const IS_FULLY_UPLOADED = "is-fully-uploaded";
+export const DATA_VALIDATORS = "data-validators";
+export const DATA_OWNERS = "data-owners";

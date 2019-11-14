@@ -13,3 +13,5 @@ export * from "./CreateLocalFileRecordRequest";
 export * from "./DdsFileUploadCheckResponse";
 export * from "./BalanceResponse";
 export * from "./AccountBalanceMapping";
+export * from "./DataOwnersResponse";
+export * from "./RegisterDataOwnerRequest";

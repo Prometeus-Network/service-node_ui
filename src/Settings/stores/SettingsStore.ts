@@ -1,5 +1,5 @@
 import {action, computed, observable} from "mobx";
-import {AccountBalanceMapping, AccountResponse} from "../../models";
+import {AccountResponse} from "../../models";
 import {ApiError} from "../../api";
 import {AccountsStore} from "../../Account/stores";
 

@@ -4,6 +4,7 @@ import {Button, Card, CardContent, CardHeader, CircularProgress, Grid, TextField
 import {KeyboardDatePicker} from "@material-ui/pickers";
 import {EditableMetadataTable} from "./EditableMetadataTable";
 import {FileInput} from "./FileInput";
+import {DataOwnerSelect} from "./DataOwnerSelect";
 import {UploadDataRequest, UploadDataResponse} from "../../models";
 import {CopyToClipboardButton} from "../../CopyToClipboardButton";
 import {FormErrors} from "../../utils";
@@ -103,14 +104,7 @@ const _UploadDataForm: React.FC<UploadDataFormProps> = ({
                                margin="dense"
                                fullWidth
                     />
-                    <TextField value={uploadDataForm.dataOwnerAddress || ""}
-                               onChange={event => setFormValue('dataOwnerAddress', event.target.value)}
-                               error={Boolean(errors.dataOwnerAddress)}
-                               helperText={errors.dataOwnerAddress && errors.dataOwnerAddress}
-                               label="Data owner address"
-                               margin="dense"
-                               fullWidth
-                    />
+                    <DataOwnerSelect/>
                     <KeyboardDatePicker value={uploadDataForm.keepUntil}
                                         onChange={date => setFormValue("keepUntil", date as Date)}
                                         disablePast

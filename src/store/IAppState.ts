@@ -1,5 +1,5 @@
-import {AccountsStore, AccountsBalanceStore, AccountRegistrationStore} from "../Account/stores";
-import {UploadDataStore, AddMetadataDialogStore, EditMetadataDialogStore} from "../DataUpload";
+import {AccountsStore, AccountsBalanceStore, AccountRegistrationStore, DataOwnersAccountsStore} from "../Account";
+import {UploadDataStore, AddMetadataDialogStore, EditMetadataDialogStore, DataOwnerSelectStore} from "../DataUpload";
 import {DrawerStore} from "../AppBar";
 import {SettingsStore} from "../Settings/stores";
 
@@ -12,5 +12,7 @@ export interface IAppState {
     drawer: DrawerStore,
     settings: SettingsStore,
     accounts: AccountsStore,
-    balances: AccountsBalanceStore
+    balances: AccountsBalanceStore,
+    dataOwners: DataOwnersAccountsStore,
+    dataOwnerSelect: DataOwnerSelectStore
 }
