@@ -6,7 +6,6 @@ import {
     RegistrationPage,
     SettingsPage,
 } from "../pages";
-import {store} from "../store";
 
 const Route = require("mobx-router").Route;
 

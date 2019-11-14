@@ -5,6 +5,7 @@ import {Footer} from "../Footer";
 import {NavigationMenu} from "../NavigationMenu";
 import {Layout} from "../Layout";
 import {SettingsContainer} from "../Settings";
+import {CreateDataOwnerButton} from "../Account/components";
 
 export const SettingsPage: React.FC<any> = () => (
     <Grid container spacing={1}>

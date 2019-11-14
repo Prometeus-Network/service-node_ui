@@ -35,5 +35,10 @@ export class DataOwnersAccountsStore {
                 .then(({data}) => this.dataOwners = data.dataOwners)
                 .finally(() => this.pending = false);
         }
+    };
+
+    @action
+    addDataOwner = (address: string): void => {
+        this.dataOwners.push(address);
     }
 }

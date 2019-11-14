@@ -32,7 +32,8 @@
     "react-headroom": "^3.0.0",
     "react-scripts": "3.2.0",
     "react-sticky-footer": "0.1.0-rc3",
-    "typescript": "3.6.4"
+    "typescript": "3.6.4",
+    "web3": "^1.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
