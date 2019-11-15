@@ -99,7 +99,10 @@ export const DataValidatorAccountCard: FunctionComponent<DataValidatorAccountCar
                                         getClassName(classes.expand, {
                                             [classes.expandOpen]: expanded
                                     })}
-                                                onClick={handleExpandClick}
+                                                onClick={event => {
+                                                    event.stopPropagation();
+                                                    handleExpandClick();
+                                                }}
                                                 aria-expanded={expanded}
                                     >
                                         <ExpandMoreIcon/>
