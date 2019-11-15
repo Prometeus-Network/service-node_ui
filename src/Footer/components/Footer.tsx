@@ -1,14 +1,27 @@
 import * as React from "react";
-import {Typography} from "@material-ui/core";
-const StickyFooter = require('react-sticky-footer').default;
+import {Typography, createStyles, makeStyles} from "@material-ui/core";
 const {version} = require("../../../package.json");
 
-export const Footer: React.FC<{}> = () => (
-    <StickyFooter stickyStyles={{width: '100%'}}>
-        <Typography variant="caption"
-                    color="textSecondary"
-        >
-            Service node client v. {version}
-        </Typography>
-    </StickyFooter>
-);
+const useStyles = makeStyles(() => createStyles({
+    footer: {
+        position: 'fixed',
+        left: 0,
+        bottom: 0,
+        width: '100%',
+        textAlign: 'center'
+    }
+}));
+
+export const Footer: React.FC<{}> = () => {
+    const classes = useStyles();
+
+    return (
+        <div className={classes.footer}>
+            <Typography variant="caption"
+                        color="textSecondary"
+            >
+                Service node client v. {version}
+            </Typography>
+        </div>
+    );
+};
