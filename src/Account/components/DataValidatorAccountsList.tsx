@@ -1,20 +1,22 @@
 import * as React from "react";
 import {Grid, Typography} from "@material-ui/core";
-import {AccountCard} from "./AccountCard";
-import {AccountBalanceMapping, AccountResponse, AccountType} from "../../models";
+import {DataValidatorAccountCard} from "./DataValidatorAccountCard";
+import {AccountBalanceMapping, AccountResponse} from "../../models";
 
 interface DataValidatorAccountsListProps {
     accounts: AccountResponse[],
     balances: AccountBalanceMapping,
+    dataOwners: {[dataValidatorAddress: string]: string[]}
     defaultAccount?: string,
-    onDefaultAccountSelected: (address: string) => void
+    onDefaultAccountSelected: (address: string) => void,
 }
 
 export const DataValidatorAccountsList: React.FC<DataValidatorAccountsListProps> = ({
     balances,
     accounts,
     defaultAccount,
-    onDefaultAccountSelected
+    onDefaultAccountSelected,
+    dataOwners
 }) => (
     <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -23,12 +25,12 @@ export const DataValidatorAccountsList: React.FC<DataValidatorAccountsListProps>
             </Typography>
         </Grid>
         {accounts.map(account => (
-            <Grid item xs={12}>
-                <AccountCard selectedAsDefault={account.address === defaultAccount}
-                             onSelect={onDefaultAccountSelected}
-                             address={account.address}
-                             balance={balances[account.address]}
-                             type={AccountType.DATA_VALIDATOR}
+            <Grid item xs={12} key={account.address}>
+                <DataValidatorAccountCard address={account.address}
+                                          dataOwners={dataOwners[account.address] || []}
+                                          balance={balances[account.address]}
+                                          selectedAsDefault={defaultAccount === account.address}
+                                          onSelect={onDefaultAccountSelected}
                 />
             </Grid>
         ))}

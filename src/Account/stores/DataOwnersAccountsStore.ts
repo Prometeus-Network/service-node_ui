@@ -1,44 +1,50 @@
 import {action, computed, observable, reaction} from "mobx";
 import {AccountsService} from "../../api";
-import {SettingsStore} from "../../Settings";
+import {AccountsStore} from "./AccountsStore";
 
 export class DataOwnersAccountsStore {
+    private readonly accountStore: AccountsStore;
+
     @observable
-    dataOwners: string[] = [];
+    dataOwners: {[dataValidatorAddress: string]: string[]} = {};
 
     @observable
     pending: boolean = false;
 
     @computed
-    get selectedDataValidatorAccount(): string | undefined {
-        return this.settingsStore.selectedDataValidatorAccount;
+    get dataValidators(): string[] {
+        return this.accountStore.dataValidatorAccounts.map(account => account.address);
     }
 
-    private readonly settingsStore: SettingsStore
-
-    constructor(settingsStore: SettingsStore) {
-        this.settingsStore = settingsStore;
+    constructor(accountsStore: AccountsStore) {
+        this.accountStore = accountsStore;
         this.fetchDataOwners();
 
         reaction(
-            () => this.selectedDataValidatorAccount,
+            () => this.dataValidators,
             () => this.fetchDataOwners()
         )
     }
 
     @action
     fetchDataOwners = (): void => {
-        if (this.selectedDataValidatorAccount) {
-            this.pending = true;
-
-            AccountsService.getDataOwnersOfDataValidator(this.selectedDataValidatorAccount)
-                .then(({data}) => this.dataOwners = data.dataOwners)
-                .finally(() => this.pending = false);
-        }
+        this.dataValidators.forEach(dataValidator => {
+            AccountsService.getDataOwnersOfDataValidator(dataValidator)
+                .then(({data}) => {
+                    this.dataOwners = {
+                        ...this.dataOwners,
+                        [dataValidator]: [...data.dataOwners]
+                    };
+                })
+                .catch(_ => {})
+        });
     };
 
     @action
-    addDataOwner = (address: string): void => {
-        this.dataOwners.push(address);
-    }
+    addDataOwner = (address: string, dataValidatorAddress: string): void => {
+        this.dataOwners = {
+            ...this.dataOwners,
+            [dataValidatorAddress]: [...this.dataOwners[dataValidatorAddress], address]
+        };
+    };
 }

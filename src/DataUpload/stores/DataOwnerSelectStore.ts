@@ -1,8 +1,10 @@
 import {action, reaction, computed, observable} from "mobx";
 import {DataOwnersAccountsStore} from "../../Account";
+import {SettingsStore} from "../../Settings/stores";
 
 export class DataOwnerSelectStore {
     private readonly dataOwnersAccounts: DataOwnersAccountsStore;
+    private readonly settings: SettingsStore;
 
     @observable
     selectedDataOwner?: string;
@@ -13,12 +15,22 @@ export class DataOwnerSelectStore {
     }
 
     @computed
-    get dataOwners(): string[] {
-        return this.dataOwnersAccounts.dataOwners;
+    get dataValidator(): string | undefined {
+        return this.settings.selectedDataValidatorAccount
     }
 
-    constructor(dataOwnersAccounts: DataOwnersAccountsStore) {
+    @computed
+    get dataOwners(): string[] {
+        if (this.dataValidator) {
+            return this.dataOwnersAccounts.dataOwners[this.dataValidator] || [];
+        } else {
+            return [];
+        }
+    }
+
+    constructor(dataOwnersAccounts: DataOwnersAccountsStore, settings: SettingsStore) {
         this.dataOwnersAccounts = dataOwnersAccounts;
+        this.settings = settings;
 
         reaction(
             () => this.dataOwners,

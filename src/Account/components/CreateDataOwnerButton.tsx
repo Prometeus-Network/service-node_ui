@@ -40,9 +40,11 @@ const _CreateDataOwnerButton: React.FC<CreateDataOwnerButtonProps> = ({
 
     return (
         <React.Fragment>
-            {pending && <CircularProgress size={5} color="primary"/>}
+            {pending && <CircularProgress size={15} color="primary"/>}
             <Tooltip title="Create data owner">
-                <IconButton onClick={createDataOwner}>
+                <IconButton onClick={createDataOwner}
+                            disabled={pending}
+                >
                     <AddIcon/>
                 </IconButton>
             </Tooltip>

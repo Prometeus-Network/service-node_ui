@@ -41,10 +41,11 @@ export class CreateDataOwnerStore {
                 address,
                 dataValidatorAddress: this.dataValidator
             }).then(() => {
-                this.dataOwnersStore.addDataOwner(address);
+                this.dataOwnersStore.addDataOwner(address, this.dataValidator!);
                 this.showSnackbar = true;
             })
                 .catch((error: AxiosError) => {
+                    console.log(error);
                     this.error = createErrorFromResponse(error);
                     this.showSnackbar = true;
                 })

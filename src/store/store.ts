@@ -15,8 +15,8 @@ const balances = new AccountsBalanceStore(accounts);
 const settings = new SettingsStore(accounts);
 const dataUpload = new UploadDataStore(settings);
 const registration = new AccountRegistrationStore(accounts);
-const dataOwners = new DataOwnersAccountsStore(settings);
-const dataOwnerSelect = new DataOwnerSelectStore(dataOwners);
+const dataOwners = new DataOwnersAccountsStore(accounts);
+const dataOwnerSelect = new DataOwnerSelectStore(dataOwners, settings);
 const createDataOwner = new CreateDataOwnerStore(settings, dataOwners);
 
 export const store: IAppState = {

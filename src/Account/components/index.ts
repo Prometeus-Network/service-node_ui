@@ -4,3 +4,4 @@ export * from "./AccountCard";
 export * from "./DataValidatorAccountsList";
 export * from "./ServiceNodeAccountsList";
 export * from "./CreateDataOwnerButton";
+export * from "./DataValidatorAccountCard";
