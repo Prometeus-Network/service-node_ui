@@ -1,5 +1,5 @@
-import React, {FunctionComponent, Fragment} from "react";
-import {Typography, Grid, Button} from "@material-ui/core";
+import React, {FunctionComponent} from "react";
+import {Button, Grid, Typography} from "@material-ui/core";
 import {CopyToClipboardButton} from "../../CopyToClipboardButton";
 
 interface UploadedFileDescriptorProps {

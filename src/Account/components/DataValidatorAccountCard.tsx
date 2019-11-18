@@ -68,8 +68,9 @@ export const DataValidatorAccountCard: FunctionComponent<DataValidatorAccountCar
             }>
                 <IconButton className={
                     getClassName(classes.expand, {
-                        [classes.expandOpen]: expanded
-                    })}
+                            [classes.expandOpen]: expanded
+                        })
+                }
                             onClick={event => {
                                 event.stopPropagation();
                                 handleExpandClick();

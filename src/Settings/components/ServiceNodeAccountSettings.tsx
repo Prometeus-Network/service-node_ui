@@ -1,7 +1,7 @@
 import * as React from "react";
 import {inject, observer} from "mobx-react";
-import {Typography, Grid} from "@material-ui/core";
-import {DataValidatorAccountsList, ServiceNodeAccountsList} from "../../Account";
+import {Grid} from "@material-ui/core";
+import {ServiceNodeAccountsList} from "../../Account";
 import {AccountBalanceMapping, AccountResponse} from "../../models";
 import {IAppState} from "../../store";
 

@@ -1,12 +1,11 @@
 import {AxiosPromise} from "axios";
 import {axiosInstance} from "../api-client";
 import {
-    UploadDataRequest,
-    UploadDataResponse,
     CreateLocalFileRecordRequest,
+    DdsFileUploadCheckResponse,
     LocalFileRecordResponse,
-    UploadFileChunkRequest,
-    DdsFileUploadCheckResponse
+    UploadDataRequest,
+    UploadFileChunkRequest
 } from "../../models";
 import {CHUNK, FILES, IS_FULLY_UPLOADED, LOCAL, TO_DDS} from "../endpoints";
 
