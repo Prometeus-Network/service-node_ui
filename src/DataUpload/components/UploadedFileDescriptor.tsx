@@ -26,11 +26,12 @@ export const UploadedFileDescriptor: FunctionComponent<UploadedFileDescriptorPro
         </Grid>
         <Grid item xs={12}>
             <Typography variant="body1">
-                Storage price is {storagePrice} ETH
+                Storage price is {storagePrice} PROM
             </Typography>
         </Grid>
         <Grid item xs={12}>
             <Button variant="text"
+                    color="primary"
                     onClick={reset}
             >
                 Upload another file
