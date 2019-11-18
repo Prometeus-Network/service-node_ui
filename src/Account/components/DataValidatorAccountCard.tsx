@@ -1,8 +1,9 @@
 import * as React from "react";
-import {Fragment, FunctionComponent, useState} from "react";
+import {Fragment, FunctionComponent, ReactNode, useState} from "react";
 import getClassName from "clsx";
 import {
     Card,
+    CardActions,
     CardContent,
     CardHeader,
     Collapse,
@@ -58,6 +59,29 @@ export const DataValidatorAccountCard: FunctionComponent<DataValidatorAccountCar
 
     const cursor = selectedAsDefault ? 'default' : 'pointer';
 
+    const actions: ReactNode = (
+        <Fragment>
+            {selectedAsDefault && <CreateDataOwnerButton/>}
+            <Tooltip title={expanded
+                ? "Hide data owners"
+                : "Show data owners"
+            }>
+                <IconButton className={
+                    getClassName(classes.expand, {
+                        [classes.expandOpen]: expanded
+                    })}
+                            onClick={event => {
+                                event.stopPropagation();
+                                handleExpandClick();
+                            }}
+                            aria-expanded={expanded}
+                >
+                    <ExpandMoreIcon/>
+                </IconButton>
+            </Tooltip>
+        </Fragment>
+    );
+
     return (
         <Card elevation={selectedAsDefault ? 3 : 1}
               onClick={() => !selectedAsDefault && onSelect(address)}
@@ -66,7 +90,7 @@ export const DataValidatorAccountCard: FunctionComponent<DataValidatorAccountCar
             <CardHeader title={(
                 <Fragment>
                     <Hidden lgUp>
-                        <Typography variant="caption">
+                        <Typography variant="caption" noWrap>
                             {address}
                         </Typography>
                     </Hidden>
@@ -82,26 +106,9 @@ export const DataValidatorAccountCard: FunctionComponent<DataValidatorAccountCar
                             </Fragment>
                         )}
                         action={(
-                            <Fragment>
-                                {selectedAsDefault && <CreateDataOwnerButton/>}
-                                <Tooltip title={expanded
-                                    ? "Hide data owners"
-                                    : "Show data owners"
-                                }>
-                                    <IconButton className={
-                                        getClassName(classes.expand, {
-                                            [classes.expandOpen]: expanded
-                                    })}
-                                                onClick={event => {
-                                                    event.stopPropagation();
-                                                    handleExpandClick();
-                                                }}
-                                                aria-expanded={expanded}
-                                    >
-                                        <ExpandMoreIcon/>
-                                    </IconButton>
-                                </Tooltip>
-                            </Fragment>
+                            <Hidden smDown>
+                                {actions}
+                            </Hidden>
                         )}
             />
             {selectedAsDefault && (
@@ -111,6 +118,11 @@ export const DataValidatorAccountCard: FunctionComponent<DataValidatorAccountCar
                     </Typography>
                 </CardContent>
             )}
+            <Hidden mdUp>
+                <CardActions style={{float: 'right'}}>
+                    {actions}
+                </CardActions>
+            </Hidden>
             <Collapse in={expanded}
                       timeout="auto"
                       unmountOnExit
