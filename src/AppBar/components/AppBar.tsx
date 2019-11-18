@@ -1,4 +1,5 @@
 import * as React from "react";
+import Headroom from "react-headroom";
 import {inject} from "mobx-react";
 import {
     AppBar as MaterialUiAppBar,
@@ -10,9 +11,9 @@ import {
 } from "@material-ui/core";
 import {NavigationalDrawer} from "./NavigationalDrawer";
 import {OpenDrawerButton} from "./OpenDrawerButton";
-import Headroom from "react-headroom";
 import {Routes} from "../../router";
 import {IAppState} from "../../store";
+import {PrometeusLogoIcon} from "../../icons";
 
 const {Link} = require('mobx-router');
 
@@ -46,6 +47,7 @@ const _AppBar: React.FC<AppBarProps & AppBarMobxProps & AppBarInjectedProps> = (
                   color: 'inherit'
               }}
         >
+            <PrometeusLogoIcon/>
             Service node
         </Link>
     );
