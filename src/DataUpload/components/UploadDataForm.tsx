@@ -61,12 +61,12 @@ const _UploadDataForm: React.FC<UploadDataFormProps> = ({
         : (
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Typography variant="body1">
+                    <Typography variant="body1" noWrap>
                         Selected service node account is {serviceNodeAccount}.
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Typography variant="body1">
+                    <Typography variant="body1" noWrap>
                         Selected data validator account is {dataValidatorAccount}.
                     </Typography>
                 </Grid>
