@@ -134,8 +134,10 @@ export const DataValidatorAccountCard: FunctionComponent<DataValidatorAccountCar
                     <List>
                         {dataOwners.map(dataOwnerAddress => (
                             <ListItem key={dataOwnerAddress}>
-                                <ListItemText>
-                                    {dataOwnerAddress}
+                                <ListItemText disableTypography>
+                                    <Typography variant="body1" noWrap>
+                                        {dataOwnerAddress}
+                                    </Typography>
                                 </ListItemText>
                             </ListItem>
                         ))}
