@@ -17,7 +17,6 @@ interface AccountTypeInfo {
 const ACCOUNT_TYPES: AccountTypeInfo[] = [
     {type: AccountType.DATA_VALIDATOR, disabled: false, label: "Data validator"},
     {type: AccountType.SERVICE_NODE, disabled: false, label: "Service node"},
-    {type: AccountType.DATA_OWNER, disabled: false, label: "Data owner"},
     {type: AccountType.DATA_MART, disabled: true, label: "Data mart"}
 ];
 
