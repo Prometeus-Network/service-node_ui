@@ -34,7 +34,8 @@ In order to run Service node client, you need to do the following:
 - Create and configure `.env` file
     - `REACT_APP_SERVICE_NODE_API_BASE_URL` variable is a base URL of Service node API, e.g. `http://localhost:3002/api/v1`;
     - `REACT_APP_PRODUCTION_PORT` is a port which will be used by Service node client in production mode. E.g. `3000`;
-
+    - `REACT_APP_WEB3_HTTP_PROVIDER` variable is a URL for Web3 HTTP provider. Web3 is needed for dynamic creation of data
+    owners. Example value: `http://localhost:7545`
 ### Build and run process
 
 - Run `npm run production`. This will build application and run it in production mode on port specified in `REACT_APP_PRODUCTION_PORT` variable;
