@@ -32,7 +32,7 @@ const _CreateDataOwnerButton: React.FC<CreateDataOwnerButtonProps> = ({
                 variant: "error"
             })
         } else {
-            enqueueSnackbar("Account has been created");
+            enqueueSnackbar("Data owner has been created");
         }
 
         setShowSnackbar(false);

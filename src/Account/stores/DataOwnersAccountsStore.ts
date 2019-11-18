@@ -1,6 +1,6 @@
 import {action, computed, observable, reaction} from "mobx";
-import {AccountsService} from "../../api";
 import {AccountsStore} from "./AccountsStore";
+import {AccountsService} from "../../api";
 
 export class DataOwnersAccountsStore {
     private readonly accountStore: AccountsStore;
