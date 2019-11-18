@@ -48,7 +48,9 @@ const _AppBar: React.FC<AppBarProps & AppBarMobxProps & AppBarInjectedProps> = (
               }}
         >
             <PrometeusLogoIcon/>
-            Service node
+            <Hidden xsDown>
+               Service node
+            </Hidden>
         </Link>
     );
 
