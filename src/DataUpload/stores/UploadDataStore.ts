@@ -11,7 +11,7 @@ import {
     sleep,
     validateEthereumAddress
 } from "../../utils";
-import {SettingsStore} from "../../Settings/stores";
+import {SettingsStore} from "../../Settings";
 
 const UPLOAD_DATA_FORM_INITIAL_STATE =  {
     data: "",
@@ -251,6 +251,8 @@ export class UploadDataStore {
         this.extension = "";
         this.mimeType = "";
         this.submissionError = undefined;
-        this.errors = UPLOAD_DATA_FORM_ERRORS_INITIAL_STATE;
+        this.attachedFile = undefined;
+
+        setTimeout(() => this.errors = UPLOAD_DATA_FORM_ERRORS_INITIAL_STATE, 1);
     }
 }
