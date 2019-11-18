@@ -57,7 +57,7 @@ const _DataOwnerSelect: React.FC<DataOwnerSelectMobxProps> = ({
 };
 
 const mapMobxToProps = (state: IAppState): DataOwnerSelectMobxProps => ({
-    addresses: state.dataOwners.dataOwners[state.settings.selectedDataValidatorAccount!],
+    addresses: state.dataOwnerSelect.dataOwners,
     error: state.dataUpload.errors.dataOwnerAddress,
     selectedDataOwner: state.dataUpload.uploadDataForm.dataOwnerAddress,
     setSelectedDataOwner: (address: string) => state.dataUpload.setField("dataOwnerAddress", address)
