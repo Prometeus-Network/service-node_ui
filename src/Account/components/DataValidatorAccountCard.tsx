@@ -19,6 +19,7 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {CreateDataOwnerButton} from "./CreateDataOwnerButton";
+import {getBalanceLabel} from "../utils";
 
 interface DataValidatorAccountCardProps {
     address: string,
@@ -40,14 +41,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         transform: 'rotate(180deg)',
     }
 }));
-
-const getBalanceLabel = (balance?: number): string => {
-    if (balance === undefined) {
-        return "0 ETH";
-    } else {
-        return `${balance} ETH`;
-    }
-};
 
 export const DataValidatorAccountCard: FunctionComponent<DataValidatorAccountCardProps> = ({
     address,

@@ -1,5 +1,6 @@
 import * as React from "react";
 import {Card, CardContent, CardHeader, Typography, Hidden} from "@material-ui/core";
+import {getBalanceLabel} from "../utils";
 import {AccountType} from "../../models";
 
 interface AccountCardProps {
@@ -9,14 +10,6 @@ interface AccountCardProps {
     balance: number,
     type: AccountType
 }
-
-const getBalanceLabel = (balance?: number): string => {
-    if (balance === undefined) {
-        return "0 ETH";
-    } else {
-        return `${balance} ETH`;
-    }
-};
 
 export const AccountCard: React.FC<AccountCardProps> = ({
     balance,

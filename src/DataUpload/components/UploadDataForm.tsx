@@ -5,8 +5,8 @@ import {KeyboardDatePicker} from "@material-ui/pickers";
 import {EditableMetadataTable} from "./EditableMetadataTable";
 import {FileInput} from "./FileInput";
 import {DataOwnerSelect} from "./DataOwnerSelect";
+import {UploadedFileDescriptor} from "./UploadedFileDescriptor";
 import {UploadDataRequest, UploadDataResponse} from "../../models";
-import {CopyToClipboardButton} from "../../CopyToClipboardButton";
 import {FormErrors} from "../../utils";
 import {ApiError, SERVICE_NODE_API_UNREACHABLE_CODE} from "../../api";
 import {IAppState} from "../../store";
@@ -38,45 +38,25 @@ const getMessageFromError = (apiError: ApiError): string => {
 };
 
 const _UploadDataForm: React.FC<UploadDataFormProps> = ({
-                                                            errors,
-                                                            uploadData,
-                                                            pending,
-                                                            setFormValue,
-                                                            submissionError,
-                                                            uploadDataForm,
-                                                            response,
-                                                            reset,
-                                                            serviceNodeAccount,
-                                                            dataValidatorAccount,
-                                                            attachFile,
-                                                            file
-                                                        }) => {
+    uploadDataForm,
+    pending,
+    errors,
+    submissionError,
+    response,
+    file,
+    dataValidatorAccount,
+    serviceNodeAccount,
+    uploadData,
+    attachFile,
+    setFormValue,
+    reset
+}) => {
     const content = response
         ? (
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Typography variant="h6">
-                        You have successfully uploaded file
-                    </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography variant="body1">
-                        Uploaded file id is {response.id} <CopyToClipboardButton textToCopy={response.id}/>
-                    </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography variant="body1">
-                        Storage price is {response.price} ETH
-                    </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <Button variant="text"
-                            onClick={reset}
-                    >
-                        Upload another file
-                    </Button>
-                </Grid>
-            </Grid>
+            <UploadedFileDescriptor fileId={response.id}
+                                    storagePrice={response.price}
+                                    reset={reset}
+            />
         )
         : (
             <Grid container spacing={2}>
