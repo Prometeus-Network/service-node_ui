@@ -1,4 +1,4 @@
-import {action, computed, observable} from "mobx";
+import {action, computed, observable, reaction} from "mobx";
 import {AccountsStore} from "./AccountsStore";
 import {AccountBalanceMapping} from "../../models";
 import {createErrorFromResponse, ApiError, AccountsService} from "../../api";
@@ -11,6 +11,11 @@ export class AccountsBalanceStore {
 
     constructor(accountsStore: AccountsStore) {
         this.accountsStore = accountsStore;
+
+        reaction(
+            () => this.accountsStore.accounts,
+            () => this.fetchBalancesOfAllAccounts()
+        );
 
         setInterval(this.fetchBalancesOfAllAccounts, 10000);
     }
