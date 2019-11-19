@@ -6,11 +6,17 @@ import {
     Hidden,
     Toolbar,
     Typography,
+    MenuItem,
+    ListItemIcon,
+    ListItemText,
     withStyles,
     createStyles
 } from "@material-ui/core";
 import {NavigationalDrawer} from "./NavigationalDrawer";
 import {OpenDrawerButton} from "./OpenDrawerButton";
+import {ServiceNodeMenuItem} from "./ServiceNodeMenuItem";
+import {DataValidatorMenuItem} from "./DataValidatorMenuItem";
+import {DataMartMenuItem} from "./DataMartMenuItem";
 import {Routes} from "../../router";
 import {IAppState} from "../../store";
 import {PrometeusLogoIcon} from "../../icons";
@@ -47,10 +53,16 @@ const _AppBar: React.FC<AppBarProps & AppBarMobxProps & AppBarInjectedProps> = (
                   color: 'inherit'
               }}
         >
-            <PrometeusLogoIcon/>
-            <Hidden xsDown>
-               Service node
-            </Hidden>
+            <MenuItem>
+                <ListItemIcon>
+                    <PrometeusLogoIcon/>
+                </ListItemIcon>
+                <ListItemText>
+                    <Hidden xsDown>
+                        Demo
+                    </Hidden>
+                </ListItemText>
+            </MenuItem>
         </Link>
     );
 
@@ -67,14 +79,22 @@ const _AppBar: React.FC<AppBarProps & AppBarMobxProps & AppBarInjectedProps> = (
                         <Hidden lgUp>
                             <OpenDrawerButton/>
                         </Hidden>
-                        <Typography variant="h6" className={classes.grow}>
-                            {title
-                                ? <span>
-                                {linkToHome} <Hidden smDown> | {title}</Hidden>
-                        </span>
-                                : linkToHome
-                            }
-                        </Typography>
+                        <div className={classes.grow}
+                             style={{display: 'flex'}}
+                        >
+                            <Typography variant="h6">
+                                {title
+                                    ?
+                                    <span>{linkToHome} <Hidden smDown> | {title}</Hidden></span>
+                                    : linkToHome
+                                }
+                            </Typography>
+                            <Hidden mdDown>
+                                <ServiceNodeMenuItem/>
+                                <DataValidatorMenuItem/>
+                                <DataMartMenuItem/>
+                            </Hidden>
+                        </div>
                     </Toolbar>
                 </MaterialUiAppBar>
             </Headroom>
