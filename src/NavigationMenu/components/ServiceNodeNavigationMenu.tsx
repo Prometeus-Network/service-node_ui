@@ -9,7 +9,10 @@ import {
 import HomeIcon from "@material-ui/icons/Home";
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import HistoryIcon from "@material-ui/icons/History";
+import {Routes} from "../../router";
 import {IAppState} from "../../store";
+
+const {Link} = require("mobx-router");
 
 interface ServiceNodeNavigationMenuMobxProps {
     store?: any
@@ -26,30 +29,38 @@ const _ServiceNodeNavigationMenu: FunctionComponent<ServiceNodeNavigationMenuPro
     onItemClick
 }) => (
     <List>
-        <MenuItem onClick={() => onItemClick && onItemClick()}>
-            <ListItemIcon>
-                <HomeIcon/>
-            </ListItemIcon>
-            <ListItemText>
-                Home
-            </ListItemText>
-        </MenuItem>
-        <MenuItem onClick={() => onItemClick && onItemClick()}>
-            <ListItemIcon>
-                <HistoryIcon/>
-            </ListItemIcon>
-            <ListItemText>
-                Transactions history
-            </ListItemText>
-        </MenuItem>
-        <MenuItem onClick={() => onItemClick && onItemClick()}>
-            <ListItemIcon>
-                <AccountBalanceWalletIcon/>
-            </ListItemIcon>
-            <ListItemText>
-                Accounts
-            </ListItemText>
-        </MenuItem>
+        <Link store={store}
+              view={Routes.serviceNodeHome}
+              style={{
+                  textDecoration: 'none',
+                  color: 'inherit'
+              }}
+        >
+            <MenuItem onClick={() => onItemClick && onItemClick()}>
+                <ListItemIcon>
+                    <HomeIcon/>
+                </ListItemIcon>
+                <ListItemText>
+                    Home
+                </ListItemText>
+            </MenuItem>
+        </Link>
+        <Link store={store}
+              view={Routes.serviceNodeTransactions}
+              style={{
+                  textDecoration: 'none',
+                  color: 'inherit'
+              }}
+        >
+            <MenuItem onClick={() => onItemClick && onItemClick()}>
+                <ListItemIcon>
+                    <HistoryIcon/>
+                </ListItemIcon>
+                <ListItemText>
+                    Transactions history
+                </ListItemText>
+            </MenuItem>
+        </Link>
     </List>
 );
 

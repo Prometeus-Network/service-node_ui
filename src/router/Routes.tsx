@@ -5,7 +5,10 @@ import {
     DataUploadPage,
     RegistrationPage,
     SettingsPage,
-    FilesPage, DataValidatorHomePage
+    FilesPage,
+    DataValidatorHomePage,
+    ServiceNodeHomePage,
+    ServiceNodeTransactionsHistoryPage
 } from "../pages";
 
 const Route = require("mobx-router").Route;
@@ -38,5 +41,13 @@ export const Routes = {
     files: new Route({
         path: '/data-mart/files',
         component: <FilesPage/>
+    }),
+    serviceNodeHome: new Route({
+        path: '/service-node',
+        component: <ServiceNodeHomePage/>
+    }),
+    serviceNodeTransactions: new Route({
+        path: '/service-node/transactions',
+        component: <ServiceNodeTransactionsHistoryPage/>
     })
 };

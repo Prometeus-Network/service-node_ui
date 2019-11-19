@@ -5,3 +5,5 @@ export * from "./RegistrationPage";
 export * from "./SettingsPage";
 export * from "./FilesPage";
 export * from "./DataValidatorHomePage";
+export * from "./ServiceNodeHomePage";
+export * from "./ServiceNodeTransactionsHistoryPage";
