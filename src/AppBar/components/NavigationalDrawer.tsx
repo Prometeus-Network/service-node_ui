@@ -17,7 +17,7 @@ const _NavigationalDrawer: React.FC<NavigationalDrawerProps> = ({
                      onOpen={() => setDrawerOpen(true)}
                      open={drawerOpen}
     >
-        <NavigationMenu/>
+        <NavigationMenu onItemClick={() => setDrawerOpen(false)}/>
     </SwipeableDrawer>
 );
 
