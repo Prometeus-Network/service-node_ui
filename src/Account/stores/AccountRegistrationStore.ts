@@ -33,8 +33,9 @@ export class AccountRegistrationStore {
 
     private readonly accountsStore: AccountsStore;
 
-    constructor(accountsStore: AccountsStore) {
+    constructor(accountsStore: AccountsStore, defaultAccountType: AccountType) {
         this.accountsStore = accountsStore;
+        this.registrationForm.type = defaultAccountType;
 
         reaction(
             () => this.registrationForm.type,

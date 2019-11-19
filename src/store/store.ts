@@ -1,20 +1,24 @@
 import {IAppState} from "./IAppState";
 import {
-    AccountsStore,
-    AccountsBalanceStore,
     AccountRegistrationStore,
-    DataOwnersAccountsStore,
-    CreateDataOwnerStore
+    AccountsBalanceStore,
+    AccountsStore,
+    CreateDataOwnerStore,
+    DataOwnersAccountsStore
 } from "../Account";
-import {UploadDataStore, AddMetadataDialogStore, EditMetadataDialogStore, DataOwnerSelectStore} from "../DataUpload";
+import {AddMetadataDialogStore, DataOwnerSelectStore, EditMetadataDialogStore, UploadDataStore} from "../DataUpload";
 import {DrawerStore} from "../AppBar";
 import {SettingsStore} from "../Settings";
+import {AccountType} from "../models";
 
 const accounts = new AccountsStore();
 const balances = new AccountsBalanceStore(accounts);
 const settings = new SettingsStore(accounts);
 const dataUpload = new UploadDataStore(settings);
-const registration = new AccountRegistrationStore(accounts);
+const registration = new AccountRegistrationStore(accounts, AccountType.DATA_VALIDATOR);
+const dataValidatorRegistration = new AccountRegistrationStore(accounts, AccountType.DATA_VALIDATOR);
+const dataMartRegistration = new AccountRegistrationStore(accounts, AccountType.DATA_MART);
+const serviceNodeRegistration = new AccountRegistrationStore(accounts, AccountType.SERVICE_NODE);
 const dataOwners = new DataOwnersAccountsStore(accounts);
 const dataOwnerSelect = new DataOwnerSelectStore(dataOwners, settings);
 const createDataOwner = new CreateDataOwnerStore(settings, dataOwners);
@@ -30,5 +34,8 @@ export const store: IAppState = {
     balances,
     dataOwners,
     dataOwnerSelect,
-    createDataOwner
+    createDataOwner,
+    dataMartRegistration,
+    dataValidatorRegistration,
+    serviceNodeRegistration
 };
