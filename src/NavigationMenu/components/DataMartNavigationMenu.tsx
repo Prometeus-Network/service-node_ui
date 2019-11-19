@@ -8,8 +8,11 @@ import {
 } from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
 import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import {IAppState} from "../../store";
+import {Routes} from "../../router";
+
+const {Link} = require("mobx-router");
 
 interface DataMartNavigationMenuMobxProps {
     store?: any
@@ -34,17 +37,25 @@ const _DataValidatorNavigationMenu: FunctionComponent<DataMartNavigationMenuProp
                 Home
             </ListItemText>
         </MenuItem>
+        <Link store={store}
+              view={Routes.files}
+              style={{
+                  textDecoration: 'none',
+                  color: 'inherit'
+              }}
+        >
+            <MenuItem onClick={() => onItemClick && onItemClick()}>
+                <ListItemIcon>
+                    <InsertDriveFileIcon/>
+                </ListItemIcon>
+                <ListItemText>
+                    Explore files
+                </ListItemText>
+            </MenuItem>
+        </Link>
         <MenuItem onClick={() => onItemClick && onItemClick()}>
             <ListItemIcon>
-                <InsertDriveFileIcon/>
-            </ListItemIcon>
-            <ListItemText>
-                Explore files
-            </ListItemText>
-        </MenuItem>
-        <MenuItem onClick={() => onItemClick && onItemClick()}>
-            <ListItemIcon>
-                <AccountBalanceIcon/>
+                <AccountBalanceWalletIcon/>
             </ListItemIcon>
             <ListItemText>
                 Accounts

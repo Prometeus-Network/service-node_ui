@@ -20,7 +20,7 @@ interface DataValidatorNavigationMenuMobxProps {
 }
 
 interface DataValidatorNavigationMenuOwnProps {
-    onItemClick?: () => void
+    onItemClick?: () => void,
 }
 
 type DataValidatorNavigationMenuProps = DataValidatorNavigationMenuMobxProps & DataValidatorNavigationMenuOwnProps
@@ -28,7 +28,7 @@ type DataValidatorNavigationMenuProps = DataValidatorNavigationMenuMobxProps & D
 const _DataValidatorNavigationMenu: FunctionComponent<DataValidatorNavigationMenuProps> = ({store, onItemClick}) => (
     <List>
         <Link store={store}
-              view={Routes.home}
+              view={Routes.dataValidatorHome}
               style={{
                   textDecoration: 'none',
                   color: 'inherit'

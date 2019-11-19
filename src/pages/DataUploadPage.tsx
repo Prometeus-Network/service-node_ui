@@ -4,7 +4,7 @@ import {Grid, Hidden, Typography} from "@material-ui/core";
 import {AppBar} from "../AppBar";
 import {Layout} from "../Layout";
 import {UploadDataForm} from "../DataUpload";
-import {NavigationMenu} from "../NavigationMenu";
+import {DataValidatorNavigationMenu} from "../NavigationMenu";
 import {Footer} from "../Footer";
 import {Routes} from "../router";
 import {IAppState} from "../store";
@@ -52,7 +52,7 @@ const _DataUploadPage: React.FC<DataUploadPageMobxProps> = ({selectedDataValidat
             </Grid>
             <Hidden mdDown>
                 <Grid item lg={2}>
-                    <NavigationMenu/>
+                    <DataValidatorNavigationMenu/>
                 </Grid>
             </Hidden>
             <Grid item xs={12} lg={10}>

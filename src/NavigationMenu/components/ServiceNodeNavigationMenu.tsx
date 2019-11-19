@@ -7,7 +7,7 @@ import {
     ListItemText
 } from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import HistoryIcon from "@material-ui/icons/History";
 import {IAppState} from "../../store";
 
@@ -44,7 +44,7 @@ const _ServiceNodeNavigationMenu: FunctionComponent<ServiceNodeNavigationMenuPro
         </MenuItem>
         <MenuItem onClick={() => onItemClick && onItemClick()}>
             <ListItemIcon>
-                <AccountBalanceIcon/>
+                <AccountBalanceWalletIcon/>
             </ListItemIcon>
             <ListItemText>
                 Accounts

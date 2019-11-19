@@ -14,7 +14,7 @@ export const HomePage: React.FC = () => (
         </Grid>
         <Hidden mdDown>
             <Grid item lg={2}>
-                <NavigationMenu/>
+                <NavigationMenu hideExpansionIcons/>
             </Grid>
         </Hidden>
         <Grid item xs={12} lg={10}>

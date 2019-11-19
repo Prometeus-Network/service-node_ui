@@ -1,17 +1,13 @@
-import * as React from "react";
+import React, {Fragment} from "react";
 import {inject} from "mobx-react";
-import {
-    List,
-    MenuItem,
-    ListItemIcon,
-    ListItemText
-} from "@material-ui/core";
-import HomeIcon from "@material-ui/icons/Home";
-import UploadIcon from "@material-ui/icons/CloudUpload"
-import AccountIcon from "@material-ui/icons/AccountCircle"
-import SettingsIcon from "@material-ui/icons/Settings";
-import {Routes} from "../../router";
+import CheckIcon from "@material-ui/icons/Check";
+import StorageIcon from "@material-ui/icons/Storage";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import {IAppState} from "../../store";
+import {ExpandableMenuContainer} from "./ExpandableMenuContainer";
+import {ServiceNodeNavigationMenu} from "./ServiceNodeNavigationMenu";
+import {DataValidatorNavigationMenu} from "./DataValidatorNavigationMenu";
+import {DataMartNavigationMenu} from "./DataMartNavigationMenu";
 
 const {Link} = require("mobx-router");
 
@@ -20,74 +16,33 @@ interface NavigationMenuMobxProps {
 }
 
 interface NavigationMenuOwnProps {
-    onItemClick?: () => void
+    onItemClick?: () => void,
+    hideExpansionIcons?: boolean
 }
 
 type NavigationMenuProps = NavigationMenuMobxProps & NavigationMenuOwnProps
 
-const _NavigationMenu: React.FC<NavigationMenuProps> = ({store, onItemClick}) => (
-    <List>
-        <Link store={store}
-              view={Routes.home}
-              style={{
-                  textDecoration: 'none',
-                  color: 'inherit'
-              }}
+const _NavigationMenu: React.FC<NavigationMenuProps> = ({store, onItemClick, hideExpansionIcons = false}) => (
+    <Fragment>
+        <ExpandableMenuContainer label="Service node"
+                                 icon={<StorageIcon/>}
+                                 hideExpansionIcon={hideExpansionIcons}
         >
-            <MenuItem onClick={() => onItemClick && onItemClick()}>
-                <ListItemIcon>
-                    <HomeIcon/>
-                </ListItemIcon>
-                <ListItemText>Home</ListItemText>
-            </MenuItem>
-        </Link>
-        <Link store={store}
-              view={Routes.dataUpload}
-              style={{
-                  textDecoration: 'none',
-                  color: 'inherit'
-              }}
+            <ServiceNodeNavigationMenu onItemClick={onItemClick}/>
+        </ExpandableMenuContainer>
+        <ExpandableMenuContainer label="Data validator"
+                                 icon={<CheckIcon/>}
+                                 hideExpansionIcon={hideExpansionIcons}
         >
-            <MenuItem onClick={() => onItemClick && onItemClick()}>
-                <ListItemIcon>
-                    <UploadIcon/>
-                </ListItemIcon>
-                <ListItemText>Upload data</ListItemText>
-            </MenuItem>
-        </Link>
-        <Link store={store}
-              view={Routes.registration}
-              style={{
-                  textDecoration: 'none',
-                  color: 'inherit'
-              }}
+            <DataValidatorNavigationMenu onItemClick={onItemClick}/>
+        </ExpandableMenuContainer>
+        <ExpandableMenuContainer label="Data mart"
+                                 icon={<MonetizationOnIcon/>}
+                                 hideExpansionIcon={hideExpansionIcons}
         >
-            <MenuItem onClick={() => onItemClick && onItemClick()}>
-                <ListItemIcon>
-                    <AccountIcon/>
-                </ListItemIcon>
-                <ListItemText>
-                    Register
-                </ListItemText>
-            </MenuItem>
-        </Link>
-        <Link store={store}
-              view={Routes.settings}
-              style={{
-                  textDecoration: 'none',
-                  color: 'inherit'
-              }}
-        >
-            <MenuItem onClick={() => onItemClick && onItemClick()}>
-                <ListItemIcon>
-                    <SettingsIcon/>
-                </ListItemIcon>
-                <ListItemText>
-                    Settings
-                </ListItemText>
-            </MenuItem>
-        </Link>
-    </List>
+            <DataMartNavigationMenu onItemClick={onItemClick}/>
+        </ExpandableMenuContainer>
+    </Fragment>
 );
 
 const mapMobxToProps = (state: IAppState): NavigationMenuMobxProps => ({

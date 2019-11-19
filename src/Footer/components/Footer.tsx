@@ -17,7 +17,7 @@ export const Footer: React.FC<{}> = () => {
 
     return (
         <div className={classes.footer}>
-            <Typography variant="caption"
+            <Typography variant="body1"
                         color="textSecondary"
             >
                 Service node client v. {version}
