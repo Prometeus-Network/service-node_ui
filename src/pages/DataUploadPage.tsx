@@ -24,21 +24,22 @@ const _DataUploadPage: React.FC<DataUploadPageMobxProps> = ({selectedDataValidat
         content = (
             <Typography variant="body1">
                 Looks like you haven't selected neither data validator account nor service node account.
-                You can select them in <Link view={Routes.settings} store={store}>settings</Link>.
+                You can select them in <Link view={Routes.dataValidatorHome} store={store}>data validator home page</Link>
+                and <Link view={Routes.serviceNodeHome}>service node home page</Link>.
             </Typography>
         );
     } else if (!selectedDataValidatorAccount) {
         content = (
             <Typography variant="body1">
                 Looks like you haven't selected data validator account.
-                You can select it in <Link view={Routes.settings} store={store}>settings</Link>.
+                You can select it in <Link view={Routes.dataValidatorHome} store={store}>data validator home page</Link>.
             </Typography>
         );
     } else if (!selectedServiceNodeAccount) {
         content = (
             <Typography variant="body1">
                 Looks like you haven't selected service node account.
-                You can select it in <Link view={Routes.settings} store={store}>settings</Link>.
+                You can select it in <Link view={Routes.serviceNodeHome} store={store}>service node home page</Link>.
             </Typography>
         )
     } else {
