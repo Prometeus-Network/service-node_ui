@@ -12,7 +12,7 @@ export const NotFoundPage: React.FC<any> = () => (
         </Grid>
         <Hidden mdDown>
             <Grid item lg={2}>
-                <NavigationMenu/>
+                <NavigationMenu hideExpansionIcons/>
             </Grid>
         </Hidden>
         <Grid item xs={12} lg={10}>
