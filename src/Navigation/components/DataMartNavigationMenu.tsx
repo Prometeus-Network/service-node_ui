@@ -3,7 +3,6 @@ import {inject} from "mobx-react";
 import {List, ListItemIcon, ListItemText, MenuItem} from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
 import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import {IAppState} from "../../store";
 import {Routes} from "../../router";
@@ -73,14 +72,6 @@ const _DataValidatorNavigationMenu: FunctionComponent<DataMartNavigationMenuProp
                 </ListItemText>
             </MenuItem>
         </Link>
-        <MenuItem onClick={() => onItemClick && onItemClick()}>
-            <ListItemIcon>
-                <AccountBalanceWalletIcon/>
-            </ListItemIcon>
-            <ListItemText>
-                Accounts
-            </ListItemText>
-        </MenuItem>
     </List>
 );
 
