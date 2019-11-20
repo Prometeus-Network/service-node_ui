@@ -1,11 +1,6 @@
 import React, {FunctionComponent} from "react";
 import {inject} from "mobx-react";
-import {
-    List,
-    MenuItem,
-    ListItemIcon,
-    ListItemText
-} from "@material-ui/core";
+import {List, ListItemIcon, ListItemText, MenuItem} from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
 import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
@@ -30,14 +25,22 @@ const _DataValidatorNavigationMenu: FunctionComponent<DataMartNavigationMenuProp
     onItemClick
 }) => (
     <List>
-        <MenuItem onClick={() => onItemClick && onItemClick()}>
-            <ListItemIcon>
-                <HomeIcon/>
-            </ListItemIcon>
-            <ListItemText>
-                Home
-            </ListItemText>
-        </MenuItem>
+        <Link store={store}
+              view={Routes.dataMartHome}
+              style={{
+                  textDecoration: 'none',
+                  color: 'inherit'
+              }}
+        >
+            <MenuItem onClick={() => onItemClick && onItemClick()}>
+                <ListItemIcon>
+                    <HomeIcon/>
+                </ListItemIcon>
+                <ListItemText>
+                    Home
+                </ListItemText>
+            </MenuItem>
+        </Link>
         <Link store={store}
               view={Routes.files}
               style={{

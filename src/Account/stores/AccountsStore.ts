@@ -28,6 +28,11 @@ export class AccountsStore {
         return this.accounts.filter(account => account.type === AccountType.DATA_OWNER);
     }
 
+    @computed
+    get dataMartAccounts(): AccountResponse[] {
+        return this.accounts.filter(account => account.type === AccountType.DATA_MART);
+    }
+
     @action
     addAccount = (account: AccountResponse): void => {
         this.accounts.push(account);

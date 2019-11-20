@@ -7,7 +7,7 @@ import {
 } from "../Account";
 import {UploadDataStore, AddMetadataDialogStore, EditMetadataDialogStore, DataOwnerSelectStore} from "../DataUpload";
 import {DrawerStore} from "../AppBar";
-import {SettingsStore} from "../Settings/stores";
+import {SettingsStore} from "../Settings";
 
 export interface IAppState {
     store?: any, //needed for Mobx-router

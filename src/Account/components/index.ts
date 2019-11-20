@@ -10,3 +10,4 @@ export * from "./ServiceNodeRegistrationForm";
 export * from "./DataMartAccountRegistrationForm";
 export * from "./DataValidatorAccountRegistrationForm";
 export * from "./createAccountRegistrationForm";
+export * from "./DataMartAccountsList";

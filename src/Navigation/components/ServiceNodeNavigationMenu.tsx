@@ -1,11 +1,6 @@
 import React, {FunctionComponent} from "react";
 import {inject} from "mobx-react";
-import {
-    List,
-    MenuItem,
-    ListItemIcon,
-    ListItemText
-} from "@material-ui/core";
+import {List, ListItemIcon, ListItemText, MenuItem} from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
 import HistoryIcon from "@material-ui/icons/History";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -73,7 +68,7 @@ const _ServiceNodeNavigationMenu: FunctionComponent<ServiceNodeNavigationMenuPro
                     <HistoryIcon/>
                 </ListItemIcon>
                 <ListItemText>
-                    Transactions history
+                    Transactions
                 </ListItemText>
             </MenuItem>
         </Link>

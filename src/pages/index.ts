@@ -9,3 +9,4 @@ export * from "./ServiceNodeTransactionsHistoryPage";
 export * from "./ServiceNodeRegistrationPage";
 export * from "./DataValidatorRegistrationPage";
 export * from "./DataMartRegistrationPage";
+export * from "./DataMartHomePage";

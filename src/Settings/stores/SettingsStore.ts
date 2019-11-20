@@ -4,6 +4,8 @@ import {ApiError} from "../../api";
 import {AccountsStore} from "../../Account/stores";
 
 export class SettingsStore {
+    private readonly accountsStore: AccountsStore;
+
     @observable
     selectedServiceNodeAccount?: string = localStorage.getItem("selectedServiceNodeAccount") !== null
         ? localStorage.getItem("selectedServiceNodeAccount")!
@@ -14,7 +16,10 @@ export class SettingsStore {
         ? localStorage.getItem("selectedDataValidatorAccount")!
         : undefined;
 
-    private readonly accountsStore: AccountsStore;
+    @observable
+    selectedDataMartAccount?: string = localStorage.getItem("selectedDataMartAccount") !== null
+        ? localStorage.getItem("selectedDataMartAccount")!
+        : undefined;
 
     @computed
     get serviceNodeAccounts(): AccountResponse[] {
@@ -29,6 +34,11 @@ export class SettingsStore {
     @computed
     get dataOwnerAccounts(): AccountResponse[] {
         return this.accountsStore.dataOwnerAccounts;
+    }
+
+    @computed
+    get dataMartAccounts(): AccountResponse[] {
+        return this.accountsStore.dataMartAccounts;
     }
 
     @computed
@@ -61,4 +71,10 @@ export class SettingsStore {
         localStorage.setItem("selectedDataValidatorAccount", accountAddress);
         this.selectedDataValidatorAccount = accountAddress;
     };
+
+    @action
+    selectDataMartAccount = (accountAddress: string): void => {
+        localStorage.setItem("selectedDataMartAccount", accountAddress);
+        this.selectedDataMartAccount = accountAddress;
+    }
 }

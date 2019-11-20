@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+    DataMartHomePage,
     DataMartRegistrationPage,
     DataUploadPage,
     DataValidatorHomePage,
@@ -54,5 +55,9 @@ export const Routes = {
     dataMartRegistration: new Route({
         path: '/data-mart/registration',
         component: <DataMartRegistrationPage/>
+    }),
+    dataMartHome: new Route({
+        path: '/data-mart',
+        component: <DataMartHomePage/>
     })
 };
