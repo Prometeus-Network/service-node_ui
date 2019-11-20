@@ -7,8 +7,8 @@ import {
     ListItemText
 } from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import HistoryIcon from "@material-ui/icons/History";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import {Routes} from "../../router";
 import {IAppState} from "../../store";
 
@@ -42,6 +42,22 @@ const _ServiceNodeNavigationMenu: FunctionComponent<ServiceNodeNavigationMenuPro
                 </ListItemIcon>
                 <ListItemText>
                     Home
+                </ListItemText>
+            </MenuItem>
+        </Link>
+        <Link store={store}
+              view={Routes.serviceNodeRegistration}
+              style={{
+                  textDecoration: 'none',
+                  color: 'inherit'
+              }}
+        >
+            <MenuItem onClick={() => onItemClick && onItemClick()}>
+                <ListItemIcon>
+                    <AccountCircleIcon/>
+                </ListItemIcon>
+                <ListItemText>
+                    Register
                 </ListItemText>
             </MenuItem>
         </Link>

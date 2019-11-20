@@ -2,7 +2,7 @@ import React, {FunctionComponent} from "react";
 import {Typography, Grid, Hidden} from "@material-ui/core";
 import {AppBar} from "../AppBar";
 import {Layout} from "../Layout";
-import {DataMartNavigationMenu} from "../NavigationMenu";
+import {DataMartNavigationMenu} from "../Navigation";
 import {Footer} from "../Footer";
 
 export const FilesPage: FunctionComponent<{}> = () => (

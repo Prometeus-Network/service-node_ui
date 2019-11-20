@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from "react";
 import {Button, Card, CardContent, CardHeader, CircularProgress, TextField, Typography} from "@material-ui/core";
 import {withSnackbar, WithSnackbarProps} from "notistack";
-import {ApiError} from "../../api";
+import {ApiError, SERVICE_NODE_API_UNREACHABLE_CODE} from "../../api";
 import {RegisterAccountResponse} from "../../models";
 
 export interface GenericAccountRegistrationFormOwnProps {
@@ -11,12 +11,25 @@ export interface GenericAccountRegistrationFormOwnProps {
     response?: RegisterAccountResponse,
     pending: boolean,
     label: string,
+    showSnackbar: boolean,
     onSubmit: () => void,
     setShowSnackbar: (showSnackBar: boolean) => void,
     onAddressChange: (address: string) => void
 }
 
 type GenericAccountRegistrationFormProps = GenericAccountRegistrationFormOwnProps & WithSnackbarProps;
+
+const getMessageFromError = (apiError: ApiError): string => {
+    if (apiError.status === 400) {
+        return "Account with such address has already been registered.";
+    } else if (apiError.status === 500) {
+        return "Internal server error occurred."
+    } else if (apiError.status === SERVICE_NODE_API_UNREACHABLE_CODE) {
+        return "Service node is unreachable. Please make sure that it's running."
+    } else {
+        return "Unknown error occurred when tried to register account."
+    }
+};
 
 const _GenericAccountRegistrationForm: FunctionComponent<GenericAccountRegistrationFormProps> = ({
     response,
@@ -26,11 +39,12 @@ const _GenericAccountRegistrationForm: FunctionComponent<GenericAccountRegistrat
     address,
     label,
     enqueueSnackbar,
+    showSnackbar,
     setShowSnackbar,
     onSubmit,
     onAddressChange
 }) => {
-    if (response) {
+    if (showSnackbar && response) {
         enqueueSnackbar("Account has been created");
         setShowSnackbar(false);
     }
@@ -45,10 +59,12 @@ const _GenericAccountRegistrationForm: FunctionComponent<GenericAccountRegistrat
                            onChange={event => onAddressChange(event.target.value as string)}
                            fullWidth
                            margin="dense"
+                           label="Address"
                 />
                 <Button variant="contained"
                         disabled={pending}
                         onClick={onSubmit}
+                        color="primary"
                 >
                     Register account
                 </Button>
@@ -57,7 +73,7 @@ const _GenericAccountRegistrationForm: FunctionComponent<GenericAccountRegistrat
                     <Typography variant="body1"
                                 style={{color: 'red'}}
                     >
-                        {submissionError}
+                        {getMessageFromError(submissionError)}
                     </Typography>
                 )}
             </CardContent>
@@ -65,4 +81,4 @@ const _GenericAccountRegistrationForm: FunctionComponent<GenericAccountRegistrat
     )
 };
 
-export const GenericAccountRegistrationForm = withSnackbar(_GenericAccountRegistrationForm);
+export const GenericAccountRegistrationForm = withSnackbar(_GenericAccountRegistrationForm) as unknown as FunctionComponent<GenericAccountRegistrationFormOwnProps>;

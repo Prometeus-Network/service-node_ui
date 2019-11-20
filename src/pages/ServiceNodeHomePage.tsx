@@ -3,7 +3,7 @@ import {Grid, Hidden} from "@material-ui/core";
 import {AppBar} from "../AppBar";
 import {Layout} from "../Layout";
 import {Footer} from "../Footer";
-import {ServiceNodeNavigationMenu} from "../NavigationMenu";
+import {ServiceNodeNavigationMenu} from "../Navigation";
 import {ServiceNodeAccountSettings} from "../Settings";
 
 export const ServiceNodeHomePage: FunctionComponent<{}> = () => (

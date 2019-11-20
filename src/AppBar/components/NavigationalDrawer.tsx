@@ -1,7 +1,7 @@
 import * as React from "react";
 import {inject, observer} from "mobx-react";
 import {SwipeableDrawer} from "@material-ui/core";
-import {NavigationMenu} from "../../NavigationMenu";
+import {NavigationMenu} from "../../Navigation";
 import {IAppState} from "../../store";
 
 interface NavigationalDrawerProps {

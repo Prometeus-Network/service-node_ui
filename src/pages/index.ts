@@ -7,3 +7,6 @@ export * from "./FilesPage";
 export * from "./DataValidatorHomePage";
 export * from "./ServiceNodeHomePage";
 export * from "./ServiceNodeTransactionsHistoryPage";
+export * from "./ServiceNodeRegistrationPage";
+export * from "./DataValidatorRegistrationPage";
+export * from "./DataMartRegistrationPage";

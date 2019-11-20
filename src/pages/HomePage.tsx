@@ -3,7 +3,7 @@ import {Grid, Hidden, Typography} from "@material-ui/core";
 import {AppBar} from "../AppBar";
 import {Footer} from "../Footer";
 import {Layout} from "../Layout";
-import {NavigationMenu} from "../NavigationMenu";
+import {NavigationMenu} from "../Navigation";
 
 const {version} = require("../../package.json");
 

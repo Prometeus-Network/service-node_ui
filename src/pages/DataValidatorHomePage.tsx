@@ -2,7 +2,7 @@ import React, {FunctionComponent} from "react";
 import {Grid, Hidden} from "@material-ui/core";
 import {AppBar} from "../AppBar";
 import {Layout} from "../Layout";
-import {DataValidatorNavigationMenu} from "../NavigationMenu";
+import {DataValidatorNavigationMenu} from "../Navigation";
 import {Footer} from "../Footer";
 import {DataValidatorAccountSettings} from "../Settings";
 

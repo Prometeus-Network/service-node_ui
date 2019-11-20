@@ -9,6 +9,7 @@ import {
 import HomeIcon from "@material-ui/icons/Home";
 import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import {IAppState} from "../../store";
 import {Routes} from "../../router";
 
@@ -50,6 +51,22 @@ const _DataValidatorNavigationMenu: FunctionComponent<DataMartNavigationMenuProp
                 </ListItemIcon>
                 <ListItemText>
                     Explore files
+                </ListItemText>
+            </MenuItem>
+        </Link>
+        <Link store={store}
+              view={Routes.dataMartRegistration}
+              style={{
+                  textDecoration: 'none',
+                  color: 'inherit'
+              }}
+        >
+            <MenuItem onClick={() => onItemClick && onItemClick()}>
+                <ListItemIcon>
+                    <AccountCircleIcon/>
+                </ListItemIcon>
+                <ListItemText>
+                    Register
                 </ListItemText>
             </MenuItem>
         </Link>

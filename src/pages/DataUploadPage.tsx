@@ -4,7 +4,7 @@ import {Grid, Hidden, Typography} from "@material-ui/core";
 import {AppBar} from "../AppBar";
 import {Layout} from "../Layout";
 import {UploadDataForm} from "../DataUpload";
-import {DataValidatorNavigationMenu} from "../NavigationMenu";
+import {DataValidatorNavigationMenu} from "../Navigation";
 import {Footer} from "../Footer";
 import {Routes} from "../router";
 import {IAppState} from "../store";

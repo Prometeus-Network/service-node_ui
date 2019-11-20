@@ -1,24 +1,24 @@
-import * as React from "react";
+import React, {FunctionComponent} from "react";
 import {Grid, Hidden} from "@material-ui/core";
 import {AppBar} from "../AppBar";
-import {Footer} from "../Footer";
-import {NavigationMenu} from "../Navigation";
-import {AccountRegistrationForm} from "../Account";
 import {Layout} from "../Layout";
+import {Footer} from "../Footer";
+import {DataValidatorNavigationMenu} from "../Navigation";
+import {DataValidatorAccountRegistrationForm} from "../Account";
 
-export const RegistrationPage: React.FC<any> = () => (
-    <Grid container spacing={1}>
+export const DataValidatorRegistrationPage: FunctionComponent<{}> = () => (
+    <Grid container>
         <Grid item xs={12}>
             <AppBar/>
         </Grid>
         <Hidden mdDown>
             <Grid item lg={2}>
-                <NavigationMenu/>
+                <DataValidatorNavigationMenu/>
             </Grid>
         </Hidden>
         <Grid item xs={12} lg={10}>
             <Layout>
-                <AccountRegistrationForm/>
+                <DataValidatorAccountRegistrationForm/>
             </Layout>
         </Grid>
         <Grid item xs={12}>

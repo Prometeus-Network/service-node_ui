@@ -5,3 +5,8 @@ export * from "./DataValidatorAccountsList";
 export * from "./ServiceNodeAccountsList";
 export * from "./CreateDataOwnerButton";
 export * from "./DataValidatorAccountCard";
+export * from "./GenericAccountRegistrationForm";
+export * from "./ServiceNodeRegistrationForm";
+export * from "./DataMartAccountRegistrationForm";
+export * from "./DataValidatorAccountRegistrationForm";
+export * from "./createAccountRegistrationForm";

@@ -3,12 +3,14 @@ import {
     HomePage,
     NotFoundPage,
     DataUploadPage,
-    RegistrationPage,
     SettingsPage,
     FilesPage,
     DataValidatorHomePage,
     ServiceNodeHomePage,
-    ServiceNodeTransactionsHistoryPage
+    ServiceNodeTransactionsHistoryPage,
+    ServiceNodeRegistrationPage,
+    DataValidatorRegistrationPage,
+    DataMartRegistrationPage
 } from "../pages";
 
 const Route = require("mobx-router").Route;
@@ -32,7 +34,7 @@ export const Routes = {
     }),
     registration: new Route({
         path: '/data-validator/registration',
-        component: <RegistrationPage/>
+        component: <DataValidatorRegistrationPage/>
     }),
     settings: new Route({
         path: '/data-validator/settings',
@@ -49,5 +51,13 @@ export const Routes = {
     serviceNodeTransactions: new Route({
         path: '/service-node/transactions',
         component: <ServiceNodeTransactionsHistoryPage/>
+    }),
+    serviceNodeRegistration: new Route({
+        path: '/service-node/registration',
+        component: <ServiceNodeRegistrationPage/>
+    }),
+    dataMartRegistration: new Route({
+        path: '/data-mart/registration',
+        component: <DataMartRegistrationPage/>
     })
 };

@@ -2,7 +2,7 @@ import * as React from "react";
 import {Grid, Hidden} from "@material-ui/core";
 import {AppBar} from "../AppBar";
 import {Footer} from "../Footer";
-import {NavigationMenu} from "../NavigationMenu";
+import {NavigationMenu} from "../Navigation";
 import {Layout} from "../Layout";
 import {SettingsContainer} from "../Settings";
 
