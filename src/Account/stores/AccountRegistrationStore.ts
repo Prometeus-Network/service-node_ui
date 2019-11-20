@@ -1,10 +1,10 @@
 import {action, observable, reaction} from "mobx";
+import {AxiosError} from "axios";
 import {AccountsStore} from "./AccountsStore";
 import {validateAccountType} from "../validation";
 import {FormErrors, validateEthereumAddress} from "../../utils";
 import {AccountsService, ApiError, createErrorFromResponse} from "../../api";
 import {AccountType, RegisterAccountRequest, RegisterAccountResponse} from "../../models";
-import {AxiosError} from "axios";
 
 export class AccountRegistrationStore {
     @observable
@@ -67,7 +67,10 @@ export class AccountRegistrationStore {
                 type: this.registrationForm.type!,
             })
                 .then(({data}) => {
-                    this.accountsStore.addAccount(data);
+                    this.accountsStore.addAccount({
+                        type: this.registrationForm.type!,
+                        address: this.registrationForm.address!
+                    });
                     this.response = data;
                     this.setShowSnackbar(true);
                 })

@@ -71,22 +71,6 @@ const _DataValidatorNavigationMenu: FunctionComponent<DataValidatorNavigationMen
                 </ListItemText>
             </MenuItem>
         </Link>
-        <Link store={store}
-              view={Routes.settings}
-              style={{
-                  textDecoration: 'none',
-                  color: 'inherit'
-              }}
-        >
-            <MenuItem onClick={() => onItemClick && onItemClick()}>
-                <ListItemIcon>
-                    <SettingsIcon/>
-                </ListItemIcon>
-                <ListItemText>
-                    Settings
-                </ListItemText>
-            </MenuItem>
-        </Link>
     </List>
 );
 

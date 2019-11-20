@@ -1,16 +1,15 @@
 import * as React from "react";
 import {
+    DataMartRegistrationPage,
+    DataUploadPage,
+    DataValidatorHomePage,
+    DataValidatorRegistrationPage,
+    FilesPage,
     HomePage,
     NotFoundPage,
-    DataUploadPage,
-    SettingsPage,
-    FilesPage,
-    DataValidatorHomePage,
     ServiceNodeHomePage,
-    ServiceNodeTransactionsHistoryPage,
     ServiceNodeRegistrationPage,
-    DataValidatorRegistrationPage,
-    DataMartRegistrationPage
+    ServiceNodeTransactionsHistoryPage
 } from "../pages";
 
 const Route = require("mobx-router").Route;
@@ -35,10 +34,6 @@ export const Routes = {
     registration: new Route({
         path: '/data-validator/registration',
         component: <DataValidatorRegistrationPage/>
-    }),
-    settings: new Route({
-        path: '/data-validator/settings',
-        component: <SettingsPage/>
     }),
     files: new Route({
         path: '/data-mart/files',
