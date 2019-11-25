@@ -8,6 +8,7 @@ import {
 import {UploadDataStore, AddMetadataDialogStore, EditMetadataDialogStore, DataOwnerSelectStore} from "../DataUpload";
 import {DrawerStore} from "../AppBar";
 import {SettingsStore} from "../Settings";
+import {FilesListStore, FileInfoStore, FilesOfDataValidatorStore, PurchaseFileStore} from "../DataPurchase";
 
 export interface IAppState {
     store?: any, //needed for Mobx-router
@@ -24,5 +25,9 @@ export interface IAppState {
     createDataOwner: CreateDataOwnerStore,
     serviceNodeRegistration: AccountRegistrationStore,
     dataValidatorRegistration: AccountRegistrationStore,
-    dataMartRegistration: AccountRegistrationStore
+    dataMartRegistration: AccountRegistrationStore,
+    files: FilesListStore,
+    filesOfDataValidator: FilesOfDataValidatorStore,
+    filePurchase: PurchaseFileStore,
+    fileInfo: FileInfoStore
 }

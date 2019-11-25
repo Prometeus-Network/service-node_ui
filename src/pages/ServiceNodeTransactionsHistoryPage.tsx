@@ -26,4 +26,4 @@ export const ServiceNodeTransactionsHistoryPage: FunctionComponent<{}> = () => (
             <Footer/>
         </Grid>
     </Grid>
-)
+);

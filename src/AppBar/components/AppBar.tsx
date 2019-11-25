@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {ReactElement} from "react";
 import Headroom from "react-headroom";
 import {inject} from "mobx-react";
 import {
@@ -24,7 +24,8 @@ import {PrometeusLogoIcon} from "../../icons";
 const {Link} = require('mobx-router');
 
 interface AppBarProps {
-    title?: string
+    title?: string,
+    sideBarItem?: ReactElement
 }
 
 interface AppBarInjectedProps {
@@ -44,7 +45,7 @@ const styles = createStyles({
     }
 });
 
-const _AppBar: React.FC<AppBarProps & AppBarMobxProps & AppBarInjectedProps> = ({title, classes, store}) => {
+const _AppBar: React.FC<AppBarProps & AppBarMobxProps & AppBarInjectedProps> = ({title, classes, store, sideBarItem}) => {
     const linkToHome = (
         <Link store={store}
               view={Routes.home}
@@ -95,6 +96,7 @@ const _AppBar: React.FC<AppBarProps & AppBarMobxProps & AppBarInjectedProps> = (
                                 <DataMartMenuItem/>
                             </Hidden>
                         </div>
+                        {sideBarItem && sideBarItem}
                     </Toolbar>
                 </MaterialUiAppBar>
             </Headroom>

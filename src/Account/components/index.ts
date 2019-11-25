@@ -11,3 +11,5 @@ export * from "./DataMartAccountRegistrationForm";
 export * from "./DataValidatorAccountRegistrationForm";
 export * from "./createAccountRegistrationForm";
 export * from "./DataMartAccountsList";
+export * from "./SelectedDataMartBalance";
+export * from "./SelectedServiceNodeBalance";

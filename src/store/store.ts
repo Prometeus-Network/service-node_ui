@@ -9,6 +9,7 @@ import {
 import {AddMetadataDialogStore, DataOwnerSelectStore, EditMetadataDialogStore, UploadDataStore} from "../DataUpload";
 import {DrawerStore} from "../AppBar";
 import {SettingsStore} from "../Settings";
+import {FileInfoStore, FilesListStore, FilesOfDataValidatorStore, PurchaseFileStore} from "../DataPurchase";
 import {AccountType} from "../models";
 
 const accounts = new AccountsStore();
@@ -22,6 +23,10 @@ const serviceNodeRegistration = new AccountRegistrationStore(accounts, AccountTy
 const dataOwners = new DataOwnersAccountsStore(accounts);
 const dataOwnerSelect = new DataOwnerSelectStore(dataOwners, settings);
 const createDataOwner = new CreateDataOwnerStore(settings, dataOwners);
+const files = new FilesListStore();
+const filesOfDataValidator = new FilesOfDataValidatorStore();
+const filePurchase = new PurchaseFileStore(settings);
+const fileInfo = new FileInfoStore();
 
 export const store: IAppState = {
     dataUpload,
@@ -37,5 +42,9 @@ export const store: IAppState = {
     createDataOwner,
     dataMartRegistration,
     dataValidatorRegistration,
-    serviceNodeRegistration
+    serviceNodeRegistration,
+    files,
+    filesOfDataValidator,
+    fileInfo,
+    filePurchase
 };

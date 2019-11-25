@@ -1,5 +1,6 @@
 import React, {FunctionComponent} from "react";
-import {Typography, Grid, Hidden} from "@material-ui/core";
+import {Grid, Hidden} from "@material-ui/core";
+import {AllFilesList} from "../DataPurchase";
 import {AppBar} from "../AppBar";
 import {Layout} from "../Layout";
 import {DataMartNavigationMenu} from "../Navigation";
@@ -17,9 +18,7 @@ export const FilesPage: FunctionComponent<{}> = () => (
         </Hidden>
         <Grid item xs={12} lg={10}>
             <Layout>
-                <Typography variant="body1">
-                    This functionality is yet to be implemented
-                </Typography>
+                <AllFilesList/>
             </Layout>
         </Grid>
         <Grid item xs={12}>

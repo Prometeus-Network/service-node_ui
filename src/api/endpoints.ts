@@ -1,4 +1,5 @@
 export const FILES = "api/v1/files";
+export const FILES_V2 = "api/v2/files";
 export const LOCAL = "local";
 export const CHUNK = "chunk";
 export const ACCOUNTS = "api/v1/accounts";
@@ -8,3 +9,5 @@ export const TO_DDS = "to-dds";
 export const IS_FULLY_UPLOADED = "is-fully-uploaded";
 export const DATA_VALIDATORS = "data-validators";
 export const DATA_OWNERS = "data-owners";
+export const INFO = "info";
+export const PURCHASE = "purchase";
