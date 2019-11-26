@@ -21,7 +21,7 @@ export const FileCard: FunctionComponent<FileCardProps> = ({
 }) => (
     <Card>
         <CardHeader title={(
-            <Typography noWrap variant="h5">
+            <Typography variant="h5" noWrap>
                 {fileInfo.name}.{fileInfo.extension}
             </Typography>
         )}/>

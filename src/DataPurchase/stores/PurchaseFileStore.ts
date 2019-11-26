@@ -33,7 +33,7 @@ export class PurchaseFileStore {
     @action
     purchaseFile = (file: FileInfoResponse): void => {
         if (this.dataMartAddress) {
-            this.pending = false;
+            this.pending = true;
             this.error = undefined;
             this.response = undefined;
 

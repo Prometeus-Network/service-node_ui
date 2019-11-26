@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useState} from "react";
-import {observer, inject} from "mobx-react";
-import {Typography, Grid} from "@material-ui/core";
+import {inject, observer} from "mobx-react";
+import {Grid, Typography} from "@material-ui/core";
 import {withSnackbar, WithSnackbarProps} from "notistack";
 import {FilesList} from "./FilesList";
 import {FileInfoResponse, PurchaseFileResponse} from "../../models";
@@ -78,7 +78,8 @@ const mapMobxToProps = (state: IAppState): AllFilesListMobxProps => ({
     showSnackbar: state.filePurchase.showSnackbar,
     purchaseFile: state.filePurchase.purchaseFile,
     setShowSnackbar: state.filePurchase.setShowSnackbar,
-    filePurchaseResponse: state.filePurchase.response
+    filePurchaseResponse: state.filePurchase.response,
+    purchasePending: state.filePurchase.pending
 });
 
 export const AllFilesList = withSnackbar(

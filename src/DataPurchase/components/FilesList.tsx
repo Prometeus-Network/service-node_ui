@@ -35,6 +35,9 @@ export const FilesList: FunctionComponent<FilesListProps> = ({
     const classes = useStyles();
     let content: ReactElement;
 
+    console.log(purchasedFileId);
+    console.log(purchasePending);
+
     if (pending) {
         content = <CircularProgress size={50} color="primary" className={classes.centered}/>;
     } else if (filesFetchingError) {

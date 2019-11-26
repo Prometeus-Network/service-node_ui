@@ -28,4 +28,4 @@ const mapMobxToProps = (state: IAppState): SelectedServiceNodeBalanceMobxProps =
     selectedServiceNode: state.settings.selectedServiceNodeAccount
 });
 
-export const SelectedServiceNodeBalance = inject(mapMobxToProps)(observer(_SelectedServiceNodeBalance));
+export const SelectedServiceNodeBalance = inject(mapMobxToProps)(observer(_SelectedServiceNodeBalance) as FunctionComponent<TypographyProps>);

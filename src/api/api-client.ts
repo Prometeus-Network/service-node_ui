@@ -5,7 +5,7 @@ const _axiosInstance = Axios.create({
 });
 
 const _dataMartAxiosInstance = Axios.create({
-    baseURL: process.env.REACT_APP_DATA_MART_API_BASE_URL as string || "http://192.168.1.113:3005"
+    baseURL: process.env.REACT_APP_DATA_MART_API_BASE_URL as string || "http://192.168.0.156:3005"
 });
 
 export const axiosInstance = _axiosInstance;

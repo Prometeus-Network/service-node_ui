@@ -17,10 +17,10 @@ export class DataPurchaseService {
     }
 
     public static downloadFile(fileId: string): AxiosPromise<void> {
-        return dataMartAxiosInstance.get(`/${FILES_V2}/${fileId}`);
+        return dataMartAxiosInstance.get(`/${FILES_V2}/${fileId}`, {responseType: 'blob'});
     }
 
     public static purchaseFile(fileId: string, purchaseFileRequest: PurchaseFileRequest): AxiosPromise<PurchaseFileResponse> {
-        return dataMartAxiosInstance.post(`/${FILES_V2}/${PURCHASE}`);
+        return dataMartAxiosInstance.post(`/${FILES_V2}/${fileId}/${PURCHASE}`, purchaseFileRequest);
     }
 }

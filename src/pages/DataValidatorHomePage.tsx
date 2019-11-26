@@ -5,11 +5,12 @@ import {Layout} from "../Layout";
 import {DataValidatorNavigationMenu} from "../Navigation";
 import {Footer} from "../Footer";
 import {DataValidatorAccountSettings} from "../Settings";
+import {SelectedDataValidatorBalance} from "../Account";
 
 export const DataValidatorHomePage: FunctionComponent<{}> = () => (
     <Grid container>
         <Grid item xs={12}>
-            <AppBar/>
+            <AppBar sideBarItem={<SelectedDataValidatorBalance/>}/>
         </Grid>
         <Hidden mdDown>
             <Grid item lg={2}>
