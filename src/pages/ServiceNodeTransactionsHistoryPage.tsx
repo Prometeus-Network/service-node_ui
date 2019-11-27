@@ -4,11 +4,12 @@ import {AppBar} from "../AppBar";
 import {Layout} from "../Layout";
 import {Footer} from "../Footer";
 import {ServiceNodeNavigationMenu} from "../Navigation";
+import {SelectedServiceNodeBalance} from "../Account";
 
 export const ServiceNodeTransactionsHistoryPage: FunctionComponent<{}> = () => (
     <Grid container>
         <Grid item xs={12}>
-            <AppBar/>
+            <AppBar sideBarItem={<SelectedServiceNodeBalance/>}/>
         </Grid>
         <Hidden mdDown>
             <Grid item lg={2}>

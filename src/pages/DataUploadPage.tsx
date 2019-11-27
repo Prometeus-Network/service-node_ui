@@ -6,6 +6,7 @@ import {Layout} from "../Layout";
 import {UploadDataForm} from "../DataUpload";
 import {DataValidatorNavigationMenu} from "../Navigation";
 import {Footer} from "../Footer";
+import {SelectedDataValidatorBalance} from "../Account";
 import {Routes} from "../router";
 import {IAppState} from "../store";
 
@@ -49,7 +50,7 @@ const _DataUploadPage: React.FC<DataUploadPageMobxProps> = ({selectedDataValidat
     return (
         <Grid container spacing={1}>
             <Grid item xs={12}>
-                <AppBar/>
+                <AppBar sideBarItem={<SelectedDataValidatorBalance/>}/>
             </Grid>
             <Hidden mdDown>
                 <Grid item lg={2}>

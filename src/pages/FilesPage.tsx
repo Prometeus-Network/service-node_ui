@@ -5,11 +5,12 @@ import {AppBar} from "../AppBar";
 import {Layout} from "../Layout";
 import {DataMartNavigationMenu} from "../Navigation";
 import {Footer} from "../Footer";
+import {SelectedDataMartBalance} from "../Account";
 
 export const FilesPage: FunctionComponent<{}> = () => (
     <Grid container>
         <Grid item xs={12}>
-            <AppBar/>
+            <AppBar sideBarItem={<SelectedDataMartBalance/>}/>
         </Grid>
         <Hidden mdDown>
             <Grid item lg={2}>

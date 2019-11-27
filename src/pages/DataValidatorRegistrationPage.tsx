@@ -4,12 +4,12 @@ import {AppBar} from "../AppBar";
 import {Layout} from "../Layout";
 import {Footer} from "../Footer";
 import {DataValidatorNavigationMenu} from "../Navigation";
-import {DataValidatorAccountRegistrationForm} from "../Account";
+import {DataValidatorAccountRegistrationForm, SelectedDataValidatorBalance} from "../Account";
 
 export const DataValidatorRegistrationPage: FunctionComponent<{}> = () => (
     <Grid container>
         <Grid item xs={12}>
-            <AppBar/>
+            <AppBar sideBarItem={<SelectedDataValidatorBalance/>}/>
         </Grid>
         <Hidden mdDown>
             <Grid item lg={2}>

@@ -4,12 +4,12 @@ import {AppBar} from "../AppBar";
 import {Layout} from "../Layout";
 import {Footer} from "../Footer";
 import {DataMartNavigationMenu} from "../Navigation";
-import {DataMartRegistrationForm} from "../Account";
+import {DataMartRegistrationForm, SelectedDataMartBalance} from "../Account";
 
 export const DataMartRegistrationPage: FunctionComponent<{}> = () => (
     <Grid container>
         <Grid item xs={12}>
-            <AppBar/>
+            <AppBar sideBarItem={<SelectedDataMartBalance/>}/>
         </Grid>
         <Hidden mdDown>
             <Grid item lg={2}>
