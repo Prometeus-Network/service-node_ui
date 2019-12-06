@@ -3,20 +3,17 @@ import Headroom from "react-headroom";
 import {inject} from "mobx-react";
 import {
     AppBar as MaterialUiAppBar,
+    createStyles,
     Hidden,
-    Toolbar,
-    Typography,
-    MenuItem,
     ListItemIcon,
     ListItemText,
-    withStyles,
-    createStyles
+    MenuItem,
+    Toolbar,
+    Typography,
+    withStyles
 } from "@material-ui/core";
 import {NavigationalDrawer} from "./NavigationalDrawer";
 import {OpenDrawerButton} from "./OpenDrawerButton";
-import {ServiceNodeMenuItem} from "./ServiceNodeMenuItem";
-import {DataValidatorMenuItem} from "./DataValidatorMenuItem";
-import {DataMartMenuItem} from "./DataMartMenuItem";
 import {Routes} from "../../router";
 import {IAppState} from "../../store";
 import {PrometeusLogoIcon} from "../../icons";
@@ -60,7 +57,7 @@ const _AppBar: React.FC<AppBarProps & AppBarMobxProps & AppBarInjectedProps> = (
                 </ListItemIcon>
                 <ListItemText>
                     <Hidden xsDown>
-                        Demo
+                        Service Node Client
                     </Hidden>
                 </ListItemText>
             </MenuItem>
@@ -90,11 +87,6 @@ const _AppBar: React.FC<AppBarProps & AppBarMobxProps & AppBarInjectedProps> = (
                                     : linkToHome
                                 }
                             </Typography>
-                            <Hidden mdDown>
-                                <ServiceNodeMenuItem/>
-                                <DataValidatorMenuItem/>
-                                <DataMartMenuItem/>
-                            </Hidden>
                         </div>
                         {sideBarItem && sideBarItem}
                     </Toolbar>

@@ -18,3 +18,5 @@ export * from "./RegisterDataOwnerRequest";
 export * from "./FileInfoResponse";
 export * from "./PurchaseFileRequest";
 export * from "./PurchaseFileResponse";
+export * from "./TransactionResponse";
+export * from "./TransactionType";

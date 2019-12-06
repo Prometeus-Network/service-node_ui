@@ -10,7 +10,7 @@ export class AccountRegistrationStore {
     @observable
     registrationForm: Partial<RegisterAccountRequest> = {
         address: undefined,
-        type: AccountType.DATA_VALIDATOR
+        type: AccountType.SERVICE_NODE
     };
 
     @observable

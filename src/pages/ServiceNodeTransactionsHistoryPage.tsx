@@ -1,10 +1,11 @@
 import React, {FunctionComponent} from "react";
-import {Grid, Hidden, Typography} from "@material-ui/core";
+import {Grid, Hidden} from "@material-ui/core";
 import {AppBar} from "../AppBar";
 import {Layout} from "../Layout";
 import {Footer} from "../Footer";
-import {ServiceNodeNavigationMenu} from "../Navigation";
+import {NavigationMenu} from "../Navigation";
 import {SelectedServiceNodeBalance} from "../Account";
+import {ServiceNodeTransactionsCard} from "../Transaction";
 
 export const ServiceNodeTransactionsHistoryPage: FunctionComponent<{}> = () => (
     <Grid container>
@@ -13,14 +14,12 @@ export const ServiceNodeTransactionsHistoryPage: FunctionComponent<{}> = () => (
         </Grid>
         <Hidden mdDown>
             <Grid item lg={2}>
-                <ServiceNodeNavigationMenu/>
+                <NavigationMenu/>
             </Grid>
         </Hidden>
         <Grid item xs={12} lg={10}>
             <Layout>
-                <Typography variant="body1">
-                    This functionality is yet to be implemented
-                </Typography>
+                <ServiceNodeTransactionsCard/>
             </Layout>
         </Grid>
         <Grid item xs={12}>

@@ -1,12 +1,5 @@
 export * from "./HomePage";
 export * from "./NotFoundPage";
-export * from "./DataUploadPage";
-export * from "./RegistrationPage";
-export * from "./FilesPage";
-export * from "./DataValidatorHomePage";
-export * from "./ServiceNodeHomePage";
 export * from "./ServiceNodeTransactionsHistoryPage";
 export * from "./ServiceNodeRegistrationPage";
-export * from "./DataValidatorRegistrationPage";
-export * from "./DataMartRegistrationPage";
-export * from "./DataMartHomePage";
+

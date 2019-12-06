@@ -3,48 +3,29 @@ import {
     AccountRegistrationStore,
     AccountsBalanceStore,
     AccountsStore,
-    CreateDataOwnerStore,
-    DataOwnersAccountsStore
 } from "../Account";
-import {AddMetadataDialogStore, DataOwnerSelectStore, EditMetadataDialogStore, UploadDataStore} from "../DataUpload";
 import {DrawerStore} from "../AppBar";
 import {SettingsStore} from "../Settings";
-import {FileInfoStore, FilesListStore, FilesOfDataValidatorStore, PurchaseFileStore} from "../DataPurchase";
+import {ServiceNodeTransactionsStore} from "../Transaction";
 import {AccountType} from "../models";
 
 const accounts = new AccountsStore();
 const balances = new AccountsBalanceStore(accounts);
 const settings = new SettingsStore(accounts);
-const dataUpload = new UploadDataStore(settings);
 const registration = new AccountRegistrationStore(accounts, AccountType.DATA_VALIDATOR);
 const dataValidatorRegistration = new AccountRegistrationStore(accounts, AccountType.DATA_VALIDATOR);
 const dataMartRegistration = new AccountRegistrationStore(accounts, AccountType.DATA_MART);
 const serviceNodeRegistration = new AccountRegistrationStore(accounts, AccountType.SERVICE_NODE);
-const dataOwners = new DataOwnersAccountsStore(accounts);
-const dataOwnerSelect = new DataOwnerSelectStore(dataOwners, settings);
-const createDataOwner = new CreateDataOwnerStore(settings, dataOwners);
-const files = new FilesListStore();
-const filesOfDataValidator = new FilesOfDataValidatorStore();
-const filePurchase = new PurchaseFileStore(settings);
-const fileInfo = new FileInfoStore();
+const serviceNodeTransactions = new ServiceNodeTransactionsStore(settings);
 
 export const store: IAppState = {
-    dataUpload,
     settings,
-    metadataAdding: new AddMetadataDialogStore(),
-    metadataEdit: new EditMetadataDialogStore(),
     registration,
     drawer: new DrawerStore(),
     accounts,
     balances,
-    dataOwners,
-    dataOwnerSelect,
-    createDataOwner,
     dataMartRegistration,
     dataValidatorRegistration,
     serviceNodeRegistration,
-    files,
-    filesOfDataValidator,
-    fileInfo,
-    filePurchase
+    serviceNodeTransactions
 };
