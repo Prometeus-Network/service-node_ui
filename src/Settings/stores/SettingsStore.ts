@@ -1,15 +1,22 @@
-import {action, computed, observable} from "mobx";
+import {action, computed} from "mobx";
+import {AccountsService, ApiError} from "../../api";
 import {AccountResponse} from "../../models";
-import {ApiError} from "../../api";
 import {AccountsStore} from "../../Account";
 
 export class SettingsStore {
     private readonly accountsStore: AccountsStore;
 
-    @observable
-    selectedServiceNodeAccount?: string = localStorage.getItem("selectedServiceNodeAccount") !== null
-        ? localStorage.getItem("selectedServiceNodeAccount")!
-        : undefined;
+    @computed
+    get selectedServiceNodeAccount(): string | undefined{
+        if (this.accountsStore.serviceNodeAccounts.length !== 0) {
+            return this.accountsStore.serviceNodeAccounts
+                .filter(account => account.default)
+                .reduce(account => account)
+                .address
+        } else {
+            return undefined;
+        }
+    }
 
     @computed
     get serviceNodeAccounts(): AccountResponse[] {
@@ -32,7 +39,9 @@ export class SettingsStore {
 
     @action
     selectServiceNodeAccount = (accountAddress: string): void => {
-        localStorage.setItem("selectedServiceNodeAccount", accountAddress);
-        this.selectedServiceNodeAccount = accountAddress;
+        AccountsService.setAccountAsDefault(accountAddress)
+            .then(() => {
+                this.accountsStore.setDefaultAccount(accountAddress);
+            })
     };
 }

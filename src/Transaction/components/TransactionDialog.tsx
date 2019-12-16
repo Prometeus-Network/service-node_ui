@@ -28,22 +28,26 @@ const _TransactionDialog: FunctionComponent<TransactionDialogProps> = ({
             <Dialog open={Boolean(transaction)}
                     onClose={onClose}
                     fullScreen={fullScreen}
+                    fullWidth
+                    maxWidth="lg"
             >
                 <DialogTitle>
                     Transaction info
                 </DialogTitle>
                 <DialogContent>
-                    <Typography variant="body1">Hash: {transaction.hash}</Typography>
-                    <Typography variant="body1">From: {transaction.from}</Typography>
-                    <Typography variant="body1">To: {transaction.to}</Typography>
-                    <Typography variant="body1">Value: {transaction.value} PROM</Typography>
-                    <Typography variant="body1">Type: {
-                        transaction.type === TransactionType.DATA_SELL
+                    <Typography variant="body1"><b>Hash:</b> {transaction.hash}</Typography>
+                    <Typography variant="body1"><b>Data validator:</b> {transaction.dataValidator}</Typography>
+                    <Typography variant="body1"><b>Data mart:</b> {transaction.dataMart}</Typography>
+                    <Typography variant="body1"><b>Data owner:</b> {transaction.dataOwner}</Typography>
+                    <Typography variant="body1"><b>Service node:</b> {transaction.serviceNode}</Typography>
+                    <Typography variant="body1"><b>Value:</b> {transaction.value} PROM</Typography>
+                    <Typography variant="body1"><b>Type:</b> {
+                        transaction.type === TransactionType.DATA_PURCHASE
                             ? "Data sell"
                             : "Data upload"
                     }
                     </Typography>
-                    <Typography variant="body1">Status: {
+                    <Typography variant="body1"><b>Status:</b> {
                         transaction.status
                             ? <span style={{color: 'green'}}>Success</span>
                             : <span style={{color: 'red'}}>Error</span>

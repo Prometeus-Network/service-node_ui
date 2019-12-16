@@ -40,17 +40,18 @@ export const TransactionsTable: FunctionComponent<TransactionsTableProps> = ({tr
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Hash</TableCell>
-                            <TableCell>From</TableCell>
-                            <TableCell>To</TableCell>
+                            <TableCell>Txn Hash</TableCell>
+                            <TableCell>Date</TableCell>
                             <TableCell>Value</TableCell>
+                            <TableCell>Data Owner</TableCell>
+                            <TableCell>Data Validator</TableCell>
+                            <TableCell>Data Mart</TableCell>
                             <TableCell>Type</TableCell>
-                            <TableCell>Status</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {transactions.map(transaction => (
-                            <TableRow key={transaction.id}>
+                            <TableRow key={transaction.hash}>
                                 <TableCell>
                                     <Tooltip title="View details">
                                         <Typography variant="body1"
@@ -63,10 +64,12 @@ export const TransactionsTable: FunctionComponent<TransactionsTableProps> = ({tr
                                         </Typography>
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell>{shortenString(transaction.from, 16)}</TableCell>
-                                <TableCell>{shortenString(transaction.to, 16)}</TableCell>
+                                <TableCell>{transaction.created_at}</TableCell>
                                 <TableCell>{transaction.value}</TableCell>
-                                <TableCell>{transaction.type === TransactionType.DATA_SELL ? "Data sell" : "Data upload"}</TableCell>
+                                <TableCell>{shortenString(transaction.dataOwner, 16)}</TableCell>
+                                <TableCell>{shortenString(transaction.dataValidator, 16)}</TableCell>
+                                <TableCell>{shortenString(transaction.dataMart, 16)}</TableCell>
+                                <TableCell>{transaction.type === TransactionType.DATA_PURCHASE ? "Data sell" : "Data upload"}</TableCell>
                                 <TableCell>
                                     {transaction.status
                                         ? <Typography style={{color: 'green'}}>Success</Typography>

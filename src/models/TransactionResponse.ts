@@ -2,11 +2,15 @@ import {TransactionType} from "./TransactionType";
 
 export interface TransactionResponse {
     id: string,
+    hash: string,
     value: number,
-    from: string,
-    to: string,
-    serviceNode: string,
-    type: TransactionType,
+    dataValidator: string,
+    dataMart: string,
+    dataOwner: string,
+    blockNumber: number,
+    queueNumber: number,
     status: boolean,
-    hash: string
+    serviceNode: string,
+    created_at: string,
+    type: TransactionType
 }

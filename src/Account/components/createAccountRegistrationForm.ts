@@ -5,7 +5,7 @@ import {IAppState} from "../../store";
 
 interface CreateAccountRegistrationFormOptions {
     label: string,
-    storeName: 'serviceNodeRegistration' | 'dataValidatorRegistration' | 'dataMartRegistration'
+    storeName: 'serviceNodeRegistration';
 }
 
 export const createAccountRegistrationForm = (options: CreateAccountRegistrationFormOptions) => {

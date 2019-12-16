@@ -1,6 +1,6 @@
 import {AxiosPromise} from "axios";
 import {axiosInstance} from "../api-client";
-import {ACCOUNTS, BALANCES} from "../endpoints";
+import {ACCOUNTS, BALANCES, DEFAULT} from "../endpoints";
 import {AccountBalanceMapping, AccountResponse, RegisterAccountRequest, RegisterAccountResponse} from "../../models";
 
 export class AccountsService {
@@ -14,5 +14,9 @@ export class AccountsService {
 
     public static getBalancesOfAllAccounts(): AxiosPromise<AccountBalanceMapping> {
         return axiosInstance.get(`/${ACCOUNTS}/${BALANCES}`);
+    }
+
+    public static setAccountAsDefault(address: string): AxiosPromise<{success: boolean}> {
+        return axiosInstance.patch(`/${ACCOUNTS}/${address}/${DEFAULT}`);
     }
 }

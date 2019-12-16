@@ -15,7 +15,5 @@ export interface IAppState {
     accounts: AccountsStore,
     balances: AccountsBalanceStore,
     serviceNodeRegistration: AccountRegistrationStore,
-    dataValidatorRegistration: AccountRegistrationStore,
-    dataMartRegistration: AccountRegistrationStore,
     serviceNodeTransactions: ServiceNodeTransactionsStore
 }

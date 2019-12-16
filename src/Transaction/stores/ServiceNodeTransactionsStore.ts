@@ -19,7 +19,7 @@ export class ServiceNodeTransactionsStore {
     error?: ApiError = undefined;
 
     @observable
-    currentPage: number = 1;
+    currentPage: number = 0;
 
     @observable
     showSnackbar: boolean = false;
@@ -73,6 +73,6 @@ export class ServiceNodeTransactionsStore {
     reset = (): void => {
         this.transactions = {};
         this.pending = false;
-        this.currentPage = 1;
+        this.currentPage = 0;
     }
 }

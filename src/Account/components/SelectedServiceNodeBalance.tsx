@@ -17,7 +17,7 @@ const _SelectedServiceNodeBalance: FunctionComponent<SelectedServiceNodeBalanceP
     ...rest
 }) => {
     return selectedServiceNode
-        ? <AccountBalance balance={balance} {...rest}/>
+        ? <AccountBalance balance={balance} address={selectedServiceNode} {...rest}/>
         : null;
 };
 

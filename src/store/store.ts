@@ -13,8 +13,6 @@ const accounts = new AccountsStore();
 const balances = new AccountsBalanceStore(accounts);
 const settings = new SettingsStore(accounts);
 const registration = new AccountRegistrationStore(accounts, AccountType.DATA_VALIDATOR);
-const dataValidatorRegistration = new AccountRegistrationStore(accounts, AccountType.DATA_VALIDATOR);
-const dataMartRegistration = new AccountRegistrationStore(accounts, AccountType.DATA_MART);
 const serviceNodeRegistration = new AccountRegistrationStore(accounts, AccountType.SERVICE_NODE);
 const serviceNodeTransactions = new ServiceNodeTransactionsStore(settings);
 
@@ -24,8 +22,6 @@ export const store: IAppState = {
     drawer: new DrawerStore(),
     accounts,
     balances,
-    dataMartRegistration,
-    dataValidatorRegistration,
     serviceNodeRegistration,
     serviceNodeTransactions
 };
