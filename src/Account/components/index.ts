@@ -4,3 +4,4 @@ export * from "./GenericAccountRegistrationForm";
 export * from "./ServiceNodeRegistrationForm";
 export * from "./createAccountRegistrationForm";
 export * from "./SelectedServiceNodeBalance";
+export * from "./ServiceNodeAccountSelect";

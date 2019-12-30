@@ -1,5 +1,12 @@
 import * as React from "react";
-import {HomePage, NotFoundPage, ServiceNodeRegistrationPage, ServiceNodeTransactionsHistoryPage} from "../pages";
+import {
+    DataPurchasesPage,
+    DataUploadsPage,
+    HomePage,
+    NotFoundPage,
+    ServiceNodeRegistrationPage,
+    ServiceNodeTransactionsHistoryPage
+} from "../pages";
 import {store} from "../store";
 
 const Route = require("mobx-router").Route;
@@ -26,5 +33,27 @@ export const Routes = {
     serviceNodeRegistration: new Route({
         path: '/registration',
         component: <ServiceNodeRegistrationPage/>
+    }),
+    dataUploads: new Route({
+        path: '/data-uploads',
+        component: <DataUploadsPage/>,
+        beforeEnter: () => {
+            store.dataUploads.fetchDataUploadsHistory();
+            store.dataUploads.setResetOnSelectedServiceNodeAccountChange(true)
+        },
+        onExit: () => {
+            store.dataUploads.setResetOnSelectedServiceNodeAccountChange(false)
+        }
+    }),
+    dataPurchases: new Route({
+        path: '/data-purchases',
+        component: <DataPurchasesPage/>,
+        beforeEnter: () => {
+            store.dataPurchases.fetchPurchasesHistory();
+            store.dataPurchases.setResetOnSelectedServiceNodeAccountChange(true)
+        },
+        onExit: () => {
+            store.dataPurchases.setResetOnSelectedServiceNodeAccountChange(false)
+        }
     })
 };

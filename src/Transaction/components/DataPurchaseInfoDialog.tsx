@@ -1,26 +1,27 @@
 import React, {FunctionComponent} from "react";
 import {
-    Button,
     Dialog,
-    DialogActions,
     DialogContent,
     DialogTitle,
+    DialogActions,
+    Button,
     Table,
-    TableCell,
     TableRow,
-    withMobileDialog
+    TableCell,
 } from "@material-ui/core";
-import {WithMobileDialog} from "@material-ui/core/withMobileDialog";
-import {TransactionResponse, TransactionType} from "../../models";
+import withMobileDialog, {WithMobileDialog} from "@material-ui/core/withMobileDialog";
+import {TransactionResponse} from "../../models";
 
-interface TransactionDialogOwnProps {
+interface DataPurchaseInfoDialogOwnProps {
     transaction?: TransactionResponse,
     onClose: () => void
 }
 
-type TransactionDialogProps = TransactionDialogOwnProps & WithMobileDialog;
+type DataPurchaseInfoDialogInjectedProps = WithMobileDialog;
 
-const _TransactionDialog: FunctionComponent<TransactionDialogProps> = ({
+type DataPurchaseInfoDialogProps = DataPurchaseInfoDialogOwnProps & DataPurchaseInfoDialogInjectedProps;
+
+const _DataPurchaseInfoDialog: FunctionComponent<DataPurchaseInfoDialogProps> = ({
     transaction,
     onClose,
     fullScreen
@@ -28,14 +29,12 @@ const _TransactionDialog: FunctionComponent<TransactionDialogProps> = ({
     if (transaction) {
         return (
             <Dialog open={Boolean(transaction)}
-                    onClose={onClose}
                     fullScreen={fullScreen}
                     fullWidth
-                    maxWidth="lg"
+                    maxWidth="md"
+                    onClose={onClose}
             >
-                <DialogTitle>
-                    Transaction info
-                </DialogTitle>
+                <DialogTitle>Data Purchase Info</DialogTitle>
                 <DialogContent>
                     <Table>
                         <TableRow>
@@ -47,11 +46,7 @@ const _TransactionDialog: FunctionComponent<TransactionDialogProps> = ({
                             <TableCell>{transaction?.created_at}</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell>Txn Type</TableCell>
-                            <TableCell>{transaction?.type === TransactionType.DATA_PURCHASE ? "Data Purchase" : "Data Upload"}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Value</TableCell>
+                            <TableCell>Price</TableCell>
                             <TableCell>{transaction?.value}</TableCell>
                         </TableRow>
                         <TableRow>
@@ -83,4 +78,4 @@ const _TransactionDialog: FunctionComponent<TransactionDialogProps> = ({
     }
 };
 
-export const TransactionDialog = withMobileDialog()(_TransactionDialog) as FunctionComponent<TransactionDialogOwnProps>;
+export const DataPurchaseInfoDialog = withMobileDialog()(_DataPurchaseInfoDialog);

@@ -44,6 +44,11 @@ export class DataPurchasesTransactionsStore {
     }
 
     @action
+    setResetOnSelectedServiceNodeAccountChange = (resetOnSelectedServiceNodeAccountChange: boolean): void => {
+        this.resetOnSelectedServiceNodeAccountChange = resetOnSelectedServiceNodeAccountChange;
+    };
+
+    @action
     fetchPurchasesHistory = (): void => {
         if (this.serviceNodeAccount) {
             this.pending = true;

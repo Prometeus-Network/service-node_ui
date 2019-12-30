@@ -5,7 +5,7 @@ import {
 } from "../Account";
 import {DrawerStore} from "../AppBar";
 import {SettingsStore} from "../Settings";
-import {ServiceNodeTransactionsStore} from "../Transaction";
+import {ServiceNodeTransactionsStore, DataUploadsTransactionsStore, DataPurchasesTransactionsStore} from "../Transaction";
 
 export interface IAppState {
     store?: any, //needed for Mobx-router
@@ -15,5 +15,7 @@ export interface IAppState {
     accounts: AccountsStore,
     balances: AccountsBalanceStore,
     serviceNodeRegistration: AccountRegistrationStore,
-    serviceNodeTransactions: ServiceNodeTransactionsStore
+    serviceNodeTransactions: ServiceNodeTransactionsStore,
+    dataUploads: DataUploadsTransactionsStore,
+    dataPurchases: DataPurchasesTransactionsStore
 }
