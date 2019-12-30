@@ -1,15 +1,15 @@
-import React, {FunctionComponent, Fragment} from "react";
+import React, {Fragment, FunctionComponent} from "react";
 import {
+    CircularProgress,
+    createStyles,
+    makeStyles,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableRow,
-    Typography,
-    CircularProgress,
     Tooltip,
-    makeStyles,
-    createStyles
+    Typography
 } from "@material-ui/core";
 import {TransactionResponse, TransactionType} from "../../models";
 import {shortenString} from "../../utils";
@@ -66,7 +66,12 @@ export const TransactionsTable: FunctionComponent<TransactionsTableProps> = ({tr
                                 <TableCell>{transaction.value}</TableCell>
                                 <TableCell>{shortenString(transaction.dataOwner, 16)}</TableCell>
                                 <TableCell>{shortenString(transaction.dataValidator, 16)}</TableCell>
-                                <TableCell>{shortenString(transaction.dataMart, 16)}</TableCell>
+                                <TableCell>
+                                    {transaction.type === TransactionType.DATA_PURCHASE
+                                        ? shortenString(transaction.dataMart, 16)
+                                        : "N/A"
+                                    }
+                                </TableCell>
                                 <TableCell>{transaction.type === TransactionType.DATA_PURCHASE ? "Data sell" : "Data upload"}</TableCell>
                                 <TableCell>
                                     {transaction.status
