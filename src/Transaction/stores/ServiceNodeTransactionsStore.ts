@@ -24,6 +24,9 @@ export class ServiceNodeTransactionsStore {
     @observable
     showSnackbar: boolean = false;
 
+    @observable
+    resetOnSelectedServiceNodeAccountChange: boolean = false;
+
     @computed
     get serviceNodeAddress(): string | undefined {
         return this.settingsStore.selectedServiceNodeAccount;
@@ -35,6 +38,16 @@ export class ServiceNodeTransactionsStore {
         reaction(
             () => this.error,
             () => this.showSnackbar = true
+        );
+
+        reaction(
+            () => this.serviceNodeAddress,
+            () => {
+                if (this.resetOnSelectedServiceNodeAccountChange) {
+                    this.reset();
+                    this.fetchTransactions();
+                }
+            }
         )
     }
 
@@ -67,6 +80,11 @@ export class ServiceNodeTransactionsStore {
     @action
     setShowSnackbar = (showSnackbar: boolean): void => {
         this.showSnackbar = showSnackbar;
+    };
+
+    @action
+    setResetOnSelectedServiceNodeAccountChange = (resetOnSelectedServiceNodeAccountChange: boolean): void => {
+        this.resetOnSelectedServiceNodeAccountChange = resetOnSelectedServiceNodeAccountChange;
     };
 
     @action

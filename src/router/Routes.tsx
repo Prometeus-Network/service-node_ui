@@ -2,7 +2,6 @@ import * as React from "react";
 import {
     DataPurchasesPage,
     DataUploadsPage,
-    HomePage,
     NotFoundPage,
     ServiceNodeRegistrationPage,
     ServiceNodeTransactionsHistoryPage
@@ -14,21 +13,19 @@ const Route = require("mobx-router").Route;
 export const Routes = {
     home: new Route({
         path: '/',
-        component: <HomePage/>
+        component: <ServiceNodeTransactionsHistoryPage/>,
+        beforeEnter: () => {
+            store.serviceNodeTransactions.setResetOnSelectedServiceNodeAccountChange(true);
+            store.serviceNodeTransactions.fetchTransactions()
+        },
+        onExit: () => {
+            store.serviceNodeTransactions.setResetOnSelectedServiceNodeAccountChange(false);
+            store.serviceNodeTransactions.reset();
+        }
     }),
     notFound: new Route({
         path: '/404',
         component: <NotFoundPage/>
-    }),
-    serviceNodeTransactions: new Route({
-        path: '/transactions',
-        component: <ServiceNodeTransactionsHistoryPage/>,
-        beforeEnter: () => {
-            store.serviceNodeTransactions.fetchTransactions()
-        },
-        onExit: () => {
-            store.serviceNodeTransactions.reset()
-        }
     }),
     serviceNodeRegistration: new Route({
         path: '/registration',
@@ -39,10 +36,11 @@ export const Routes = {
         component: <DataUploadsPage/>,
         beforeEnter: () => {
             store.dataUploads.fetchDataUploadsHistory();
-            store.dataUploads.setResetOnSelectedServiceNodeAccountChange(true)
+            store.dataUploads.setResetOnSelectedServiceNodeAccountChange(true);
         },
         onExit: () => {
-            store.dataUploads.setResetOnSelectedServiceNodeAccountChange(false)
+            store.dataUploads.setResetOnSelectedServiceNodeAccountChange(false);
+            store.dataUploads.reset();
         }
     }),
     dataPurchases: new Route({
@@ -50,10 +48,11 @@ export const Routes = {
         component: <DataPurchasesPage/>,
         beforeEnter: () => {
             store.dataPurchases.fetchPurchasesHistory();
-            store.dataPurchases.setResetOnSelectedServiceNodeAccountChange(true)
+            store.dataPurchases.setResetOnSelectedServiceNodeAccountChange(true);
         },
         onExit: () => {
-            store.dataPurchases.setResetOnSelectedServiceNodeAccountChange(false)
+            store.dataPurchases.setResetOnSelectedServiceNodeAccountChange(false);
+            store.dataPurchases.reset();
         }
     })
 };

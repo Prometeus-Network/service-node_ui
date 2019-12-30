@@ -1,8 +1,7 @@
 import React, {FunctionComponent} from "react";
 import {inject} from "mobx-react";
-import {List, ListItemIcon, ListItemText, MenuItem, createStyles, makeStyles} from "@material-ui/core";
+import {createStyles, List, ListItemIcon, ListItemText, makeStyles, MenuItem} from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
-import HistoryIcon from "@material-ui/icons/History";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
@@ -50,32 +49,6 @@ const _NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                 </MenuItem>
             </Link>
             <Link store={store}
-                  view={Routes.serviceNodeRegistration}
-                  className={classes.undecoratedLink}
-            >
-                <MenuItem onClick={() => onItemClick && onItemClick()}>
-                    <ListItemIcon>
-                        <AccountCircleIcon/>
-                    </ListItemIcon>
-                    <ListItemText>
-                        Register
-                    </ListItemText>
-                </MenuItem>
-            </Link>
-            <Link store={store}
-                  view={Routes.serviceNodeTransactions}
-                  className={classes.undecoratedLink}
-            >
-                <MenuItem onClick={() => onItemClick && onItemClick()}>
-                    <ListItemIcon>
-                        <HistoryIcon/>
-                    </ListItemIcon>
-                    <ListItemText>
-                        Transactions
-                    </ListItemText>
-                </MenuItem>
-            </Link>
-            <Link store={store}
                   view={Routes.dataUploads}
                   className={classes.undecoratedLink}
             >
@@ -98,6 +71,19 @@ const _NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                     </ListItemIcon>
                     <ListItemText>
                         Data Purchases
+                    </ListItemText>
+                </MenuItem>
+            </Link>
+            <Link store={store}
+                  view={Routes.serviceNodeRegistration}
+                  className={classes.undecoratedLink}
+            >
+                <MenuItem onClick={() => onItemClick && onItemClick()}>
+                    <ListItemIcon>
+                        <AccountCircleIcon/>
+                    </ListItemIcon>
+                    <ListItemText>
+                        Register
                     </ListItemText>
                 </MenuItem>
             </Link>

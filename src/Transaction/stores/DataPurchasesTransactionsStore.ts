@@ -36,7 +36,7 @@ export class DataPurchasesTransactionsStore {
             () => this.serviceNodeAccount,
             () => {
                 if (this.resetOnSelectedServiceNodeAccountChange) {
-                    this.currentPage = 0;
+                    this.reset();
                     this.fetchPurchasesHistory();
                 }
             }
@@ -74,5 +74,13 @@ export class DataPurchasesTransactionsStore {
                 .catch((error: AxiosError) => this.error = createErrorFromResponse(error))
                 .finally(() => this.pending = false);
         }
+    };
+
+    @action
+    reset = (): void => {
+        this.currentPage = 0;
+        this.pending = false;
+        this.error = undefined;
+        this.transactions = {};
     }
 }
