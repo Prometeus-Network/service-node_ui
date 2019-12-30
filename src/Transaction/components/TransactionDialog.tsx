@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import {WithMobileDialog} from "@material-ui/core/withMobileDialog";
 import {TransactionResponse, TransactionType} from "../../models";
+import {makePreciseNumberString} from "../../utils";
 
 interface TransactionDialogOwnProps {
     transaction?: TransactionResponse,
@@ -52,7 +53,7 @@ const _TransactionDialog: FunctionComponent<TransactionDialogProps> = ({
                         </TableRow>
                         <TableRow>
                             <TableCell>Value</TableCell>
-                            <TableCell>{transaction?.value}</TableCell>
+                            <TableCell>{makePreciseNumberString(transaction?.value)}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Data Owner</TableCell>
@@ -64,7 +65,12 @@ const _TransactionDialog: FunctionComponent<TransactionDialogProps> = ({
                         </TableRow>
                         <TableRow>
                             <TableCell>Data Mart</TableCell>
-                            <TableCell>{transaction?.dataMart}</TableCell>
+                            <TableCell>
+                                {transaction?.type === TransactionType.DATA_PURCHASE
+                                    ? transaction.dataMart
+                                    : "N/A"
+                                }
+                            </TableCell>
                         </TableRow>
                     </Table>
                 </DialogContent>

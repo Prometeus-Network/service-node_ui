@@ -12,7 +12,7 @@ import {
     Typography
 } from "@material-ui/core";
 import {TransactionResponse, TransactionType} from "../../models";
-import {shortenString} from "../../utils";
+import {makePreciseNumberString, shortenString} from "../../utils";
 
 interface TransactionsTableProps {
     transactions: TransactionResponse[],
@@ -63,7 +63,7 @@ export const TransactionsTable: FunctionComponent<TransactionsTableProps> = ({tr
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell>{transaction.created_at}</TableCell>
-                                <TableCell>{transaction.value}</TableCell>
+                                <TableCell>{makePreciseNumberString(transaction.value)}</TableCell>
                                 <TableCell>{shortenString(transaction.dataOwner, 16)}</TableCell>
                                 <TableCell>{shortenString(transaction.dataValidator, 16)}</TableCell>
                                 <TableCell>

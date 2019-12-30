@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import {WithMobileDialog} from "@material-ui/core/withMobileDialog";
 import {TransactionResponse} from "../../models";
+import {makePreciseNumberString} from "../../utils";
 
 interface DataUploadInfoDialogOwnProps {
     transaction?: TransactionResponse,
@@ -46,7 +47,7 @@ const _DataUploadInfoDialog: FunctionComponent<DataUploadInfoDialogProps> = ({
                         </TableRow>
                         <TableRow>
                             <TableCell>Storage Price</TableCell>
-                            <TableCell>{transaction?.value}</TableCell>
+                            <TableCell>{makePreciseNumberString(transaction?.value)}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Data Owner</TableCell>
