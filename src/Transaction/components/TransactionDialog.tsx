@@ -35,7 +35,7 @@ const _TransactionDialog: FunctionComponent<TransactionDialogProps> = ({
                     maxWidth="lg"
             >
                 <DialogTitle>
-                    Transaction info
+                    Transaction Info
                 </DialogTitle>
                 <DialogContent>
                     <Table>

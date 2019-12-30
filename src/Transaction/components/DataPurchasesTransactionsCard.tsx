@@ -56,7 +56,7 @@ const _DataPurchasesTransactionsCard: FunctionComponent<DataPurchasesTransaction
                 </Grid>
                 <Grid item xs={12}>
                     <Card className={classes.dataPurchasesCard}>
-                        <CardHeader title={`Data Purchases Through Service Node ${serviceNode}`}/>
+                        <CardHeader title={`Data purchases through service node ${serviceNode}`}/>
                         <CardContent>
                             <DataPurchasesTable transactions={Object.keys(transactions).map(hash => transactions[hash])}
                                                 pending={pending}

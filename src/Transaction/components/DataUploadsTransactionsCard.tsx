@@ -55,7 +55,7 @@ const _DataUploadsTransactionsCard: FunctionComponent<DataUploadsTransactionsCar
                     </Grid>
                     <Grid item xs={12}>
                         <Card className={classes.dataUploadsCard}>
-                            <CardHeader title={`Data Uploads Through Service Node ${serviceNode}`}/>
+                            <CardHeader title={`Data uploads through service node ${serviceNode}`}/>
                             <CardContent>
                                 <DataUploadsTable transactions={Object.keys(transactions).map(hash => transactions[hash])}
                                                   pending={pending}
