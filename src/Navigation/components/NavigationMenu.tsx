@@ -3,7 +3,7 @@ import {inject} from "mobx-react";
 import {List, ListItemIcon, ListItemText, MenuItem} from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
 import HistoryIcon from "@material-ui/icons/History";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import {Routes} from "../../router";
 import {IAppState} from "../../store";
 
@@ -41,22 +41,6 @@ const _NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
             </MenuItem>
         </Link>
         <Link store={store}
-              view={Routes.serviceNodeRegistration}
-              style={{
-                  textDecoration: 'none',
-                  color: 'inherit'
-              }}
-        >
-            <MenuItem onClick={() => onItemClick && onItemClick()}>
-                <ListItemIcon>
-                    <AccountCircleIcon/>
-                </ListItemIcon>
-                <ListItemText>
-                    Register
-                </ListItemText>
-            </MenuItem>
-        </Link>
-        <Link store={store}
               view={Routes.serviceNodeTransactions}
               style={{
                   textDecoration: 'none',
@@ -69,6 +53,22 @@ const _NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                 </ListItemIcon>
                 <ListItemText>
                     Transactions
+                </ListItemText>
+            </MenuItem>
+        </Link>
+        <Link store={store}
+              view={Routes.wallets}
+              style={{
+                  textDecoration: 'none',
+                  color: 'inherit'
+              }}
+        >
+            <MenuItem onClick={() => onItemClick && onItemClick()}>
+                <ListItemIcon>
+                    <AccountBalanceWalletIcon/>
+                </ListItemIcon>
+                <ListItemText>
+                    Wallets
                 </ListItemText>
             </MenuItem>
         </Link>

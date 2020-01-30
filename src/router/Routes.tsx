@@ -1,5 +1,10 @@
 import * as React from "react";
-import {HomePage, NotFoundPage, ServiceNodeRegistrationPage, ServiceNodeTransactionsHistoryPage} from "../pages";
+import {
+    HomePage,
+    NotFoundPage,
+    ServiceNodeTransactionsHistoryPage,
+    WalletsPage
+} from "../pages";
 import {store} from "../store";
 
 const Route = require("mobx-router").Route;
@@ -23,8 +28,8 @@ export const Routes = {
             store.serviceNodeTransactions.reset()
         }
     }),
-    serviceNodeRegistration: new Route({
-        path: '/registration',
-        component: <ServiceNodeRegistrationPage/>
+    wallets: new Route({
+        path: "/wallets",
+        component: <WalletsPage/>
     })
 };

@@ -1,6 +1,15 @@
 import React, {FunctionComponent} from "react";
-import {observer, inject} from "mobx-react";
-import {Dialog, DialogTitle, DialogContent, DialogActions, Typography, Button, CircularProgress, TextField} from "@material-ui/core";
+import {inject, observer} from "mobx-react";
+import {
+    Button,
+    CircularProgress,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    TextField,
+    Typography
+} from "@material-ui/core";
 import withMobileDialog, {WithMobileDialog} from "@material-ui/core/withMobileDialog";
 import {withSnackbar, WithSnackbarProps} from "notistack";
 import {RegisterAccountRequest} from "../../models";
@@ -16,29 +25,29 @@ interface AccountRegistrationDialogMobxProps {
     registrationDialogOpen: boolean,
     showSnackbar: boolean,
     setShowSnackbar: (showSnackbar: boolean) => void,
-    setFormValue: (key: keyof RegisterAccountRequest, value: string),
+    setFormValue: (key: keyof RegisterAccountRequest, value: string) => void,
     setRegistrationDialogOpen: (registrationDialogOpen: boolean) => void,
     registerAccount: () => void
 }
 
 type AccountRegistrationDialogInjectedProps = WithMobileDialog & WithSnackbarProps;
 
-type AccountRegistrationDialog = AccountRegistrationDialogMobxProps & AccountRegistrationDialogInjectedProps;
+type AccountRegistrationDialogProps = AccountRegistrationDialogMobxProps & AccountRegistrationDialogInjectedProps;
 
 const _AccountRegistrationDialog: FunctionComponent<AccountRegistrationDialogProps> = ({
-                                                                                           registrationForm,
-                                                                                           formErrors,
-                                                                                           submissionError,
-                                                                                           pending,
-                                                                                           registrationDialogOpen,
-                                                                                           showSnackbar,
-                                                                                           setFormValue,
-                                                                                           setRegistrationDialogOpen,
-                                                                                           setShowSnackbar,
-                                                                                           registerAccount,
-                                                                                           fullScreen,
-                                                                                           enqueueSnackbar
-                                                                                       }) => {
+    registrationForm,
+    formErrors,
+    submissionError,
+    pending,
+    registrationDialogOpen,
+    showSnackbar,
+    setFormValue,
+    setRegistrationDialogOpen,
+    setShowSnackbar,
+    registerAccount,
+    fullScreen,
+    enqueueSnackbar
+}) => {
     if (showSnackbar) {
         enqueueSnackbar("Account has been successfully registered");
         setShowSnackbar(false);
@@ -95,3 +104,22 @@ const _AccountRegistrationDialog: FunctionComponent<AccountRegistrationDialogPro
         </Dialog>
     )
 };
+
+const mapMobxToProps = (state: IAppState): AccountRegistrationDialogMobxProps => ({
+    registrationForm: state.registration.registrationForm,
+    formErrors: state.registration.formErrors,
+    submissionError: state.registration.submissionError,
+    showSnackbar: state.registration.showSnackbar,
+    pending: state.registration.pending,
+    registrationDialogOpen: state.registration.registrationDialogOpen,
+    registerAccount: state.registration.registerAccount,
+    setRegistrationDialogOpen: state.registration.setRegistrationDialogOpen,
+    setFormValue: state.registration.setField,
+    setShowSnackbar: state.registration.setShowSnackbar
+});
+
+export const AccountRegistrationDialog = withMobileDialog()(
+    withSnackbar(
+        inject(mapMobxToProps)(observer(_AccountRegistrationDialog) as FunctionComponent)
+    )
+);

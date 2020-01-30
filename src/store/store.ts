@@ -1,21 +1,14 @@
+import Web3 from "web3";
 import {IAppState} from "./IAppState";
-import {
-    AccountRegistrationStore,
-    AccountsBalanceStore,
-    AccountsStore,
-} from "../Account";
+import {AccountRegistrationStore, AccountsBalanceStore, AccountsStore,} from "../Account";
 import {DrawerStore} from "../AppBar";
 import {SettingsStore} from "../Settings";
 import {ServiceNodeTransactionsStore} from "../Transaction";
-import {AccountType} from "../models";
 
 const accounts = new AccountsStore();
 const balances = new AccountsBalanceStore(accounts);
 const settings = new SettingsStore(accounts);
-const registration = new AccountRegistrationStore(accounts, AccountType.DATA_VALIDATOR);
-const dataValidatorRegistration = new AccountRegistrationStore(accounts, AccountType.DATA_VALIDATOR);
-const dataMartRegistration = new AccountRegistrationStore(accounts, AccountType.DATA_MART);
-const serviceNodeRegistration = new AccountRegistrationStore(accounts, AccountType.SERVICE_NODE);
+const registration = new AccountRegistrationStore(accounts, new Web3());
 const serviceNodeTransactions = new ServiceNodeTransactionsStore(settings);
 
 export const store: IAppState = {
@@ -24,8 +17,5 @@ export const store: IAppState = {
     drawer: new DrawerStore(),
     accounts,
     balances,
-    dataMartRegistration,
-    dataValidatorRegistration,
-    serviceNodeRegistration,
     serviceNodeTransactions
 };
