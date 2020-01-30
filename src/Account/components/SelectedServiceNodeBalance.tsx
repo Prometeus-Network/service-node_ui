@@ -17,9 +17,11 @@ const _SelectedServiceNodeBalance: FunctionComponent<SelectedServiceNodeBalanceP
     ...rest
 }) => {
     return selectedServiceNode
-        ? <AccountBalance balance={balance} {...rest}/>
+        ? <AccountBalance balance={balance} address={selectedServiceNode} {...rest}/>
         : null;
 };
+
+console.log("hello")
 
 const mapMobxToProps = (state: IAppState): SelectedServiceNodeBalanceMobxProps => ({
     balance: state.settings.selectedServiceNodeAccount

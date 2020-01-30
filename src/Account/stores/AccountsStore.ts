@@ -28,5 +28,13 @@ export class AccountsStore {
         AccountsService.fetchRegisteredAccounts()
             .then(({data}) => this.accounts = data)
             .catch((error: AxiosError) => this.accountsFetchingError = createErrorFromResponse(error));
+    };
+
+    @action
+    setDefaultAccount = (address: string): void => {
+        this.accounts = this.accounts.map(account => {
+            account.default = account.address === address;
+            return account;
+        })
     }
 }

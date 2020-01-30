@@ -11,17 +11,17 @@ import {
     withMobileDialog
 } from "@material-ui/core";
 import {WithMobileDialog} from "@material-ui/core/withMobileDialog";
-import {TransactionResponse, TransactionType} from "../../models";
+import {TransactionResponse} from "../../models";
 import {makePreciseNumberString} from "../../utils";
 
-interface TransactionDialogOwnProps {
+interface DataUploadInfoDialogOwnProps {
     transaction?: TransactionResponse,
     onClose: () => void
 }
 
-type TransactionDialogProps = TransactionDialogOwnProps & WithMobileDialog;
+type DataUploadInfoDialogProps = DataUploadInfoDialogOwnProps & WithMobileDialog;
 
-const _TransactionDialog: FunctionComponent<TransactionDialogProps> = ({
+const _DataUploadInfoDialog: FunctionComponent<DataUploadInfoDialogProps> = ({
     transaction,
     onClose,
     fullScreen
@@ -32,11 +32,9 @@ const _TransactionDialog: FunctionComponent<TransactionDialogProps> = ({
                     onClose={onClose}
                     fullScreen={fullScreen}
                     fullWidth
-                    maxWidth="lg"
+                    maxWidth="md"
             >
-                <DialogTitle>
-                    Transaction Info
-                </DialogTitle>
+                <DialogTitle>Data Upload Info</DialogTitle>
                 <DialogContent>
                     <Table>
                         <TableRow>
@@ -48,11 +46,7 @@ const _TransactionDialog: FunctionComponent<TransactionDialogProps> = ({
                             <TableCell>{transaction?.created_at}</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell>Txn Type</TableCell>
-                            <TableCell>{transaction?.type === TransactionType.DATA_PURCHASE ? "Data Purchase" : "Data Upload"}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Value</TableCell>
+                            <TableCell>Storage Price</TableCell>
                             <TableCell>{makePreciseNumberString(transaction?.value)}</TableCell>
                         </TableRow>
                         <TableRow>
@@ -62,15 +56,6 @@ const _TransactionDialog: FunctionComponent<TransactionDialogProps> = ({
                         <TableRow>
                             <TableCell>Data Validator</TableCell>
                             <TableCell>{transaction?.dataValidator}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Data Mart</TableCell>
-                            <TableCell>
-                                {transaction?.type === TransactionType.DATA_PURCHASE
-                                    ? transaction.dataMart
-                                    : "N/A"
-                                }
-                            </TableCell>
                         </TableRow>
                     </Table>
                 </DialogContent>
@@ -87,6 +72,6 @@ const _TransactionDialog: FunctionComponent<TransactionDialogProps> = ({
     } else {
         return null;
     }
-};
+}
 
-export const TransactionDialog = withMobileDialog()(_TransactionDialog) as FunctionComponent<TransactionDialogOwnProps>;
+export const DataUploadInfoDialog = withMobileDialog()(_DataUploadInfoDialog) as FunctionComponent<DataUploadInfoDialogOwnProps>;

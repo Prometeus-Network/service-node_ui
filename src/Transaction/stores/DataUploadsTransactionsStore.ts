@@ -1,34 +1,31 @@
 import {action, computed, observable, reaction} from "mobx";
 import {AxiosError} from "axios";
 import {SettingsStore} from "../../Settings";
-import {TransactionResponse} from "../../models";
+import {TransactionResponse, TransactionType} from "../../models";
 import {ApiError, createErrorFromResponse, TransactionsService} from "../../api";
-import {Normalized, normalize} from "../../utils";
+import {normalize, Normalized} from "../../utils";
 
-export class ServiceNodeTransactionsStore {
+export class DataUploadsTransactionsStore {
     private readonly settingsStore: SettingsStore;
-    private static readonly PAGE_SIZE = 100;
+    private static readonly PAGE_SIZE: number = 50;
 
     @observable
     transactions: Normalized<TransactionResponse> = {};
 
     @observable
-    pending: boolean = false;
+    error?: ApiError = undefined;
 
     @observable
-    error?: ApiError = undefined;
+    pending: boolean = false;
 
     @observable
     currentPage: number = 0;
 
     @observable
-    showSnackbar: boolean = false;
-
-    @observable
     resetOnSelectedServiceNodeAccountChange: boolean = false;
 
     @computed
-    get serviceNodeAddress(): string | undefined {
+    get serviceNodeAccount(): string | undefined {
         return this.settingsStore.selectedServiceNodeAccount;
     }
 
@@ -36,61 +33,54 @@ export class ServiceNodeTransactionsStore {
         this.settingsStore = settingsStore;
 
         reaction(
-            () => this.error,
-            () => this.showSnackbar = true
-        );
-
-        reaction(
-            () => this.serviceNodeAddress,
+            () => this.serviceNodeAccount,
             () => {
                 if (this.resetOnSelectedServiceNodeAccountChange) {
                     this.reset();
-                    this.fetchTransactions();
+                    this.fetchDataUploadsHistory();
                 }
             }
         )
     }
 
     @action
-    fetchTransactions = (): void => {
-        if (this.serviceNodeAddress) {
+    setResetOnSelectedServiceNodeAccountChange = (reset: boolean): void => {
+        this.resetOnSelectedServiceNodeAccountChange = reset;
+    };
+
+    @action
+    fetchDataUploadsHistory = (): void => {
+        if (this.serviceNodeAccount) {
             this.pending = true;
             this.error = undefined;
 
-            TransactionsService.getTransactionsOfAddress(this.serviceNodeAddress, {
-                page: this.currentPage,
-                size: ServiceNodeTransactionsStore.PAGE_SIZE
-            })
+            TransactionsService.getTransactionsOfAddressByType(
+                this.serviceNodeAccount,
+                TransactionType.DATA_UPLOAD,
+                {page: this.currentPage, size: DataUploadsTransactionsStore.PAGE_SIZE}
+            )
                 .then(({data}) => {
                     if (data.length !== 0) {
                         this.transactions = {
                             ...this.transactions,
                             ...normalize(data, "hash")
                         };
-                        if (data.length === ServiceNodeTransactionsStore.PAGE_SIZE) {
+
+                        if (data.length === DataUploadsTransactionsStore.PAGE_SIZE) {
                             this.currentPage = this.currentPage + 1;
                         }
-                }
-            })
+                    }
+                })
                 .catch((error: AxiosError) => this.error = createErrorFromResponse(error))
                 .finally(() => this.pending = false);
         }
     };
 
     @action
-    setShowSnackbar = (showSnackbar: boolean): void => {
-        this.showSnackbar = showSnackbar;
-    };
-
-    @action
-    setResetOnSelectedServiceNodeAccountChange = (resetOnSelectedServiceNodeAccountChange: boolean): void => {
-        this.resetOnSelectedServiceNodeAccountChange = resetOnSelectedServiceNodeAccountChange;
-    };
-
-    @action
     reset = (): void => {
-        this.transactions = {};
-        this.pending = false;
         this.currentPage = 0;
+        this.pending = false;
+        this.error = undefined;
+        this.transactions = {};
     }
 }

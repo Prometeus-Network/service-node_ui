@@ -8,15 +8,18 @@ import {IAppState} from "../../store";
 import {TransactionResponse} from "../../models";
 import {ApiError} from "../../api";
 import {Normalized} from "../../utils";
+import {ServiceNodeAccountSelect} from "../../Account/components";
 
 interface ServiceNodeTransactionsCardMobxProps {
     transactions: Normalized<TransactionResponse>,
     serviceNode?: string,
+    serviceNodes: string[],
     pending: boolean,
     error?: ApiError,
     showSnackbar: boolean,
     setShowSnackbar: (showSnackbar: boolean) => void,
     fetchTransactions: () => void,
+    selectServiceNode: (serviceNode: string) => void
 }
 
 type ServiceNodeTransactionsCardProps = ServiceNodeTransactionsCardMobxProps & WithSnackbarProps;
@@ -29,7 +32,9 @@ const _ServiceNodeTransactionsCard: FunctionComponent<ServiceNodeTransactionsCar
     serviceNode,
     setShowSnackbar,
     fetchTransactions,
-    enqueueSnackbar
+    enqueueSnackbar,
+    serviceNodes,
+    selectServiceNode
 }) => {
     const [transactionInDialog, setTransactionInDialog] = useState<TransactionResponse | undefined>(undefined);
 
@@ -50,7 +55,13 @@ const _ServiceNodeTransactionsCard: FunctionComponent<ServiceNodeTransactionsCar
     } else {
         return (
             <Fragment>
-                <Grid container spacing={1}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <ServiceNodeAccountSelect accounts={serviceNodes}
+                                                  onSelect={selectServiceNode}
+                                                  selectedAccount={serviceNode}
+                        />
+                    </Grid>
                     <Grid item xs={12}>
                         <Card style={{overflowX: 'auto'}}>
                             <CardHeader title={`Transactions of service node ${serviceNode}`}/>
@@ -87,7 +98,9 @@ const mapMobxToProps = (state: IAppState): ServiceNodeTransactionsCardMobxProps 
     serviceNode: state.serviceNodeTransactions.serviceNodeAddress,
     showSnackbar: state.serviceNodeTransactions.showSnackbar,
     setShowSnackbar: state.serviceNodeTransactions.setShowSnackbar,
-    fetchTransactions: state.serviceNodeTransactions.fetchTransactions
+    fetchTransactions: state.serviceNodeTransactions.fetchTransactions,
+    selectServiceNode: state.settings.selectServiceNodeAccount,
+    serviceNodes: state.accounts.serviceNodeAccounts.map(account => account.address)
 });
 
 export const ServiceNodeTransactionsCard = withSnackbar(

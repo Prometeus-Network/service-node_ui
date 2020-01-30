@@ -1,11 +1,11 @@
 import {action, computed, observable, reaction} from "mobx";
 import {AxiosError} from "axios";
-import {SettingsStore} from "../../Settings";
-import {TransactionResponse} from "../../models";
+import {TransactionResponse, TransactionType} from "../../models";
 import {ApiError, createErrorFromResponse, TransactionsService} from "../../api";
-import {Normalized, normalize} from "../../utils";
+import {SettingsStore} from "../../Settings";
+import {normalize, Normalized} from "../../utils";
 
-export class ServiceNodeTransactionsStore {
+export class DataPurchasesTransactionsStore {
     private readonly settingsStore: SettingsStore;
     private static readonly PAGE_SIZE = 100;
 
@@ -16,19 +16,16 @@ export class ServiceNodeTransactionsStore {
     pending: boolean = false;
 
     @observable
-    error?: ApiError = undefined;
-
-    @observable
     currentPage: number = 0;
 
     @observable
-    showSnackbar: boolean = false;
+    error?: ApiError = undefined;
 
     @observable
     resetOnSelectedServiceNodeAccountChange: boolean = false;
 
     @computed
-    get serviceNodeAddress(): string | undefined {
+    get serviceNodeAccount(): string | undefined {
         return this.settingsStore.selectedServiceNodeAccount;
     }
 
@@ -36,51 +33,15 @@ export class ServiceNodeTransactionsStore {
         this.settingsStore = settingsStore;
 
         reaction(
-            () => this.error,
-            () => this.showSnackbar = true
-        );
-
-        reaction(
-            () => this.serviceNodeAddress,
+            () => this.serviceNodeAccount,
             () => {
                 if (this.resetOnSelectedServiceNodeAccountChange) {
                     this.reset();
-                    this.fetchTransactions();
+                    this.fetchPurchasesHistory();
                 }
             }
         )
     }
-
-    @action
-    fetchTransactions = (): void => {
-        if (this.serviceNodeAddress) {
-            this.pending = true;
-            this.error = undefined;
-
-            TransactionsService.getTransactionsOfAddress(this.serviceNodeAddress, {
-                page: this.currentPage,
-                size: ServiceNodeTransactionsStore.PAGE_SIZE
-            })
-                .then(({data}) => {
-                    if (data.length !== 0) {
-                        this.transactions = {
-                            ...this.transactions,
-                            ...normalize(data, "hash")
-                        };
-                        if (data.length === ServiceNodeTransactionsStore.PAGE_SIZE) {
-                            this.currentPage = this.currentPage + 1;
-                        }
-                }
-            })
-                .catch((error: AxiosError) => this.error = createErrorFromResponse(error))
-                .finally(() => this.pending = false);
-        }
-    };
-
-    @action
-    setShowSnackbar = (showSnackbar: boolean): void => {
-        this.showSnackbar = showSnackbar;
-    };
 
     @action
     setResetOnSelectedServiceNodeAccountChange = (resetOnSelectedServiceNodeAccountChange: boolean): void => {
@@ -88,9 +49,38 @@ export class ServiceNodeTransactionsStore {
     };
 
     @action
+    fetchPurchasesHistory = (): void => {
+        if (this.serviceNodeAccount) {
+            this.pending = true;
+            this.error = undefined;
+
+            TransactionsService.getTransactionsOfAddressByType(
+                this.serviceNodeAccount,
+                TransactionType.DATA_PURCHASE,
+                {page: this.currentPage, size: DataPurchasesTransactionsStore.PAGE_SIZE}
+            )
+                .then(({data}) => {
+                    if (data.length !== 0) {
+                        this.transactions = {
+                            ...this.transactions,
+                            ...normalize(data, "hash")
+                        };
+
+                        if (data.length === DataPurchasesTransactionsStore.PAGE_SIZE) {
+                            this.currentPage = this.currentPage + 1;
+                        }
+                    }
+                })
+                .catch((error: AxiosError) => this.error = createErrorFromResponse(error))
+                .finally(() => this.pending = false);
+        }
+    };
+
+    @action
     reset = (): void => {
-        this.transactions = {};
-        this.pending = false;
         this.currentPage = 0;
+        this.pending = false;
+        this.error = undefined;
+        this.transactions = {};
     }
 }

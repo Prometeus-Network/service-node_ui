@@ -76,7 +76,8 @@ export class AccountRegistrationStore {
                 .then(({data}) => {
                     this.accountsStore.addAccount({
                         type: this.registrationForm.type!,
-                        address: this.registrationForm.address!
+                        address: this.registrationForm.address!,
+                        default: false
                     });
                     this.response = data;
                     this.setShowSnackbar(true);
