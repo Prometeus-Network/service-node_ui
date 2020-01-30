@@ -26,4 +26,4 @@ export const DataPurchasesPage: FunctionComponent<{}> = () => (
             <Footer/>
         </Grid>
     </Grid>
-)
+);

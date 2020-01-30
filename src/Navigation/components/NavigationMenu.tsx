@@ -76,10 +76,7 @@ const _NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
             </Link>
             <Link store={store}
                   view={Routes.wallets}
-                  style={{
-                      textDecoration: 'none',
-                      color: 'inherit'
-                  }}
+                  className={classes.undecoratedLink}
             >
                 <MenuItem onClick={() => onItemClick && onItemClick()}>
                     <ListItemIcon>
