@@ -1,4 +1,4 @@
-import React, {FunctionComponent, Fragment, useState} from "react";
+import React, {FunctionComponent, Fragment, useState, ReactNode} from "react";
 import {inject, observer} from "mobx-react";
 import {Card, CardHeader, CardContent, Grid, Button, Typography} from "@material-ui/core";
 import {withSnackbar, WithSnackbarProps} from "notistack";
@@ -46,49 +46,55 @@ const _ServiceNodeTransactionsCard: FunctionComponent<ServiceNodeTransactionsCar
         setShowSnackbar(false);
     }
 
+    let content: ReactNode;
+
     if (Object.keys(transactions).length === 0 && !pending) {
         if (error) {
-            return <Typography variant="body1">Error occurred when tried to fetch transactions</Typography>
+            content = <Typography variant="body1">Error occurred when tried to fetch transactions</Typography>
         } else {
-            return <Typography variant="body1">No transactions have been found</Typography>
+            content = <Typography variant="body1">No transactions have been found</Typography>
         }
     } else {
-        return (
-            <Fragment>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <ServiceNodeAccountSelect accounts={serviceNodes}
-                                                  onSelect={selectServiceNode}
-                                                  selectedAccount={serviceNode}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Card style={{overflowX: 'auto'}}>
-                            <CardHeader title={`Transactions of service node ${serviceNode}`}/>
-                            <CardContent>
-                                <TransactionsTable transactions={Object.keys(transactions).map(key => transactions[key])}
-                                                   pending={pending}
-                                                   onTransactionDetailsRequest={transaction => setTransactionInDialog(transaction)}
-                                />
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button variant="outlined"
-                                color="primary"
-                                onClick={fetchTransactions}
-                                disabled={pending}
-                        >
-                            Load more
-                        </Button>
-                    </Grid>
-                </Grid>
-                <TransactionDialog transaction={transactionInDialog}
-                                   onClose={() => setTransactionInDialog(undefined)}
-                />
-            </Fragment>
+        content = (
+            <TransactionsTable transactions={Object.keys(transactions).map(key => transactions[key])}
+                               pending={pending}
+                               onTransactionDetailsRequest={transaction => setTransactionInDialog(transaction)}
+            />
         )
     }
+
+    return (
+        <Fragment>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <ServiceNodeAccountSelect accounts={serviceNodes}
+                                              onSelect={selectServiceNode}
+                                              selectedAccount={serviceNode}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <Card style={{overflowX: 'auto'}}>
+                        <CardHeader title={`Transactions of service node ${serviceNode}`}/>
+                        <CardContent>
+                            {content}
+                        </CardContent>
+                    </Card>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button variant="outlined"
+                            color="primary"
+                            onClick={fetchTransactions}
+                            disabled={pending}
+                    >
+                        Load more
+                    </Button>
+                </Grid>
+            </Grid>
+            <TransactionDialog transaction={transactionInDialog}
+                               onClose={() => setTransactionInDialog(undefined)}
+            />
+        </Fragment>
+    )
 };
 
 const mapMobxToProps = (state: IAppState): ServiceNodeTransactionsCardMobxProps => ({

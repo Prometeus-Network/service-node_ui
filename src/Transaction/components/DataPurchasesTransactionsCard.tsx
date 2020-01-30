@@ -1,4 +1,4 @@
-import React, {Fragment, FunctionComponent, useState} from "react";
+import React, {Fragment, FunctionComponent, ReactNode, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Button, Card, CardContent, CardHeader, Grid, Typography, createStyles, makeStyles} from "@material-ui/core";
 import {DataPurchasesTable} from "./DataPurchasesTable";
@@ -37,12 +37,22 @@ const _DataPurchasesTransactionsCard: FunctionComponent<DataPurchasesTransaction
     const [transactionInDialog, setTransactionInDialog] = useState<TransactionResponse | undefined>(undefined);
     const classes = useStyles();
 
+    let content: ReactNode;
+
+
     if (Object.keys(transactions).length === 0 && !pending) {
         if (error) {
-            return <Typography variant="body1">Error occurred when tried to fetch transactions</Typography>
+            content = <Typography variant="body1">Error occurred when tried to fetch transactions</Typography>
         } else {
-            return <Typography variant="body1">No transactions have been found</Typography>
+            content = <Typography variant="body1">No transactions have been found</Typography>
         }
+    } else {
+        content = (
+            <DataPurchasesTable transactions={Object.keys(transactions).map(hash => transactions[hash])}
+                                pending={pending}
+                                onTransactionDetailsRequest={setTransactionInDialog}
+            />
+        )
     }
 
     return (
@@ -58,10 +68,7 @@ const _DataPurchasesTransactionsCard: FunctionComponent<DataPurchasesTransaction
                     <Card className={classes.dataPurchasesCard}>
                         <CardHeader title={`Data purchases through service node ${serviceNode}`}/>
                         <CardContent>
-                            <DataPurchasesTable transactions={Object.keys(transactions).map(hash => transactions[hash])}
-                                                pending={pending}
-                                                onTransactionDetailsRequest={setTransactionInDialog}
-                            />
+                            {content}
                         </CardContent>
                     </Card>
                 </Grid>

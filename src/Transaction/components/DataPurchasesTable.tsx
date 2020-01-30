@@ -22,11 +22,12 @@ interface DataPurchasesTableProps {
 
 const useStyles = makeStyles(() => createStyles({
     centered: {
-        marginRight: 'auto',
-        marginLeft: 'auto'
+        marginRight: "auto",
+        marginLeft: "auto",
+        display: "table"
     },
     hyperlinkLike: {
-        cursor: 'pointer'
+        cursor: "pointer"
     }
 }));
 
