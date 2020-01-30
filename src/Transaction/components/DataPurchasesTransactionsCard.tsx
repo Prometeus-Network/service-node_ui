@@ -84,7 +84,7 @@ const _DataPurchasesTransactionsCard: FunctionComponent<DataPurchasesTransaction
 
 const mapMobxToProps = (state: IAppState): DataPurchasesTransactionsCardMobxProps => ({
     transactions: state.dataPurchases.transactions,
-    serviceNodes: state.accounts.serviceNodeAccounts.map(account => account.address),
+    serviceNodes: state.accounts.accounts.map(account => account.address),
     pending: state.dataPurchases.pending,
     serviceNode: state.dataPurchases.serviceNodeAccount,
     selectServiceNode: state.settings.selectServiceNodeAccount,

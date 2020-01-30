@@ -30,7 +30,7 @@ const _ServiceNodeAccountSettings: React.FC<ServiceNodeAccountSettingsMobxProps>
 );
 
 const mapMobxToProps = (state: IAppState): ServiceNodeAccountSettingsMobxProps => ({
-    accounts: state.accounts.serviceNodeAccounts,
+    accounts: state.accounts.accounts,
     balances: state.balances.accountsBalances,
     selectedAccount: state.settings.selectedServiceNodeAccount,
     selectAccount: state.settings.selectServiceNodeAccount

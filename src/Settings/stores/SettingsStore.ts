@@ -8,8 +8,8 @@ export class SettingsStore {
 
     @computed
     get selectedServiceNodeAccount(): string | undefined{
-        if (this.accountsStore.serviceNodeAccounts.length !== 0) {
-            return this.accountsStore.serviceNodeAccounts
+        if (this.accountsStore.accounts.length !== 0) {
+            return this.accountsStore.accounts
                 .filter(account => account.default)
                 .reduce(account => account)
                 .address
@@ -20,7 +20,7 @@ export class SettingsStore {
 
     @computed
     get serviceNodeAccounts(): AccountResponse[] {
-        return this.accountsStore.serviceNodeAccounts;
+        return this.accountsStore.accounts;
     }
 
     @computed

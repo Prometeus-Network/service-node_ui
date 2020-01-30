@@ -100,7 +100,7 @@ const mapMobxToProps = (state: IAppState): ServiceNodeTransactionsCardMobxProps 
     setShowSnackbar: state.serviceNodeTransactions.setShowSnackbar,
     fetchTransactions: state.serviceNodeTransactions.fetchTransactions,
     selectServiceNode: state.settings.selectServiceNodeAccount,
-    serviceNodes: state.accounts.serviceNodeAccounts.map(account => account.address)
+    serviceNodes: state.accounts.accounts.map(account => account.address)
 });
 
 export const ServiceNodeTransactionsCard = withSnackbar(
