@@ -32,19 +32,12 @@ interface AppBarMobxProps {
 type AppBarProps = AppBarOwnProps & AppBarMobxProps;
 
 const useStyles = makeStyles(() => createStyles({
-    root: {
-        flexGrow: 1,
-    },
     grow: {
         flexGrow: 1,
     },
     undecoratedLink: {
         textDecoration: "none",
         color: "inherit"
-    },
-    headroom: {
-        position: "fixed",
-        zIndex: 1300
     }
 }));
 
@@ -71,9 +64,12 @@ const _AppBar: FunctionComponent<AppBarProps> = ({title, store, sideBarItem}) =>
 
     return (
         <Fragment>
-            <Headroom className={classes.headroom}>
+            <Headroom style={{
+                position: 'fixed',
+                zIndex: 1300
+            }}>
                 <MaterialUiAppBar position="static"
-                                  classes={classes}
+                                  className={classes.grow}
                 >
                     <Toolbar>
                         <Hidden lgUp>
