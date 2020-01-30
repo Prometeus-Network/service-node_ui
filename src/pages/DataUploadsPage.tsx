@@ -7,7 +7,7 @@ import {NavigationMenu} from "../Navigation";
 import {Footer} from "../Footer";
 import {DataUploadsTransactionsCard} from "../Transaction";
 
-export const DataUploadsPage: FunctionComponent<{}> = () => (
+export const DataUploadsPage: FunctionComponent = () => (
     <Grid container>
         <Grid item xs={12}>
             <AppBar sideBarItem={<SelectedServiceNodeBalance/>}/>
