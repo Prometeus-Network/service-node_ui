@@ -10,9 +10,8 @@
 - [How to use](#how-to-use)
     - [Home page](#home-page)
     - [Data uploads page](#data-uploads-page)
-    - [Account registration page](#account-registration-page)
-    - [Settings page](#settings-page)
-- [Demo](#demo)
+    - [Data purchases page](#data-purchases-page)
+    - [Wallets page](#wallets-page)
     
 
 ## Description
