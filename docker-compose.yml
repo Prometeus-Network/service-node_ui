@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 3009:3009
+      - ${REACT_APP_PRODUCTION_PORT}:${REACT_APP_PRODUCTION_PORT}
     working_dir: /usr/src/app
     volumes:
       - ./:/usr/src/app

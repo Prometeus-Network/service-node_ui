@@ -2,7 +2,7 @@ import React, {FunctionComponent} from "react";
 import {inject} from "mobx-react";
 import {createStyles, List, ListItemIcon, ListItemText, makeStyles, MenuItem} from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import {Routes} from "../../router";
@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => createStyles({
 const _NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
     store,
     onItemClick
-}) => {
+}) =>  {
     const classes = useStyles();
 
     return (
@@ -75,15 +75,15 @@ const _NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                 </MenuItem>
             </Link>
             <Link store={store}
-                  view={Routes.serviceNodeRegistration}
+                  view={Routes.wallets}
                   className={classes.undecoratedLink}
             >
                 <MenuItem onClick={() => onItemClick && onItemClick()}>
                     <ListItemIcon>
-                        <AccountCircleIcon/>
+                        <AccountBalanceWalletIcon/>
                     </ListItemIcon>
                     <ListItemText>
-                        Register
+                        Wallets
                     </ListItemText>
                 </MenuItem>
             </Link>

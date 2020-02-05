@@ -1,4 +1,4 @@
-import React, {Fragment, FunctionComponent, useState} from "react";
+import React, {Fragment, FunctionComponent, ReactNode, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Button, Card, CardContent, CardHeader, Grid, Typography, createStyles, makeStyles} from "@material-ui/core";
 import {DataUploadsTable} from "./DataUploadsTable";
@@ -37,49 +37,55 @@ const _DataUploadsTransactionsCard: FunctionComponent<DataUploadsTransactionsCar
     const [transactionInDialog, setTransactionInDialog] = useState<TransactionResponse | undefined>(undefined);
     const classes = useStyles();
 
+    let content: ReactNode;
+
     if (Object.keys(transactions).length === 0 && !pending) {
         if (error) {
-            return <Typography variant="body1">Error occurred when tried to fetch transactions</Typography>
+            content = <Typography variant="body1">Error occurred when tried to fetch transactions</Typography>
         } else {
-            return <Typography variant="body1">No transactions have been found</Typography>
+            content = <Typography variant="body1">No transactions have been found</Typography>
         }
     } else {
-        return (
-            <Fragment>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <ServiceNodeAccountSelect accounts={serviceNodes}
-                                                  onSelect={selectServiceNode}
-                                                  selectedAccount={serviceNode}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Card className={classes.dataUploadsCard}>
-                            <CardHeader title={`Data uploads through service node ${serviceNode}`}/>
-                            <CardContent>
-                                <DataUploadsTable transactions={Object.keys(transactions).map(hash => transactions[hash])}
-                                                  pending={pending}
-                                                  onTransactionDetailsRequest={setTransactionInDialog}
-                                />
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button variant="outlined"
-                                color="primary"
-                                onClick={fetchTransactions}
-                                disabled={pending}
-                        >
-                            Load more
-                        </Button>
-                    </Grid>
-                </Grid>
-                <DataUploadInfoDialog onClose={() => setTransactionInDialog(undefined)}
-                                      transaction={transactionInDialog}
-                />
-            </Fragment>
+        content = (
+            <DataUploadsTable transactions={Object.keys(transactions).map(hash => transactions[hash])}
+                              pending={pending}
+                              onTransactionDetailsRequest={setTransactionInDialog}
+            />
         )
     }
+
+    return (
+        <Fragment>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <ServiceNodeAccountSelect accounts={serviceNodes}
+                                              onSelect={selectServiceNode}
+                                              selectedAccount={serviceNode}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <Card className={classes.dataUploadsCard}>
+                        <CardHeader title={`Data uploads through service node ${serviceNode}`}/>
+                        <CardContent>
+                            {content}
+                        </CardContent>
+                    </Card>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button variant="outlined"
+                            color="primary"
+                            onClick={fetchTransactions}
+                            disabled={pending}
+                    >
+                        Load more
+                    </Button>
+                </Grid>
+            </Grid>
+            <DataUploadInfoDialog onClose={() => setTransactionInDialog(undefined)}
+                                  transaction={transactionInDialog}
+            />
+        </Fragment>
+    )
 };
 
 const mapMobxToProps = (state: IAppState): DataUploadsTransactionsCardMobxProps => ({

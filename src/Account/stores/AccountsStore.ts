@@ -13,11 +13,6 @@ export class AccountsStore {
     @observable
     accountsFetchingError?: ApiError = undefined;
 
-    @computed
-    get serviceNodeAccounts(): AccountResponse[] {
-        return this.accounts.filter(account => account.type === AccountType.SERVICE_NODE);
-    }
-
     @action
     addAccount = (account: AccountResponse): void => {
         this.accounts.push(account);
@@ -35,6 +30,6 @@ export class AccountsStore {
         this.accounts = this.accounts.map(account => {
             account.default = account.address === address;
             return account;
-        })
+        });
     }
 }

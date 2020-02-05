@@ -7,14 +7,13 @@
 - [How to run](#how-to-run)
     - [Prerequisites](#prerequisites)
     - [Build and run process](#build-and-run-process)
+    - [Environmental variables](#environmental-variables)
 - [How to use](#how-to-use)
-    - [Main page](#main-page)
-    - [Data upload page](#data-upload-page)
-    - [Account registration page](#account-registration-page)
-    - [Settings page](#settings-page)
-- [Demo](#demo)
+    - [Home page](#home-page)
+    - [Data uploads page](#data-uploads-page)
+    - [Data purchases page](#data-purchases-page)
+    - [Wallets page](#wallets-page)
     
-
 ## Description
 
 Service node client is a React based client application for [Service node](https://github.com/Prometeus-Network/service-node_net). It provides user interface for interaction with Service node, e.g. for uploading files. 
@@ -37,18 +36,52 @@ As such this codebase should be treated as experimental and does not contain all
 
 In order to run Service node client, you need to do the following:
 
-- Run Service node and Billing service on your local machine. You can find installation intructions in their repositories (https://github.com/Prometeus-Network/service-node_net and https://github.com/Prometeus-Network/billing);
+- Run Service node and Billing service on your local machine. You can find installation instructions in their repositories (https://github.com/Prometeus-Network/service-node_net and https://github.com/Prometeus-Network/billing);
+- 
 - Install NodeJS. You can find installation instructions [here](https://nodejs.org/en/download/);
-- Run `npm install` to install all necessary dependencies.
-- Create and configure `.env` file
-    - `REACT_APP_SERVICE_NODE_API_BASE_URL` variable is a base URL of Service node API, e.g. `http://localhost:3002/api/v1`;
-    - `REACT_APP_PRODUCTION_PORT` is a port which will be used by Service node client in production mode. E.g. `3000`;
-    - `REACT_APP_WEB3_HTTP_PROVIDER` variable is a URL for Web3 HTTP provider. Web3 is needed for dynamic creation of data
-    owners. Example value: `http://localhost:7545`
+- Install Docker. You can find installation instructions on 
+[official website](https://docs.docker.com/install/).
+- Install Docker-compose, which can be found 
+[here](https://docs.docker.com/compose/install/)
+- Create and configure `.env` file. Environmental variables are described [below](#environmental-variables)
+- If you want to run service-node outside of docker container, 
+you will need NodeJS and Yarn installed. 
+You can find NodeJS installations 
+instruction [on the official website](https://nodejs.org/en/download/).
+Yarn installation instruction is also available on
+[Yarn's official website](https://legacy.yarnpkg.com/en/docs/install/#debian-stable).
+
 ### Build and run process
 
-- Run `npm run production`. This will build application and run it in production mode on port specified in `REACT_APP_PRODUCTION_PORT` variable;
-- If you want to run application in development mode, run `npm run start`. This will run application in development mode on `3000` port.
+#### Running inside Docker
+
+To run Service Node UI inside Docker, run the following command:
+
+```
+docker-compose up --build
+```
+
+or 
+
+```
+docker-compose up --build -d
+```
+
+if you want to run it in detached mode. 
+
+#### Running outside Docker
+
+If you want to run Service Node UI outside of Docker, you'll need to do the following:
+- Run `yarn install` to install all required dependencies if you haven't done this yet;
+- Run `yarn run production`. This will build application and run it in production mode on port specified in `REACT_APP_PRODUCTION_PORT` variable;
+- If you want to run application in development mode, run `yarn run start`. This will run application in development mode on `3000` port.
+
+### Environmental variables
+
+|               Variable                |                                 Description                                |   Required | Default value |
+|---------------------------------------|----------------------------------------------------------------------------|------------|---------------|
+| `REACT_APP_PRODUCTION_PORT`           | Port which will be used by the application when started in production mode | `true`     |               |
+| `REACT_APP_SERVICE_NODE_API_BASE_URL` | Base URL of Service Node API                                               | `true`     |               |
 
 ## How to use
 
@@ -56,61 +89,49 @@ Once you launched the application, it's ready to be used. You can open it in bro
 
 Right now, service node has the following features:
 
-- Registering new service node, data validator and data owner accounts;
-- Selecting and persisting service node and data validator accounts in settings;
-- Data uploading.
+- Viewing all transactions made through this Service node;
+- Viewing data uploads made though this Service node;
+- Viewing all data purchases made through this Service node;
+- Switching wallets of this Service node and creating a new one
 
-### Main page
+### Home page
 
-The main page contains brief description of service node client.
+The main page contains table with list of all transactions made through this Service node.
 
-<a href="https://ibb.co/7NTxBK4" target='_blank'><img src="https://i.ibb.co/yBMmKqS/2019-11-04-18-30-19.png" alt="2019-11-04-18-30-19" border="0"></a><br/>
+<a href="https://ibb.co/T00MWSV" target='_blank'><img src="https://i.ibb.co/B662nxX/Screenshot-from-2020-02-05-15-25-31.png" alt="Screenshot-from-2020-02-05-15-25-31" border="0"></a>
 
-### Data upload page
+You can view transaction details by clicking on transaction hash.
 
-Data upload page allows you to upload files to the Service node. 
+<a href="https://ibb.co/VLcBvkr" target='_blank'><img src="https://i.ibb.co/FhL7BdN/Screenshot-from-2020-02-05-15-27-22.png" alt="Screenshot-from-2020-02-05-15-27-22" border="0"></a>
 
-To upload data, you will need to fill the following fields:
+### Data uploads page
 
-- Name -- name of uploaded data;
-- Data owner address -- address of the data owner. You will have to register it first if you haven't done it previously;
-- Keep until -- date until which file will be kept;
-- Attached file -- the data itself;
+Data uploads page displays data uploads which were made through this Service node.
 
-<a href="https://ibb.co/w7SGrzb"><img src="https://i.ibb.co/LrxjhZq/2019-11-04-18-41-15.png" alt="2019-11-04-18-41-15" border="0"></a><br />
+<a href="https://ibb.co/VLcBvkr" target='_blank'><img src="https://i.ibb.co/FhL7BdN/Screenshot-from-2020-02-05-15-27-22.png" alt="Screenshot-from-2020-02-05-15-27-22" border="0"></a>
 
-In order to add metadata to your file, click on the plus button. This will open a modal dialog for adding metadata to your file. It can be seen on a screenshot below
+Data upload details can be viewed by clicking on transaction hash
 
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/kGG04Lf/2019-11-04-18-49-30.png" alt="2019-11-04-18-49-30" border="0"></a>
+<a href="https://ibb.co/y6jZ59Z" target='_blank'><img src="https://i.ibb.co/jyXQGNQ/Screenshot-from-2020-02-05-15-30-55.png" alt="Screenshot-from-2020-02-05-15-30-55" border="0"></a>
 
-Click on "Add metadata" button to add metadata entry. It will be added in metadata table.
+### Data purchases page
 
-<a href="https://ibb.co/0QB1Rs5"><img src="https://i.ibb.co/LvQBXNK/2019-11-04-18-51-36.png" alt="2019-11-04-18-51-36" border="0"></a><br />
+Data purchases page shows history of data purchases made through this Service node.
 
-To remove metadata entry, click on minus button.
+<a href="https://ibb.co/8dGx5Dv" target='_blank'><img src="https://i.ibb.co/1dBXqfy/Screenshot-from-2020-02-05-15-38-28.png" alt="Screenshot-from-2020-02-05-15-38-28" border="0"></a>
 
-After file have been uploaded, you will see the information about uploaded file, such as its ID and storage cost. You can upload another file by clicking on "Upload another file" button.
+Details of data purchase can also be viewed by clicking on transaction hash.
 
-<a href="https://ibb.co/MPVYJZK"><img src="https://i.ibb.co/dk2dHjX/2019-11-04-19-05-13.png" alt="2019-11-04-19-05-13" border="0"></a><br />
+<a href="https://ibb.co/18KSdQb" target='_blank'><img src="https://i.ibb.co/bzLf2m7/Screenshot-from-2020-02-05-15-41-44.png" alt="Screenshot-from-2020-02-05-15-41-44" border="0"></a>
 
-Please note that if you have not selected service node and/or data validator accounts previously, you will be prompted to do so before uploading data.
+### Wallets page
 
-<a href="https://ibb.co/T82yzDb"><img src="https://i.ibb.co/Hz4ZmLx/2019-11-04-19-13-05.png" alt="2019-11-04-19-13-05" border="0"></a><br />
+Wallets page shows list of wallets registered on this Service node.
 
-### Account registration page
+You can change the default wallet of this Service node by clicking on checkbox of wallet which you want to make default.
 
-Account registration allows you to register new accounts. In order to register new account, you will need to provide its address and select its type.
+<a href="https://ibb.co/HtMrPTs" target='_blank'><img src="https://i.ibb.co/2vLjM3Q/Screenshot-from-2020-02-05-15-45-48.png" alt="Screenshot-from-2020-02-05-15-45-48" border="0"></a>
 
-<a href="https://ibb.co/1T9WJXf"><img src="https://i.ibb.co/BBgMK6V/2019-11-04-19-16-04.png" alt="2019-11-04-19-16-04" border="0"></a><br />
+You can register new wallet by clicking on "Add new wallet" button. You will need to provide address and private key of the wallet.
 
-### Settings page
-
-On settings page, you can select Service node account and Data validator account which will be submitted upon file uploading. Selected accounts are persisted to browser's local storage.
-
-<a href="https://ibb.co/WtSvh4w"><img src="https://i.ibb.co/16HGgt5/2019-11-04-19-20-11.png" alt="2019-11-04-19-20-11" border="0"></a><br />
-
-Please not that if you have not registered service node and/or data validator accounts previously, you will be prompted to do so.
-
-## Demo
-
-The demonstration of Service node client is available [here](http://34.66.195.4/)
+<a href="https://ibb.co/QQWkzPT" target='_blank'><img src="https://i.ibb.co/W5r0qkM/Screenshot-from-2020-02-05-15-52-06.png" alt="Screenshot-from-2020-02-05-15-52-06" border="0"></a>

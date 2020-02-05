@@ -2,7 +2,10 @@ FROM node:10
 
 WORKDIR /usr/src/app
 
-RUN npm install
+COPY . .
 
-EXPOSE 3009
-CMD ["npm", "run", "production"]
+RUN yarn install
+
+EXPOSE $REACT_APP_PRODUCTUION_PORT
+
+CMD ["yarn", "run", "production"]

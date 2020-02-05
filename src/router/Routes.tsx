@@ -1,10 +1,11 @@
 import * as React from "react";
 import {
+    HomePage,
+    NotFoundPage,
+    ServiceNodeTransactionsHistoryPage,
+    WalletsPage,
     DataPurchasesPage,
     DataUploadsPage,
-    NotFoundPage,
-    ServiceNodeRegistrationPage,
-    ServiceNodeTransactionsHistoryPage
 } from "../pages";
 import {store} from "../store";
 
@@ -23,13 +24,13 @@ export const Routes = {
             store.serviceNodeTransactions.reset();
         }
     }),
+    wallets: new Route({
+        path: "/wallets",
+        component: <WalletsPage/>
+    }),
     notFound: new Route({
         path: '/404',
         component: <NotFoundPage/>
-    }),
-    serviceNodeRegistration: new Route({
-        path: '/registration',
-        component: <ServiceNodeRegistrationPage/>
     }),
     dataUploads: new Route({
         path: '/data-uploads',

@@ -7,7 +7,7 @@ import {NavigationMenu} from "../Navigation";
 import {ServiceNodeAccountSettings} from "../Settings";
 import {SelectedServiceNodeBalance} from "../Account";
 
-export const HomePage: FunctionComponent<{}> = () => (
+export const HomePage: FunctionComponent = () => (
     <Grid container>
         <Grid item xs={12}>
             <AppBar sideBarItem={<SelectedServiceNodeBalance/>}/>

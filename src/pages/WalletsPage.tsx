@@ -1,12 +1,17 @@
 import React, {FunctionComponent} from "react";
 import {Grid, Hidden} from "@material-ui/core";
 import {AppBar} from "../AppBar";
-import {Layout} from "../Layout";
-import {ServiceNodeRegistrationForm, SelectedServiceNodeBalance} from "../Account";
 import {NavigationMenu} from "../Navigation";
+import {
+    AccountRegistrationDialog,
+    AccountsTable,
+    OpenAccountRegistrationDialogButton,
+    SelectedServiceNodeBalance
+} from "../Account";
+import {Layout} from "../Layout";
 import {Footer} from "../Footer";
 
-export const ServiceNodeRegistrationPage: FunctionComponent<{}> = () => (
+export const WalletsPage: FunctionComponent = () => (
     <Grid container>
         <Grid item xs={12}>
             <AppBar sideBarItem={<SelectedServiceNodeBalance/>}/>
@@ -18,7 +23,15 @@ export const ServiceNodeRegistrationPage: FunctionComponent<{}> = () => (
         </Hidden>
         <Grid item xs={12} lg={10}>
             <Layout>
-                <ServiceNodeRegistrationForm/>
+                <Grid container>
+                    <Grid item xs={12}>
+                        <OpenAccountRegistrationDialogButton/>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <AccountsTable/>
+                    </Grid>
+                    <AccountRegistrationDialog/>
+                </Grid>
             </Layout>
         </Grid>
         <Grid item xs={12}>

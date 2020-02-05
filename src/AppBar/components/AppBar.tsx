@@ -1,4 +1,4 @@
-import React, {ReactElement} from "react";
+import React, {Fragment, FunctionComponent, ReactElement} from "react";
 import Headroom from "react-headroom";
 import {inject} from "mobx-react";
 import {
@@ -7,10 +7,10 @@ import {
     Hidden,
     ListItemIcon,
     ListItemText,
+    makeStyles,
     MenuItem,
     Toolbar,
-    Typography,
-    withStyles
+    Typography
 } from "@material-ui/core";
 import {NavigationalDrawer} from "./NavigationalDrawer";
 import {OpenDrawerButton} from "./OpenDrawerButton";
@@ -20,36 +20,34 @@ import {PrometeusLogoIcon} from "../../icons";
 
 const {Link} = require('mobx-router');
 
-interface AppBarProps {
+interface AppBarOwnProps {
     title?: string,
     sideBarItem?: ReactElement
-}
-
-interface AppBarInjectedProps {
-    classes: any,
 }
 
 interface AppBarMobxProps {
     store: any
 }
 
-const styles = createStyles({
-    root: {
-        flexGrow: 1,
-    },
+type AppBarProps = AppBarOwnProps & AppBarMobxProps;
+
+const useStyles = makeStyles(() => createStyles({
     grow: {
         flexGrow: 1,
+    },
+    undecoratedLink: {
+        textDecoration: "none",
+        color: "inherit"
     }
-});
+}));
 
-const _AppBar: React.FC<AppBarProps & AppBarMobxProps & AppBarInjectedProps> = ({title, classes, store, sideBarItem}) => {
+const _AppBar: FunctionComponent<AppBarProps> = ({title, store, sideBarItem}) => {
+    const classes = useStyles();
+
     const linkToHome = (
         <Link store={store}
               view={Routes.home}
-              style={{
-                  textDecoration: 'none',
-                  color: 'inherit'
-              }}
+              className={classes.undecoratedLink}
         >
             <MenuItem>
                 <ListItemIcon>
@@ -65,13 +63,13 @@ const _AppBar: React.FC<AppBarProps & AppBarMobxProps & AppBarInjectedProps> = (
     );
 
     return (
-        <React.Fragment>
+        <Fragment>
             <Headroom style={{
                 position: 'fixed',
                 zIndex: 1300
             }}>
                 <MaterialUiAppBar position="static"
-                                  classes={classes}
+                                  className={classes.grow}
                 >
                     <Toolbar>
                         <Hidden lgUp>
@@ -93,7 +91,7 @@ const _AppBar: React.FC<AppBarProps & AppBarMobxProps & AppBarInjectedProps> = (
                 </MaterialUiAppBar>
             </Headroom>
             <NavigationalDrawer/>
-        </React.Fragment>
+        </Fragment>
     );
 };
 
@@ -101,4 +99,4 @@ const mapMobxToProps = (appState: IAppState): AppBarMobxProps => ({
     store: appState.store
 });
 
-export const AppBar = withStyles(styles)(inject(mapMobxToProps)(_AppBar)) as React.FC<AppBarProps>;
+export const AppBar = inject(mapMobxToProps)(_AppBar as FunctionComponent<AppBarOwnProps>);

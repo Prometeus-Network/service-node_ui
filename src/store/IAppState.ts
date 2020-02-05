@@ -14,7 +14,6 @@ export interface IAppState {
     settings: SettingsStore,
     accounts: AccountsStore,
     balances: AccountsBalanceStore,
-    serviceNodeRegistration: AccountRegistrationStore,
     serviceNodeTransactions: ServiceNodeTransactionsStore,
     dataUploads: DataUploadsTransactionsStore,
     dataPurchases: DataPurchasesTransactionsStore
