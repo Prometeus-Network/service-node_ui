@@ -37,7 +37,6 @@ As such this codebase should be treated as experimental and does not contain all
 In order to run Service node client, you need to do the following:
 
 - Run Service node and Billing service on your local machine. You can find installation instructions in their repositories (https://github.com/Prometeus-Network/service-node_net and https://github.com/Prometeus-Network/billing);
-- 
 - Install NodeJS. You can find installation instructions [here](https://nodejs.org/en/download/);
 - Install Docker. You can find installation instructions on 
 [official website](https://docs.docker.com/install/).
