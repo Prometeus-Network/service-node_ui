@@ -13,7 +13,6 @@
     - [Data purchases page](#data-purchases-page)
     - [Wallets page](#wallets-page)
     
-
 ## Description
 
 Service node client is a React based client application for [Service node](https://github.com/Prometeus-Network/service-node_net). It provides user interface for interaction with Service node, e.g. for uploading files. 
