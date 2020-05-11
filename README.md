@@ -16,7 +16,7 @@
     
 ## Description
 
-Service node client is a React based client application for [Service node](https://github.com/Prometeus-Network/service-node_net). It provides user interface for interaction with Service node, e.g. for uploading files. 
+Service node client is a React based client application for [Service node](https://github.com/Prometeus-Network/service-node_net). It provides user interface for interaction with Service node.
 
 ## How it works
 
